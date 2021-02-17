@@ -14,7 +14,8 @@ class MemosController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Memos::all();
+        return $get_all;
     }
 
     /**

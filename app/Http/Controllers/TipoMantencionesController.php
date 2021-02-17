@@ -14,7 +14,8 @@ class TipoMantencionesController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = TipoMantenciones::all();
+        return $get_all;
     }
 
     /**

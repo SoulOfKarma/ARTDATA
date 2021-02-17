@@ -14,7 +14,8 @@ class ResolucionInternasController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = ResolucionInternas::all();
+        return $get_all;
     }
 
     /**

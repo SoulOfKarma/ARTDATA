@@ -14,7 +14,8 @@ class TipoComprasController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = TipoCompras::all();
+        return $get_all;
     }
 
     /**

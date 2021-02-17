@@ -43,6 +43,11 @@ const router = new Router({
                     path: "/NuevoART",
                     name: "NuevoART",
                     component: () => import("./views/ART/NuevoART.vue")
+                },
+                {
+                    path: "/ListadoART",
+                    name: "ListadoART",
+                    component: () => import("./views/ART/ListadoART.vue")
                 }
             ]
         },

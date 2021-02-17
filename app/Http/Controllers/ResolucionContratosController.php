@@ -14,7 +14,8 @@ class ResolucionContratosController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = ResolucionContratos::all();
+        return $get_all;
     }
 
     /**

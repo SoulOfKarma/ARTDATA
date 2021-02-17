@@ -14,7 +14,8 @@ class LicitacionesController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Licitaciones::all();
+        return $get_all;
     }
 
     /**

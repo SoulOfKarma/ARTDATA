@@ -14,7 +14,8 @@ class ItemPresupuestariosController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = ItemPresupuestarios::all();
+        return $get_all;
     }
 
     /**

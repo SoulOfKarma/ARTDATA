@@ -14,7 +14,13 @@ class CdpsController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $get_all = Cdps::all();
+            return $get_all;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+        
     }
 
     /**

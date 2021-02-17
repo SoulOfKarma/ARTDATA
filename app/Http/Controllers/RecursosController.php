@@ -14,7 +14,8 @@ class RecursosController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Recursos::all();
+        return $get_all;
     }
 
     /**

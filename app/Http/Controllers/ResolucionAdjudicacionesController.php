@@ -14,7 +14,8 @@ class ResolucionAdjudicacionesController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = ResolucionAdjudicaciones::all();
+        return $get_all;
     }
 
     /**

@@ -24,7 +24,21 @@ Route::post('/auth/login','LoginController@login');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     //Gets
-    Route::get('/Bodega/GetUbicaciones', ['middleware' => 'cors', 'uses' => 'MaterialUbicacionesController@getAll']);
+    Route::get('/ART/GetCDP', ['middleware' => 'cors', 'uses' => 'CdpsController@index']);
+    Route::get('/ART/GetEjecutores', ['middleware' => 'cors', 'uses' => 'EjecutoresController@index']);
+    Route::get('/ART/GetItemPresupuestario', ['middleware' => 'cors', 'uses' => 'ItemPresupuestariosController@index']);
+    Route::get('/ART/GetLicitaciones', ['middleware' => 'cors', 'uses' => 'LicitacionesController@index']);
+    Route::get('/ART/GetMemos', ['middleware' => 'cors', 'uses' => 'MemosController@index']);
+    Route::get('/ART/GetOrdenCompras', ['middleware' => 'cors', 'uses' => 'OrdenComprasController@index']);
+    Route::get('/ART/GetProveedores', ['middleware' => 'cors', 'uses' => 'ProveedoresController@index']);
+    Route::get('/ART/GetRecursos', ['middleware' => 'cors', 'uses' => 'RecursosController@index']);
+    Route::get('/ART/GetResolucionAdjudicaciones', ['middleware' => 'cors', 'uses' => 'ResolucionAdjudicacionesController@index']);
+    Route::get('/ART/GetResolucionContratos', ['middleware' => 'cors', 'uses' => 'ResolucionContratosController@index']);
+    Route::get('/ART/GetResolucionInternas', ['middleware' => 'cors', 'uses' => 'ResolucionInternasController@index']);
+    Route::get('/ART/GetResolucionLlamados', ['middleware' => 'cors', 'uses' => 'ResolucionLlamadosController@index']);
+    Route::get('/ART/GetSolicitantes', ['middleware' => 'cors', 'uses' => 'SolicitantesController@index']);
+    Route::get('/ART/GetTipoCompras', ['middleware' => 'cors', 'uses' => 'TipoComprasController@index']);
+    Route::get('/ART/GetTipoMantenciones', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@index']);
     
     //Posts 
     

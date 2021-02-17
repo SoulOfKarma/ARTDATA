@@ -14,7 +14,8 @@ class SolicitantesController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Solicitantes::all();
+        return $get_all;
     }
 
     /**

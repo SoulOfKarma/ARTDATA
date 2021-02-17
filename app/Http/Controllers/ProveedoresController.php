@@ -14,7 +14,8 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Proveedores::all();
+        return $get_all;
     }
 
     /**

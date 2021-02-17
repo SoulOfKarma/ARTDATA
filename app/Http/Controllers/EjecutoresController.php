@@ -14,7 +14,8 @@ class EjecutoresController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = Ejecutores::all();
+        return $get_all;
     }
 
     /**

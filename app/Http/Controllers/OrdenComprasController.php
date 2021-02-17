@@ -14,7 +14,8 @@ class OrdenComprasController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = OrdenCompras::all();
+        return $get_all;
     }
 
     /**

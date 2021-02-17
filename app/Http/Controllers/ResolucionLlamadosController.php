@@ -14,7 +14,8 @@ class ResolucionLlamadosController extends Controller
      */
     public function index()
     {
-        //
+        $get_all = ResolucionLlamados::all();
+        return $get_all;
     }
 
     /**

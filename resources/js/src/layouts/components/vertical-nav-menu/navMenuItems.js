@@ -19,5 +19,11 @@ export default [
         name: "Nuevo ART",
         slug: "NuevoART",
         icon: "HomeIcon"
+    },
+    {
+        url: "/ListadoART",
+        name: "Listado ART",
+        slug: "ListadoART",
+        icon: "HomeIcon"
     }
 ];
