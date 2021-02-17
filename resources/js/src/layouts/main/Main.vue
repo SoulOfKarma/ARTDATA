@@ -19,7 +19,7 @@
     >
         <v-nav-menu
             :navMenuItems="navMenuItems"
-            title="Bodega RRFF"
+            title="ART RRFF"
             parent=".layout--main"
         />
 
@@ -187,7 +187,8 @@ export default {
             navbarType: themeConfig.navbarType || "floating",
             navMenuItems,
             routerTransition: themeConfig.routerTransition || "none",
-            routeTitle: this.$route.meta.pageTitle
+            routeTitle: this.$route.meta.pageTitle,
+            localVal: process.env.MIX_APP_URL
         };
     },
     watch: {

@@ -13,5 +13,11 @@ export default [
         name: "Inicio",
         slug: "Inicio",
         icon: "HomeIcon"
+    },
+    {
+        url: "/NuevoART",
+        name: "Nuevo ART",
+        slug: "NuevoART",
+        icon: "HomeIcon"
     }
 ];

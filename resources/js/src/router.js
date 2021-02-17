@@ -38,6 +38,11 @@ const router = new Router({
                     path: "/Home",
                     name: "Home",
                     component: () => import("./views/ART/Home.vue")
+                },
+                {
+                    path: "/NuevoART",
+                    name: "NuevoART",
+                    component: () => import("./views/ART/NuevoART.vue")
                 }
             ]
         },

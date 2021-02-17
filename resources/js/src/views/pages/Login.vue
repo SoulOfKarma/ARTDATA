@@ -31,7 +31,8 @@
                                 <div class="vx-card__title mb-4">
                                     <h4 class="mb-4">Inicio de Sesion</h4>
                                     <p>
-                                        Bienvenido al sistema de Bodega de RRFF
+                                        Bienvenido al sistema de Acta de
+                                        Recepciones de RRFF
                                     </p>
                                 </div>
 
@@ -140,11 +141,11 @@ export default {
                                 if (response.data != 1) {
                                     sessionStorage.setItem(
                                         "nombre",
-                                        response.data[0].nombre_usuario
+                                        response.data[0].nombre
                                     );
                                     sessionStorage.setItem(
                                         "apellido",
-                                        response.data[0].apellido_usuario
+                                        response.data[0].apellido
                                     );
                                     sessionStorage.setItem(
                                         "run",
@@ -216,7 +217,7 @@ export default {
                     }
                     if (pr == 3) {
                         //localStorage.setItem('run',response2.data[0].permiso_usuario);
-                        router.push("/home");
+                        router.push("/Home");
                     } else {
                         this.val_run = true;
                     }
