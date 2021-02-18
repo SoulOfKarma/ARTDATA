@@ -39,6 +39,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/ART/GetSolicitantes', ['middleware' => 'cors', 'uses' => 'SolicitantesController@index']);
     Route::get('/ART/GetTipoCompras', ['middleware' => 'cors', 'uses' => 'TipoComprasController@index']);
     Route::get('/ART/GetTipoMantenciones', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@index']);
+    Route::get('/ART/GetDataByOC/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@DataByOC']);
     
     //Posts 
     

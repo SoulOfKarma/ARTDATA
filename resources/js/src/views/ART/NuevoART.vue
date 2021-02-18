@@ -11,7 +11,14 @@
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Buscar por N° OC Existente:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            taggable
+                            label="descripcionOrdenCompras"
+                            v-model="seleccionOrdenCompraForAPI"
+                            :options="listadoOrdenComprasData"
+                            @input="cargarAPIByOC"
+                        ></v-select>
                     </div>
                 </div>
             </vx-card>
@@ -112,72 +119,163 @@
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Tipo Mantencion:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionTipoMantencion"
+                            v-model="seleccionTipoMantencion"
+                            :options="listadoTipoMantencion"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Recurso:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionRecursos"
+                            v-model="seleccionRecursos"
+                            :options="listadoRecursos"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Tipo Compra:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionTipoCompra"
+                            v-model="seleccionTipoCompra"
+                            :options="listadoTipoCompra"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>N° Licitacion:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="codigoLicitacion"
+                            v-model="seleccionLicitaciones"
+                            :options="listadoLicitaciones"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Resolucion Llamados:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionResLlamados"
+                            v-model="seleccionResolucionLlamado"
+                            :options="listadoResolucionLlamados"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Resolucion Adjudicacion:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionResAdj"
+                            v-model="seleccionResolucionAdjudicaciones"
+                            :options="listadoResolucionAdjudicaciones"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Resolucion Contrato:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionResContratos"
+                            v-model="seleccionResolucionContrato"
+                            :options="listadoResolucionContrato"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>N° CDP:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionCDPS"
+                            v-model="seleccionCDP"
+                            :options="listadoCDP"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>N° Orden de Compra:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionOrdenCompras"
+                            v-model="seleccionOrdenCompra"
+                            :options="listadoOrdenCompras"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Resolucion Interna:</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionResInternas"
+                            v-model="seleccionResolucionInterna"
+                            :options="listadoResolucionInterna"
+                        ></v-select>
                     </div>
-                    <div class="vx-col w-1/2 mt-5">
+                    <div class="vx-col w-full mt-5">
                         <h6>N° Memo</h6>
                         <br />
-                        <v-select class="w-full select-large"></v-select>
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionMemo"
+                            v-model="seleccionMemo"
+                            :options="listadoMemos"
+                        ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Monto:</h6>
                         <br />
-                        <vs-input class="inputx w-full" readonly> </vs-input>
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="montoART"
+                            @blur="convertirMonto"
+                            @focus="retornarMonto"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>N° Cuota:</h6>
+                        <br />
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="cuotaART"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>Saldo:</h6>
+                        <br />
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="saldoART"
+                            @blur="convertirSaldo"
+                            @focus="retornarSaldo"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>N° Factura:</h6>
                         <br />
-                        <vs-input class="inputx w-full" readonly> </vs-input>
+                        <vs-input class="inputx w-full" v-model="nfacturaART">
+                        </vs-input>
                     </div>
-                    <div class="vx-col w-1/2 mt-5">
-                        <h6>Detalle ART:</h6>
+                    <div class="vx-col w-full mt-5">
+                        <h6>Detalle ART</h6>
                         <br />
-                        <vs-input class="inputx w-full" readonly> </vs-input>
+                        <quill-editor
+                            class="w-full"
+                            v-model="descripcionART"
+                            :options="editorOption"
+                        >
+                            <div id="toolbar" slot="toolbar"></div>
+                        </quill-editor>
                     </div>
                 </div>
             </vx-card>
@@ -234,6 +332,21 @@ export default {
 
     data() {
         return {
+            editorOption: {
+                modules: {
+                    toolbar: [
+                        ["bold", "italic", "underline", "strike"],
+                        ["blockquote", "code-block"],
+                        [{ header: 1 }, { header: 2 }],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        [{ indent: "-1" }, { indent: "+1" }],
+                        [{ direction: "rtl" }],
+                        [{ font: [] }],
+                        [{ align: [] }],
+                        ["clean"]
+                    ]
+                }
+            },
             fechaART: new Date(),
             fechaFactura: new Date(),
             configFromdateTimePicker: {
@@ -347,6 +460,7 @@ export default {
             listadoLicitaciones: [],
             listadoMemos: [],
             listadoOrdenCompras: [],
+            listadoOrdenComprasData: [],
             listadoProveedores: [],
             listadoRecursos: [],
             listadoResolucionAdjudicaciones: [],
@@ -378,6 +492,12 @@ export default {
                 descripcionMemo: ""
             },
             seleccionOrdenCompra: {
+                id: 0,
+                descripcionOrdenCompras: "",
+                fecha_oc: new Date(),
+                idEstadoOC: 0
+            },
+            seleccionOrdenCompraForAPI: {
                 id: 0,
                 descripcionOrdenCompras: "",
                 fecha_oc: new Date(),
@@ -420,18 +540,280 @@ export default {
                 id: 0,
                 descripcionTipoMantencion: ""
             },
+            descripcionART: "",
+            montoART: 0,
+            montoData: 0,
+            cuotaART: 0,
+            saldoART: 0,
+            saldoData: 0,
+            nfacturaART: 0,
             localVal: process.env.MIX_APP_URL
         };
     },
     methods: {
+        isNumber: function(evt) {
+            evt = evt ? evt : window.event;
+            var charCode = evt.which ? evt.which : evt.keyCode;
+            if (
+                charCode > 31 &&
+                (charCode < 48 || charCode > 57) &&
+                charCode !== 46
+            ) {
+                evt.preventDefault();
+            } else {
+                return true;
+            }
+        },
+        convertirMonto() {
+            try {
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
+
+                this.montoData = this.montoART;
+                this.montoART = formatter.format(this.montoData);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        retornarMonto() {
+            try {
+                this.montoART = this.montoData;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        convertirSaldo() {
+            try {
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
+                this.saldoData = this.saldoART;
+                this.saldoART = formatter.format(this.saldoData);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        retornarSaldo() {
+            try {
+                this.saldoART = this.saldoData;
+            } catch (error) {
+                console.log(error);
+            }
+        },
         limpiar() {},
-        //Seleccion de fechas
         onFromChange(selectedDates, dateStr, instance) {
             this.$set(this.configTodateTimePicker, dateStr);
         },
-        //Seleccion de fechas
         onToChange(selectedDates, dateStr, instance) {
             this.$set(this.configFromdateTimePicker, dateStr);
+        },
+        cargarAPIByOC() {
+            try {
+                let id = this.seleccionOrdenCompraForAPI
+                    .descripcionOrdenCompras;
+                axios
+                    .all([
+                        axios.get(
+                            this.localVal + `/api/ART/GetDataByOC/${id}`,
+                            {
+                                headers: {
+                                    Authorization:
+                                        `Bearer ` +
+                                        sessionStorage.getItem("token")
+                                }
+                            }
+                        ),
+                        axios.get(
+                            "http://api.mercadopublico.cl/servicios/v1/publico/ordenesdecompra.json?codigo=" +
+                                id +
+                                "&ticket=F8537A18-6766-4DEF-9E59-426B4FEE2844",
+                            {
+                                headers: {
+                                    Authorization:
+                                        `Bearer ` +
+                                        sessionStorage.getItem("token")
+                                }
+                            }
+                        )
+                    ])
+                    .then(
+                        axios.spread((res1, res2) => {
+                            const formatter = new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                                minimumFractionDigits: 0
+                            });
+                            let lista = res1.data;
+                            let count = lista.length;
+                            if (count > 1) {
+                                console.log(lista);
+                            } else {
+                                let list = res2.data;
+                                console.log(list);
+                                this.descripcionART =
+                                    list.Listado[0].Items.Listado[0].EspecificacionProveedor;
+                                let monto = list.Listado[0].Total;
+                                let cantidad =
+                                    list.Listado[0].Items.Listado[0].Cantidad;
+                                if (cantidad == 1) {
+                                    this.montoData = monto;
+                                    this.montoART = formatter.format(
+                                        this.montoData
+                                    );
+                                } else if (cantidad > 1) {
+                                    let valorCalculado = monto / cantidad;
+                                    valorCalculado = Math.round(valorCalculado);
+                                    this.montoData = valorCalculado;
+                                    this.montoART = formatter.format(
+                                        this.montoData
+                                    );
+                                }
+
+                                let idOC = list.Listado[0].Codigo;
+                                let listOC = JSON.parse(
+                                    JSON.stringify(this.listadoOrdenCompras)
+                                );
+
+                                listOC.forEach((value, index) => {
+                                    if (idOC == value.descripcionOrdenCompras) {
+                                        this.seleccionOrdenCompra.id = value.id;
+                                        this.seleccionOrdenCompra.descripcionOrdenCompras =
+                                            value.descripcionOrdenCompras;
+                                    }
+                                });
+
+                                let listProv = JSON.parse(
+                                    JSON.stringify(this.listadoProveedores)
+                                );
+                                let rutProv =
+                                    list.Listado[0].Proveedor.RutSucursal;
+                                listProv.forEach((value, index) => {
+                                    if (rutProv == value.rutProveedor) {
+                                        this.seleccionProveedores.id = value.id;
+                                        this.seleccionProveedores.rutProveedor =
+                                            value.rutProveedor;
+                                        this.seleccionProveedores.descripcionProveedor =
+                                            value.descripcionProveedor;
+                                    }
+                                });
+
+                                let codigoIP = list.Listado[0].Financiamiento;
+                                let listIP = JSON.parse(
+                                    JSON.stringify(
+                                        this.listadoItemPresupuestario
+                                    )
+                                );
+                                listIP.forEach((value, index) => {
+                                    if (
+                                        codigoIP ==
+                                        value.codigoItemPresupuestario
+                                    ) {
+                                        this.seleccionItemPresupuestario.id =
+                                            value.id;
+                                        this.seleccionItemPresupuestario.codigoItemPresupuestario =
+                                            value.codigoItemPresupuestario;
+                                        this.seleccionItemPresupuestario.descripcionItemPresupuestario =
+                                            value.descripcionItemPresupuestario;
+                                    }
+                                });
+
+                                let codLic = list.Listado[0].CodigoLicitacion;
+                                let contador = codLic.length;
+                                if (contador > 1) {
+                                    let listLic = JSON.parse(
+                                        JSON.stringify(this.listadoLicitaciones)
+                                    );
+                                    listLic.forEach((value, index) => {
+                                        if (codLic == value.codigoLicitacion) {
+                                            console.log("A");
+                                            this.seleccionLicitaciones.id =
+                                                value.id;
+                                            this.seleccionLicitaciones.codigoLicitacion =
+                                                value.codigoLicitacion;
+                                        }
+                                    });
+                                    this.cargarByIDLicitacion(codLic);
+                                }
+                            }
+                        })
+                    )
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        cargarByIDLicitacion(codLicitacion) {
+            try {
+                axios
+                    .get(
+                        "http://api.mercadopublico.cl/servicios/v1/publico/licitaciones.json?codigo=" +
+                            codLicitacion +
+                            "&ticket=F8537A18-6766-4DEF-9E59-426B4FEE2844",
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let list = res.data;
+                        console.log(list);
+                        let tipoOC = list.Listado[0].Tipo;
+                        let listOC = JSON.parse(
+                            JSON.stringify(this.listadoTipoCompra)
+                        );
+                        listOC.forEach((value, index) => {
+                            if (tipoOC == value.descripcionTipoCompra) {
+                                this.seleccionTipoCompra.id = value.id;
+                                this.seleccionTipoCompra.descripcionTipoCompra =
+                                    value.descripcionTipoCompra;
+                            }
+                        });
+
+                        let listResAdj = JSON.parse(
+                            JSON.stringify(this.listadoResolucionAdjudicaciones)
+                        );
+                        let nresadj = list.Listado[0].Adjudicacion.Numero;
+                        console.log(nresadj);
+
+                        listResAdj.forEach((value, index) => {
+                            if (nresadj == value.descripcionResAdj) {
+                                console.log("was");
+                                this.seleccionResolucionAdjudicaciones.id =
+                                    value.id;
+                                this.seleccionResolucionAdjudicaciones.descripcionResAdj =
+                                    value.descripcionResAdj;
+                            }
+                        });
+
+                        let presupuesto =
+                            list.Listado[0].Items.Listado[0].Adjudicacion
+                                .MontoUnitario;
+                        if (
+                            presupuesto == null ||
+                            presupuesto === 0 ||
+                            presupuesto == ""
+                        ) {
+                            console.log("No hay datos de presupuesto");
+                        } else {
+                            let tasa = 19;
+                            let iva = (presupuesto * tasa) / 100;
+                            let total = presupuesto + iva;
+                            total = Math.round(total);
+                            console.log(total);
+                        }
+                    });
+            } catch (error) {
+                console.log(error);
+            }
         },
         seleccionDescripcionProveedor() {
             try {
@@ -555,6 +937,9 @@ export default {
                     })
                     .then(res => {
                         this.listadoOrdenCompras = res.data;
+                        this.listadoOrdenComprasData = JSON.parse(
+                            JSON.stringify(this.listadoOrdenCompras)
+                        );
                     });
             } catch (error) {
                 console.log(error);
@@ -724,6 +1109,8 @@ export default {
         this.cargarSolicitantes();
         this.cargarTipoCompra();
         this.cargarTipoMantencion();
+        this.convertirMonto();
+        this.convertirSaldo();
     }
 };
 </script>
