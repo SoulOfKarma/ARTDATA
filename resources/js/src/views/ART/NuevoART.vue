@@ -61,6 +61,7 @@
                             label="rutProveedor"
                             :options="listadoProveedores"
                             @on-change="seleccionDescripcionProveedor"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -81,6 +82,7 @@
                             label="descripcionSolicitante"
                             v-model="seleccionSolicitantes"
                             :options="listadoSolicitantes"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -91,6 +93,7 @@
                             label="descripcionEjecutores"
                             v-model="seleccionEjecutor"
                             :options="listadoEjecutores"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -102,6 +105,7 @@
                             v-model="seleccionItemPresupuestario"
                             :options="listadoItemPresupuestario"
                             @on-change="selecciondescripcionIP"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -124,6 +128,7 @@
                             label="descripcionTipoMantencion"
                             v-model="seleccionTipoMantencion"
                             :options="listadoTipoMantencion"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -134,6 +139,7 @@
                             label="descripcionRecursos"
                             v-model="seleccionRecursos"
                             :options="listadoRecursos"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -144,6 +150,7 @@
                             label="descripcionTipoCompra"
                             v-model="seleccionTipoCompra"
                             :options="listadoTipoCompra"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -154,6 +161,7 @@
                             label="codigoLicitacion"
                             v-model="seleccionLicitaciones"
                             :options="listadoLicitaciones"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -164,6 +172,7 @@
                             label="descripcionResLlamados"
                             v-model="seleccionResolucionLlamado"
                             :options="listadoResolucionLlamados"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -174,6 +183,7 @@
                             label="descripcionResAdj"
                             v-model="seleccionResolucionAdjudicaciones"
                             :options="listadoResolucionAdjudicaciones"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -184,6 +194,7 @@
                             label="descripcionResContratos"
                             v-model="seleccionResolucionContrato"
                             :options="listadoResolucionContrato"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -194,6 +205,7 @@
                             label="descripcionCDPS"
                             v-model="seleccionCDP"
                             :options="listadoCDP"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -204,6 +216,7 @@
                             label="descripcionOrdenCompras"
                             v-model="seleccionOrdenCompra"
                             :options="listadoOrdenCompras"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -214,6 +227,7 @@
                             label="descripcionResInternas"
                             v-model="seleccionResolucionInterna"
                             :options="listadoResolucionInterna"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-full mt-5">
@@ -224,6 +238,7 @@
                             label="descripcionMemo"
                             v-model="seleccionMemo"
                             :options="listadoMemos"
+                            taggable
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -730,7 +745,6 @@ export default {
                                     );
                                     listLic.forEach((value, index) => {
                                         if (codLic == value.codigoLicitacion) {
-                                            console.log("A");
                                             this.seleccionLicitaciones.id =
                                                 value.id;
                                             this.seleccionLicitaciones.codigoLicitacion =
@@ -743,7 +757,27 @@ export default {
                         })
                     )
                     .catch(error => {
-                        console.log(error);
+                        // Error 😨
+                        if (error.response) {
+                            /*
+                             * The request was made and the server responded with a
+                             * status code that falls out of the range of 2xx
+                             */
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            /*
+                             * The request was made but no response was received, `error.request`
+                             * is an instance of XMLHttpRequest in the browser and an instance
+                             * of http.ClientRequest in Node.js
+                             */
+                            console.log(error.request);
+                        } else {
+                            // Something happened in setting up the request and triggered an Error
+                            console.log("Error", error.message);
+                        }
+                        console.log(error.config);
                     });
             } catch (error) {
                 console.log(error);
@@ -765,7 +799,6 @@ export default {
                     )
                     .then(res => {
                         let list = res.data;
-                        console.log(list);
                         let tipoOC = list.Listado[0].Tipo;
                         let listOC = JSON.parse(
                             JSON.stringify(this.listadoTipoCompra)
@@ -782,11 +815,9 @@ export default {
                             JSON.stringify(this.listadoResolucionAdjudicaciones)
                         );
                         let nresadj = list.Listado[0].Adjudicacion.Numero;
-                        console.log(nresadj);
 
                         listResAdj.forEach((value, index) => {
                             if (nresadj == value.descripcionResAdj) {
-                                console.log("was");
                                 this.seleccionResolucionAdjudicaciones.id =
                                     value.id;
                                 this.seleccionResolucionAdjudicaciones.descripcionResAdj =
@@ -808,8 +839,30 @@ export default {
                             let iva = (presupuesto * tasa) / 100;
                             let total = presupuesto + iva;
                             total = Math.round(total);
-                            console.log(total);
                         }
+                    })
+                    .catch(error => {
+                        // Error 😨
+                        if (error.response) {
+                            /*
+                             * The request was made and the server responded with a
+                             * status code that falls out of the range of 2xx
+                             */
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            /*
+                             * The request was made but no response was received, `error.request`
+                             * is an instance of XMLHttpRequest in the browser and an instance
+                             * of http.ClientRequest in Node.js
+                             */
+                            console.log(error.request);
+                        } else {
+                            // Something happened in setting up the request and triggered an Error
+                            console.log("Error", error.message);
+                        }
+                        console.log(error.config);
                     });
             } catch (error) {
                 console.log(error);
