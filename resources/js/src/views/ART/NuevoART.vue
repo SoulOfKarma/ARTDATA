@@ -83,6 +83,7 @@
                             v-model="seleccionSolicitantes"
                             :options="listadoSolicitantes"
                             taggable
+                            @input="popNSolicitante"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -94,6 +95,7 @@
                             v-model="seleccionEjecutor"
                             :options="listadoEjecutores"
                             taggable
+                            @input="popNEjecutor"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -106,6 +108,7 @@
                             :options="listadoItemPresupuestario"
                             @on-change="selecciondescripcionIP"
                             taggable
+                            @input="popNIP"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -129,6 +132,7 @@
                             v-model="seleccionTipoMantencion"
                             :options="listadoTipoMantencion"
                             taggable
+                            @input="popNTM"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -310,6 +314,135 @@
                 </div>
             </vx-card>
         </div>
+        <vs-popup
+            classContent="pop-CrearSolicitante"
+            title="Crear Nuevo Solicitante"
+            :active.sync="popCrearSolicitante"
+            ><vs-input class="inputx mb-3" v-model="desSolicitante" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoSolicitante(desSolicitante)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearSolicitante = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <vs-popup
+            classContent="pop-CrearSolicitante"
+            title="Crear Nuevo Ejecutor"
+            :active.sync="popCrearEjecutor"
+            ><vs-input class="inputx mb-3" v-model="desEjecutor" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoEjecutor(desEjecutor)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearEjecutor = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <vs-popup
+            classContent="pop-CrearSolicitante"
+            title="Crear Nuevo Ejecutor"
+            :active.sync="popCrearIP"
+        >
+            <div class="vx-col w-full">
+                <div class="vx-row">
+                    <div class="vx-col w-full mt-5">
+                        <h6>Codigo Item Presupuestario:</h6>
+                        <br />
+                        <vs-input class="w-full" v-model="codIP" />
+                    </div>
+                    <div class="vx-col w-full mt-5">
+                        <h6>Descripcion Item Presupuestario:</h6>
+                        <br />
+                        <vs-input class="w-full" v-model="desIP" />
+                    </div>
+                    <br />
+                    <div class="vx-col w-1/2 mt-5">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full"
+                            @click="
+                                guardarNuevoItemPresupuestario(codIP, desIP)
+                            "
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <vs-button
+                            class="w-full"
+                            @click="popCrearIP = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <vs-popup
+            classContent="pop-CrearSolicitante"
+            title="Crear Nuevo Solicitante"
+            :active.sync="popCrearTM"
+            ><vs-input class="inputx mb-3" v-model="desTM" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoTM(desTM)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearTM = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
     </vs-row>
 </template>
 <script>
@@ -344,9 +477,12 @@ export default {
         "v-select": vSelect,
         quillEditor
     },
-
     data() {
         return {
+            popCrearSolicitante: false,
+            popCrearEjecutor: false,
+            popCrearIP: false,
+            popCrearTM: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -562,10 +698,115 @@ export default {
             saldoART: 0,
             saldoData: 0,
             nfacturaART: 0,
+            desSolicitante: "",
+            desEjecutor: "",
+            codIP: "",
+            desIP: "",
+            desTM: "",
             localVal: process.env.MIX_APP_URL
         };
     },
     methods: {
+        //Apertura de Pops
+        popNSolicitante() {
+            try {
+                if (
+                    this.seleccionSolicitantes.id == 0 ||
+                    this.seleccionSolicitantes.id == null
+                ) {
+                    if (
+                        this.seleccionSolicitantes.descripcionSolicitante ===
+                            undefined ||
+                        this.seleccionSolicitantes.descripcionSolicitante ===
+                            null ||
+                        this.seleccionSolicitantes.descripcionSolicitante == ""
+                    ) {
+                        this.desSolicitante = this.seleccionSolicitantes;
+                        this.popCrearSolicitante = true;
+                    } else {
+                        this.desSolicitante = this.seleccionSolicitantes.descripcionSolicitante;
+                        this.popCrearSolicitante = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNEjecutor() {
+            try {
+                if (
+                    this.seleccionEjecutor.id == 0 ||
+                    this.seleccionEjecutor.id == null
+                ) {
+                    if (
+                        this.seleccionEjecutor.descripcionEjecutores ===
+                            undefined ||
+                        this.seleccionEjecutor.descripcionEjecutores === null ||
+                        this.seleccionEjecutor.descripcionEjecutores == ""
+                    ) {
+                        this.desEjecutor = this.seleccionEjecutor;
+                        this.popCrearEjecutor = true;
+                    } else {
+                        this.desEjecutor = this.seleccionEjecutor.descripcionEjecutores;
+                        this.popCrearEjecutor = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNIP() {
+            try {
+                if (
+                    this.seleccionItemPresupuestario.id == 0 ||
+                    this.seleccionItemPresupuestario.id == null
+                ) {
+                    if (
+                        this.seleccionItemPresupuestario
+                            .codigoItemPresupuestario === undefined ||
+                        this.seleccionItemPresupuestario
+                            .codigoItemPresupuestario === null ||
+                        this.seleccionItemPresupuestario
+                            .codigoItemPresupuestario == ""
+                    ) {
+                        this.codIP = this.seleccionItemPresupuestario;
+                        this.popCrearIP = true;
+                    } else {
+                        this.codIP = this.seleccionItemPresupuestario.codigoItemPresupuestario;
+                        this.popCrearIP = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNTM() {
+            try {
+                if (
+                    this.seleccionTipoMantencion.id == 0 ||
+                    this.seleccionTipoMantencion.id == null
+                ) {
+                    if (
+                        this.seleccionTipoMantencion
+                            .descripcionTipoMantencion === undefined ||
+                        this.seleccionTipoMantencion
+                            .descripcionTipoMantencion === null ||
+                        this.seleccionTipoMantencion
+                            .descripcionTipoMantencion == ""
+                    ) {
+                        this.desTM = this.seleccionTipoMantencion;
+                        this.popCrearTM = true;
+                    } else {
+                        this.desTM = this.seleccionTipoMantencion.descripcionTipoMantencion;
+                        this.popCrearTM = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        //Fin Apertura de Pops
+        //Metodos Reusables
         isNumber: function(evt) {
             evt = evt ? evt : window.event;
             var charCode = evt.which ? evt.which : evt.keyCode;
@@ -579,6 +820,15 @@ export default {
                 return true;
             }
         },
+        limpiar() {},
+        onFromChange(selectedDates, dateStr, instance) {
+            this.$set(this.configTodateTimePicker, dateStr);
+        },
+        onToChange(selectedDates, dateStr, instance) {
+            this.$set(this.configFromdateTimePicker, dateStr);
+        },
+        //Fin Metodos Reusables
+        //Conversor de Montos y Saldos
         convertirMonto() {
             try {
                 const formatter = new Intl.NumberFormat("en-US", {
@@ -620,13 +870,8 @@ export default {
                 console.log(error);
             }
         },
-        limpiar() {},
-        onFromChange(selectedDates, dateStr, instance) {
-            this.$set(this.configTodateTimePicker, dateStr);
-        },
-        onToChange(selectedDates, dateStr, instance) {
-            this.$set(this.configFromdateTimePicker, dateStr);
-        },
+        //Fin de Conversor
+        //Cargas de DATA Externa - Mercado Publico
         cargarAPIByOC() {
             try {
                 let id = this.seleccionOrdenCompraForAPI
@@ -868,6 +1113,8 @@ export default {
                 console.log(error);
             }
         },
+        //Fin de Carga Externa
+        //Filtros de Datos Existenten en BD
         seleccionDescripcionProveedor() {
             try {
                 let list = JSON.parse(JSON.stringify(this.listadoProveedores));
@@ -899,6 +1146,207 @@ export default {
                 console.log(error);
             }
         },
+        //Fin de filtros
+        //Guardar Nuevos Datos de Listados en BD
+        guardarNuevoSolicitante(desSolicitante) {
+            try {
+                let objeto = {
+                    descripcionSolicitante: desSolicitante
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNSolicitante", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Solicitante' a sido guardado con exito, se recargara listado de solicitantes",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarSolicitantes();
+                            this.popCrearSolicitante = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Solicitante' Intentelo nuevamente",
+                                color: "success",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoEjecutor(desEjecutor) {
+            try {
+                let objeto = {
+                    descripcionEjecutores: desEjecutor
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNEjecutor", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Ejecutor' a sido guardado con exito, se recargara listado de Ejecutores",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarEjecutores();
+                            this.seleccionEjecutor.id = 0;
+                            this.seleccionEjecutor.descripcionEjecutores = "";
+                            this.popCrearEjecutor = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Ejecutor' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoItemPresupuestario(codIP, desIP) {
+            try {
+                let objeto = {
+                    codigoItemPresupuestario: codIP,
+                    descripcionItemPresupuestario: desIP
+                };
+                const data = objeto;
+                axios
+                    .post(
+                        this.localVal + "/api/ART/PostNItemPresupuestario",
+                        data,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Item Presupuestario' a sido guardado con exito, se recargara listado de los Items Presupuestarios",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarItemPresupuestario();
+                            this.seleccionItemPresupuestario.id = 0;
+                            this.seleccionItemPresupuestario.codigoItemPresupuestario =
+                                "";
+                            this.seleccionItemPresupuestario.descripcionItemPresupuestario =
+                                "";
+                            this.codIP;
+                            this.desIP;
+                            this.popCrearIP = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Item Presupuestario' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoTM(desTM) {
+            try {
+                let objeto = {
+                    descripcionTipoMantencion: desTM
+                };
+                const data = objeto;
+                axios
+                    .post(
+                        this.localVal + "/api/ART/PostNTipoMantencion",
+                        data,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Tipo Mantencion' a sido guardado con exito, se recargara listado de Tipo Mantencion",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarTipoMantencion();
+                            this.seleccionTipoMantencion.id = 0;
+                            this.seleccionTipoMantencion.descripcionTipoMantencion =
+                                "";
+                            this.popCrearTM = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Tipo Mantencion' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        //Fin de Nuevos Datos
+        //Carga de Data en Base de Datos a Listados Para v-select
         cargarCDP() {
             try {
                 axios
@@ -1145,6 +1593,7 @@ export default {
                 console.log(error);
             }
         }
+        //Fin de Carga de data
     },
     created: function() {
         this.cargarCDP();
@@ -1167,3 +1616,8 @@ export default {
     }
 };
 </script>
+<style>
+.con-vs-popup .vs-popup {
+    width: auto !important;
+}
+</style>

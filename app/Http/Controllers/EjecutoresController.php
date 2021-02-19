@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ejecutores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EjecutoresController extends Controller
 {
@@ -26,6 +27,16 @@ class EjecutoresController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateEjecutor(Request $request){
+        try {
+            $get_all = Ejecutores::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

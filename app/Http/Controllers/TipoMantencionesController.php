@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TipoMantenciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TipoMantencionesController extends Controller
 {
@@ -26,6 +27,16 @@ class TipoMantencionesController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateTM(Request $request){
+        try {
+            $get_all = TipoMantenciones::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

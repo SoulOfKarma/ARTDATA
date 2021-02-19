@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ItemPresupuestarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ItemPresupuestariosController extends Controller
 {
@@ -28,6 +29,15 @@ class ItemPresupuestariosController extends Controller
         //
     }
 
+    public function CreateIP(Request $request){
+        try {
+            $get_all = ItemPresupuestarios::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

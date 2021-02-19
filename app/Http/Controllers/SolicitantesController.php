@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Solicitantes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SolicitantesController extends Controller
 {
@@ -26,6 +27,16 @@ class SolicitantesController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateSolicitante(Request $request){
+        try {
+            $get_all = Solicitantes::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**
