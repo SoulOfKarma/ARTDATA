@@ -204,6 +204,7 @@
                             v-model="seleccionResolucionContrato"
                             :options="listadoResolucionContrato"
                             taggable
+                            @input="popRC"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -215,6 +216,7 @@
                             v-model="seleccionCDP"
                             :options="listadoCDP"
                             taggable
+                            @input="popCDP"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -226,6 +228,7 @@
                             v-model="seleccionOrdenCompra"
                             :options="listadoOrdenCompras"
                             taggable
+                            @input="popOC"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -602,6 +605,96 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Resolucion Contratos -->
+        <vs-popup
+            classContent="pop-ResCon"
+            title="Crear N° Resolucion Contratos"
+            :active.sync="popCrearRC"
+            ><vs-input class="inputx mb-3" v-model="desRC" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoRC(desRC)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearRC = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <!-- Pop CDP -->
+        <vs-popup
+            classContent="pop-CDP"
+            title="Crear N° CDP"
+            :active.sync="popCrearCDP"
+            ><vs-input class="inputx mb-3" v-model="desCDP" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoCDP(desCDP)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearCDP = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <!-- Pop Orden de Compra -->
+        <vs-popup
+            classContent="pop-OC"
+            title="Crear N° Orden de Compra"
+            :active.sync="popCrearOC"
+            ><vs-input class="inputx mb-3" v-model="desOC" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoOC(desOC)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearOC = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
     </vs-row>
 </template>
 <script>
@@ -647,6 +740,9 @@ export default {
             popCrearL: false,
             popCrearRL: false,
             popCrearRA: false,
+            popCrearRC: false,
+            popCrearCDP: false,
+            popCrearOC: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -872,6 +968,9 @@ export default {
             desL: "",
             desRL: "",
             desRA: "",
+            desRC: "",
+            desCDP: "",
+            desOC: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -1088,6 +1187,74 @@ export default {
                     } else {
                         this.desL = this.seleccionResolucionAdjudicaciones.descripcionResAdj;
                         this.popCrearRL = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popRC() {
+            try {
+                if (
+                    this.seleccionResolucionContrato.id == 0 ||
+                    this.seleccionResolucionContrato.id == null
+                ) {
+                    if (
+                        this.seleccionResolucionContrato
+                            .descripcionResContratos === undefined ||
+                        this.seleccionResolucionContrato
+                            .descripcionResContratos === null ||
+                        this.seleccionResolucionContrato
+                            .descripcionResContratos == ""
+                    ) {
+                        this.desRC = this.seleccionResolucionContrato;
+                        this.popCrearRC = true;
+                    } else {
+                        this.desRC = this.seleccionResolucionContrato.descripcionResContratos;
+                        this.popCrearRC = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popCDP() {
+            try {
+                if (this.seleccionCDP.id == 0 || this.seleccionCDP.id == null) {
+                    if (
+                        this.seleccionCDP.descripcionCDPS === undefined ||
+                        this.seleccionCDP.descripcionCDPS === null ||
+                        this.seleccionCDP.descripcionCDPS == ""
+                    ) {
+                        this.desCDP = this.seleccionCDP;
+                        this.popCrearCDP = true;
+                    } else {
+                        this.desCDP = this.seleccionCDP.descripcionCDPS;
+                        this.popCrearCDP = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popOC() {
+            try {
+                if (
+                    this.seleccionOrdenCompra.id == 0 ||
+                    this.seleccionOrdenCompra.id == null
+                ) {
+                    if (
+                        this.seleccionOrdenCompra.descripcionOrdenCompras ===
+                            undefined ||
+                        this.seleccionOrdenCompra.descripcionOrdenCompras ===
+                            null ||
+                        this.seleccionOrdenCompra.descripcionOrdenCompras == ""
+                    ) {
+                        this.desOC = this.seleccionOrdenCompra;
+                        this.popCrearOC = true;
+                    } else {
+                        this.desOC = this.seleccionOrdenCompra.descripcionOrdenCompras;
+                        this.popCrearOC = true;
                     }
                 }
             } catch (error) {
@@ -1863,6 +2030,151 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar 'N° Resolucion Adjudicaciones' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoRC(desRC) {
+            try {
+                let objeto = {
+                    descripcionResContratos: desRC
+                };
+                const data = objeto;
+                axios
+                    .post(
+                        this.localVal + "/api/ART/PostNResolucionContrato",
+                        data,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Resolucion Contrato' a sido guardado con exito, se recargara listado de Resolucion Contrato",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarResolucionContrato();
+                            this.seleccionResolucionContrato.id = 0;
+                            this.seleccionResolucionContrato.descripcionResContratos =
+                                "";
+                            this.popCrearRC = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Resolucion Contrato' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoCDP(desCDP) {
+            try {
+                let objeto = {
+                    descripcionCDPS: desCDP
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNCDP", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° CDP' a sido guardado con exito, se recargara listado de CDP",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarCDP();
+                            this.seleccionCDP.id = 0;
+                            this.seleccionCDP.descripcionCDPS = "";
+                            this.popCrearCDP = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° CDP' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoOC(desOC) {
+            try {
+                let objeto = {
+                    descripcionOrdenCompras: desOC,
+                    fecha_oc: new Date(),
+                    idEstadoOC: 1
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNOC", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Orden Compra' a sido guardado con exito, se recargara listado de Orden Compras",
+                                position: "top-right"
+                            });
+                            this.cargarOrdenCompras();
+                            this.seleccionOrdenCompra.id = 0;
+                            this.seleccionOrdenCompra.descripcionOrdenCompras =
+                                "";
+                            this.popCrearOC = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Orden Compra' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });

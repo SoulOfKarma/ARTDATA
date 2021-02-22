@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ResolucionContratos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResolucionContratosController extends Controller
 {
@@ -26,6 +27,16 @@ class ResolucionContratosController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateRC(Request $request){
+        try {
+            ResolucionContratos::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

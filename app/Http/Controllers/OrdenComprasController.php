@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OrdenCompras;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrdenComprasController extends Controller
 {
@@ -27,6 +28,16 @@ class OrdenComprasController extends Controller
     {
         //
     }
+
+    public function CreateOC(Request $request){
+       try {
+           OrdenCompras::create($request->all());
+           return true;
+       } catch (\Throwable $th) {
+           log::info($th);
+           return false;
+       }
+    },
 
     /**
      * Store a newly created resource in storage.

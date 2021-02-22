@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cdps;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CdpsController extends Controller
 {
@@ -31,6 +32,16 @@ class CdpsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateCDP(Request $request){
+      try {
+          Cdps::create($request->all());
+          return true;
+      } catch (\Throwable $th) {
+          log::info($th);
+          return false;
+      }
     }
 
     /**
