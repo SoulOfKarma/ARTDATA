@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Licitaciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LicitacionesController extends Controller
 {
@@ -26,6 +27,16 @@ class LicitacionesController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateLic(Request $request){
+        try {
+            Licitaciones::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;    
+        }
     }
 
     /**

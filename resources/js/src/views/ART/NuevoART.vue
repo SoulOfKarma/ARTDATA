@@ -168,6 +168,7 @@
                             v-model="seleccionLicitaciones"
                             :options="listadoLicitaciones"
                             taggable
+                            @input="popNL"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -316,6 +317,7 @@
                 </div>
             </vx-card>
         </div>
+        <!-- Pop Solicitante -->
         <vs-popup
             classContent="pop-CrearSolicitante"
             title="Crear Nuevo Solicitante"
@@ -345,8 +347,9 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Ejecutor -->
         <vs-popup
-            classContent="pop-CrearSolicitante"
+            classContent="pop-Ejecutor"
             title="Crear Nuevo Ejecutor"
             :active.sync="popCrearEjecutor"
             ><vs-input class="inputx mb-3" v-model="desEjecutor" hidden />
@@ -374,9 +377,10 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Item Presupuestario -->
         <vs-popup
-            classContent="pop-CrearSolicitante"
-            title="Crear Nuevo Ejecutor"
+            classContent="pop-ItemPresupuestario"
+            title="Crear Item Presupuestario"
             :active.sync="popCrearIP"
         >
             <div class="vx-col w-full">
@@ -416,8 +420,9 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Tipo Mantencion -->
         <vs-popup
-            classContent="pop-CrearSolicitante"
+            classContent="pop-TipoMantencion"
             title="Crear Tipo Mantencion"
             :active.sync="popCrearTM"
             ><vs-input class="inputx mb-3" v-model="desTM" hidden />
@@ -445,6 +450,7 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Recurso -->
         <vs-popup
             classContent="pop-CrearRecurso"
             title="Crear Recurso"
@@ -474,6 +480,7 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Tipo Compra -->
         <vs-popup
             classContent="pop-TipoCompra"
             title="Crear Tipo Compra"
@@ -495,6 +502,36 @@
                         <vs-button
                             class="w-full m-2"
                             @click="popCrearTC = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <!-- Pop Licitacion -->
+        <vs-popup
+            classContent="pop-Licitacion"
+            title="Crear N° Licitacion"
+            :active.sync="popCrearL"
+            ><vs-input class="inputx mb-3" v-model="desL" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoL(desL)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearL = false"
                             color="primary"
                             type="filled"
                             >Volver</vs-button
@@ -545,6 +582,7 @@ export default {
             popCrearTM: false,
             popCrearR: false,
             popCrearTC: false,
+            popCrearL: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -767,6 +805,7 @@ export default {
             desTM: "",
             desR: "",
             desTC: "",
+            desL: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -910,6 +949,29 @@ export default {
                     } else {
                         this.desTC = this.seleccionTipoCompra.descripcionTipoCompra;
                         this.popCrearTC = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNL() {
+            try {
+                if (
+                    this.seleccionLicitaciones.id == 0 ||
+                    this.seleccionLicitaciones.id == null
+                ) {
+                    if (
+                        this.seleccionLicitaciones.codigoLicitacion ===
+                            undefined ||
+                        this.seleccionLicitaciones.codigoLicitacion === null ||
+                        this.seleccionLicitaciones.codigoLicitacion == ""
+                    ) {
+                        this.desL = this.seleccionLicitaciones;
+                        this.popCrearL = true;
+                    } else {
+                        this.desL = this.seleccionLicitaciones.codigoLicitacion;
+                        this.popCrearL = true;
                     }
                 }
             } catch (error) {
@@ -1536,6 +1598,52 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar al nuevo 'Tipo Compra' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoL(desL) {
+            try {
+                let objeto = {
+                    codigoLicitacion: desL
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNLicitacion", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Licitacion' a sido guardado con exito, se recargara listado de Licitaciones",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarLicitaciones();
+                            this.seleccionLicitaciones.id = 0;
+                            this.seleccionLicitaciones.codigoLicitacion = "";
+                            this.popCrearTC = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Licitacion' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });
