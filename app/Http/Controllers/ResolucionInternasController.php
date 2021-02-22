@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ResolucionInternas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResolucionInternasController extends Controller
 {
@@ -26,6 +27,16 @@ class ResolucionInternasController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateRI(Request $request){
+        try {
+            ResolucionInternas::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

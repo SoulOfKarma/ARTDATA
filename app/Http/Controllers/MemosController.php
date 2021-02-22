@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Memos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MemosController extends Controller
 {
@@ -26,6 +27,16 @@ class MemosController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateMemo(Request $request){
+       try {
+           Memos::create($request->all());
+           return true;
+       } catch (\Throwable $th) {
+           log::info($th);
+           return false;
+       }
     }
 
     /**

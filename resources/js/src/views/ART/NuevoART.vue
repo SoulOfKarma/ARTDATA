@@ -240,6 +240,7 @@
                             v-model="seleccionResolucionInterna"
                             :options="listadoResolucionInterna"
                             taggable
+                            @input="popRI"
                         ></v-select>
                     </div>
                     <div class="vx-col w-full mt-5">
@@ -251,6 +252,7 @@
                             v-model="seleccionMemo"
                             :options="listadoMemos"
                             taggable
+                            @input="popM"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -695,6 +697,66 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Resolucion Interna -->
+        <vs-popup
+            classContent="pop-RI"
+            title="Crear N° Resolucion Interna"
+            :active.sync="popCrearRI"
+            ><vs-input class="inputx mb-3" v-model="desRI" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoRI(desRI)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearRI = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <!-- Pop Memo -->
+        <vs-popup
+            classContent="pop-Memo"
+            title="Crear N° Memo"
+            :active.sync="popCrearM"
+            ><vs-input class="inputx mb-3" v-model="desM" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoMemo(desM)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearM = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
     </vs-row>
 </template>
 <script>
@@ -743,6 +805,8 @@ export default {
             popCrearRC: false,
             popCrearCDP: false,
             popCrearOC: false,
+            popCrearRI: false,
+            popCrearM: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -971,6 +1035,8 @@ export default {
             desRC: "",
             desCDP: "",
             desOC: "",
+            desRI: "",
+            desM: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -1255,6 +1321,53 @@ export default {
                     } else {
                         this.desOC = this.seleccionOrdenCompra.descripcionOrdenCompras;
                         this.popCrearOC = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popRI() {
+            try {
+                if (
+                    this.seleccionResolucionInterna.id == 0 ||
+                    this.seleccionResolucionInterna.id == null
+                ) {
+                    if (
+                        this.seleccionResolucionInterna
+                            .descripcionResInternas === undefined ||
+                        this.seleccionResolucionInterna
+                            .descripcionResInternas === null ||
+                        this.seleccionResolucionInterna
+                            .descripcionResInternas == ""
+                    ) {
+                        this.desRI = this.seleccionResolucionInterna;
+                        this.popCrearRI = true;
+                    } else {
+                        this.desRI = this.seleccionResolucionInterna.descripcionResInternas;
+                        this.popCrearRI = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popM() {
+            try {
+                if (
+                    this.seleccionMemo.id == 0 ||
+                    this.seleccionMemo.id == null
+                ) {
+                    if (
+                        this.seleccionMemo.descripcionMemo === undefined ||
+                        this.seleccionMemo.descripcionMemo === null ||
+                        this.seleccionMemo.descripcionMemo == ""
+                    ) {
+                        this.desM = this.seleccionMemo;
+                        this.popCrearM = true;
+                    } else {
+                        this.desM = this.seleccionMemo.descripcionMemo;
+                        this.popCrearM = true;
                     }
                 }
             } catch (error) {
@@ -2175,6 +2288,97 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar 'N° Orden Compra' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoRI(desRI) {
+            try {
+                let objeto = {
+                    descripcionResInternas: desRI
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNRI", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Resolucion Interna' a sido guardado con exito, se recargara listado de Resolucion Interna",
+                                position: "top-right"
+                            });
+                            this.cargarResolucionInterna();
+                            this.seleccionResolucionInterna.id = 0;
+                            this.seleccionResolucionInterna.descripcionResInternas =
+                                "";
+                            this.popCrearRI = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Resolucion Interna' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoMemo(desM) {
+            try {
+                let objeto = {
+                    descripcionMemo: desM
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNMemo", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Memo' a sido guardado con exito, se recargara listado de Memo",
+                                position: "top-right"
+                            });
+                            this.cargarMemos();
+                            this.seleccionMemo.id = 0;
+                            this.seleccionMemo.descripcionMemo = "";
+                            this.popCrearM = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Memo' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });
