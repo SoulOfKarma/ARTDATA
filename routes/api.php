@@ -41,7 +41,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/ART/GetTipoMantenciones', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@index']);
     Route::get('/ART/GetDataByOC/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@DataByOC']);
     
-    //Posts 
+    //Posts PostNResolucionAdjudicaciones
     Route::post('/ART/PostNSolicitante', ['middleware' => 'cors', 'uses' => 'SolicitantesController@CreateSolicitante']);
     Route::post('/ART/PostNEjecutor', ['middleware' => 'cors', 'uses' => 'EjecutoresController@CreateEjecutor']);
     Route::post('/ART/PostNItemPresupuestario', ['middleware' => 'cors', 'uses' => 'ItemPresupuestariosController@CreateIP']);
@@ -49,4 +49,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/ART/PostNRecursos', ['middleware' => 'cors', 'uses' => 'RecursosController@CreateR']);
     Route::post('/ART/PostNTipoCompras', ['middleware' => 'cors', 'uses' => 'TipoComprasController@CreateTC']);
     Route::post('/ART/PostNLicitacion', ['middleware' => 'cors', 'uses' => 'LicitacionesController@CreateLic']);
+    Route::post('/ART/PostNResolucionLlamado', ['middleware' => 'cors', 'uses' => 'ResolucionLlamadosController@CreateRL']);
+    Route::post('/ART/PostNResolucionAdjudicaciones', ['middleware' => 'cors', 'uses' => 'ResolucionAdjudicacionesController@CreateRA']);
 });

@@ -180,6 +180,7 @@
                             v-model="seleccionResolucionLlamado"
                             :options="listadoResolucionLlamados"
                             taggable
+                            @input="popRL"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -191,6 +192,7 @@
                             v-model="seleccionResolucionAdjudicaciones"
                             :options="listadoResolucionAdjudicaciones"
                             taggable
+                            @input="popRA"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -540,6 +542,66 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Resolucion Llamado -->
+        <vs-popup
+            classContent="pop-ResLla"
+            title="Crear N° Resolucion Llamado"
+            :active.sync="popCrearRL"
+            ><vs-input class="inputx mb-3" v-model="desRL" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoRL(desRL)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearRL = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <!-- Pop Resolucion Adjudicacion -->
+        <vs-popup
+            classContent="pop-ResAdj"
+            title="Crear N° Resolucion Adjudicacion"
+            :active.sync="popCrearRA"
+            ><vs-input class="inputx mb-3" v-model="desRA" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoRA(desRA)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearRA = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
     </vs-row>
 </template>
 <script>
@@ -583,6 +645,8 @@ export default {
             popCrearR: false,
             popCrearTC: false,
             popCrearL: false,
+            popCrearRL: false,
+            popCrearRA: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -806,6 +870,8 @@ export default {
             desR: "",
             desTC: "",
             desL: "",
+            desRL: "",
+            desRA: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -972,6 +1038,56 @@ export default {
                     } else {
                         this.desL = this.seleccionLicitaciones.codigoLicitacion;
                         this.popCrearL = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popRL() {
+            try {
+                if (
+                    this.seleccionResolucionLlamado.id == 0 ||
+                    this.seleccionResolucionLlamado.id == null
+                ) {
+                    if (
+                        this.seleccionResolucionLlamado
+                            .descripcionResLlamados === undefined ||
+                        this.seleccionResolucionLlamado
+                            .descripcionResLlamados === null ||
+                        this.seleccionResolucionLlamado
+                            .descripcionResLlamados == ""
+                    ) {
+                        this.desRL = this.seleccionResolucionLlamado;
+                        this.popCrearRL = true;
+                    } else {
+                        this.desL = this.seleccionResolucionLlamado.descripcionResLlamados;
+                        this.popCrearRL = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popRA() {
+            try {
+                if (
+                    this.seleccionResolucionAdjudicaciones.id == 0 ||
+                    this.seleccionResolucionAdjudicaciones.id == null
+                ) {
+                    if (
+                        this.seleccionResolucionAdjudicaciones
+                            .descripcionResAdj === undefined ||
+                        this.seleccionResolucionAdjudicaciones
+                            .descripcionResAdj === null ||
+                        this.seleccionResolucionAdjudicaciones
+                            .descripcionResAdj == ""
+                    ) {
+                        this.desRL = this.seleccionResolucionAdjudicaciones;
+                        this.popCrearRL = true;
+                    } else {
+                        this.desL = this.seleccionResolucionAdjudicaciones.descripcionResAdj;
+                        this.popCrearRL = true;
                     }
                 }
             } catch (error) {
@@ -1644,6 +1760,109 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar 'N° Licitacion' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoRL(desRL) {
+            try {
+                let objeto = {
+                    descripcionResLlamados: desRL
+                };
+                const data = objeto;
+                axios
+                    .post(
+                        this.localVal + "/api/ART/PostNResolucionLlamado",
+                        data,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Resolucion Llamado' a sido guardado con exito, se recargara listado de Resoluciones de Llamados",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarResolucionLlamado();
+                            this.seleccionResolucionLlamado.id = 0;
+                            this.seleccionResolucionLlamado.descripcionResLlamados =
+                                "";
+                            this.popCrearRL = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Resolucion Llamado' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoRA(desRA) {
+            try {
+                let objeto = {
+                    descripcionResAdj: desRA
+                };
+                const data = objeto;
+                axios
+                    .post(
+                        this.localVal +
+                            "/api/ART/PostNResolucionAdjudicaciones",
+                        data,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'N° Resolucion Adjudicaciones' a sido guardado con exito, se recargara listado de Resolucion Adjudicaciones",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarResolucionAdjudicaciones();
+                            this.seleccionResolucionAdjudicaciones.id = 0;
+                            this.seleccionResolucionAdjudicaciones.descripcionResAdj =
+                                "";
+                            this.popCrearRA = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'N° Resolucion Adjudicaciones' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });

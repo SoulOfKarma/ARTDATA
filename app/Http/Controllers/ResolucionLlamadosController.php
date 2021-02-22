@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ResolucionLlamados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResolucionLlamadosController extends Controller
 {
@@ -26,6 +27,16 @@ class ResolucionLlamadosController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateRL(Request $request){
+      try {
+          ResolucionLlamados::create($request->all());
+          return true;
+      } catch (\Throwable $th) {
+          log::info($th);
+          return false;
+      }
     }
 
     /**

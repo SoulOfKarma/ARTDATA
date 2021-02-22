@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ResolucionAdjudicaciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResolucionAdjudicacionesController extends Controller
 {
@@ -26,6 +27,16 @@ class ResolucionAdjudicacionesController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateRA(Request $request){
+       try {
+           ResolucionAdjudicaciones::create($request->all());
+           return true;
+       } catch (\Throwable $th) {
+           log::info($th);
+           return false;
+       }
     }
 
     /**
