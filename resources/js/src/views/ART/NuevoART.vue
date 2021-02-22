@@ -62,6 +62,7 @@
                             :options="listadoProveedores"
                             @on-change="seleccionDescripcionProveedor"
                             taggable
+                            @input="popProveedor"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -757,6 +758,52 @@
                 </div>
             </div>
         </vs-popup>
+        <!-- Pop Proveedor -->
+        <vs-popup
+            classContent="pop-Proveedor"
+            title="Crear Proveedor"
+            :active.sync="popCrearProveedor"
+        >
+            <div class="vx-col w-full">
+                <div class="vx-row">
+                    <div class="vx-col w-full mt-5">
+                        <h6>Rut Proveedor:</h6>
+                        <br />
+                        <vs-input class="w-full" v-model="rutProveedor" />
+                    </div>
+                    <div class="vx-col w-full mt-5">
+                        <h6>Descripcion Proveedor:</h6>
+                        <br />
+                        <vs-input class="w-full" v-model="desProveedor" />
+                    </div>
+                    <br />
+                    <div class="vx-col w-1/2 mt-5">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full"
+                            @click="
+                                guardarProveedor(
+                                    rutProveedor,
+                                    descripcionProveedor
+                                )
+                            "
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <vs-button
+                            class="w-full"
+                            @click="popCrearProveedor = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
     </vs-row>
 </template>
 <script>
@@ -807,6 +854,7 @@ export default {
             popCrearOC: false,
             popCrearRI: false,
             popCrearM: false,
+            popCrearProveedor: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -1037,6 +1085,8 @@ export default {
             desOC: "",
             desRI: "",
             desM: "",
+            rutProveedor: "",
+            desProveedor: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -1368,6 +1418,27 @@ export default {
                     } else {
                         this.desM = this.seleccionMemo.descripcionMemo;
                         this.popCrearM = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popProveedor() {
+            try {
+                if (
+                    this.seleccionProveedores.id == 0 ||
+                    this.seleccionProveedores.id == null
+                ) {
+                    if (
+                        this.seleccionProveedores.rutProveedor === undefined ||
+                        this.seleccionProveedores.rutProveedor === null ||
+                        this.seleccionProveedores.rutProveedor == ""
+                    ) {
+                        this.rutProveedor = this.seleccionProveedores;
+                        this.popCrearProveedor = true;
+                    } else {
+                        this.popCrearProveedor = true;
                     }
                 }
             } catch (error) {
@@ -2379,6 +2450,53 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar 'N° Memo' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarProveedor(rutProveedor, descripcionProveedor) {
+            try {
+                let objeto = {
+                    rutProveedor: rutProveedor,
+                    descripcionProveedor: descripcionProveedor
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNProveedor", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Proveedor' a sido guardado con exito, se recargara listado de Proveedor",
+                                position: "top-right"
+                            });
+                            this.cargarProveedores();
+                            this.seleccionProveedores.id = 0;
+                            this.seleccionProveedores.rutProveedor = "";
+                            this.seleccionProveedores.descripcionProveedor = "";
+                            this.popCrearProveedor = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar 'Proveedor' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });

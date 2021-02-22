@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Proveedores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProveedoresController extends Controller
 {
@@ -26,6 +27,15 @@ class ProveedoresController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateProveedor(Request $request){
+        try {
+            Proveedores::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+        }
     }
 
     /**
