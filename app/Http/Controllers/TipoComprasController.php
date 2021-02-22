@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TipoCompras;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TipoComprasController extends Controller
 {
@@ -26,6 +27,16 @@ class TipoComprasController extends Controller
     public function create()
     {
         //
+    }
+
+    public function CreateTC(Request $request){
+        try {
+            TipoCompras::create($request);
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

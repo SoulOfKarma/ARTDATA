@@ -144,6 +144,7 @@
                             v-model="seleccionRecursos"
                             :options="listadoRecursos"
                             taggable
+                            @input="popNR"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -155,6 +156,7 @@
                             v-model="seleccionTipoCompra"
                             :options="listadoTipoCompra"
                             taggable
+                            @input="popNTC"
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -416,7 +418,7 @@
         </vs-popup>
         <vs-popup
             classContent="pop-CrearSolicitante"
-            title="Crear Nuevo Solicitante"
+            title="Crear Tipo Mantencion"
             :active.sync="popCrearTM"
             ><vs-input class="inputx mb-3" v-model="desTM" hidden />
             <div class="vx-col md:w-1/1 w-full mb-base">
@@ -435,6 +437,64 @@
                         <vs-button
                             class="w-full m-2"
                             @click="popCrearTM = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <vs-popup
+            classContent="pop-CrearRecurso"
+            title="Crear Recurso"
+            :active.sync="popCrearR"
+            ><vs-input class="inputx mb-3" v-model="desR" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoR(desR)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearR = false"
+                            color="primary"
+                            type="filled"
+                            >Volver</vs-button
+                        >
+                    </div>
+                </div>
+            </div>
+        </vs-popup>
+        <vs-popup
+            classContent="pop-TipoCompra"
+            title="Crear Tipo Compra"
+            :active.sync="popCrearTC"
+            ><vs-input class="inputx mb-3" v-model="desTC" hidden />
+            <div class="vx-col md:w-1/1 w-full mb-base">
+                <div class="vx-row">
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            color="warning"
+                            type="filled"
+                            class="w-full m-2"
+                            @click="guardarNuevoTC(desTC)"
+                        >
+                            Guardar
+                        </vs-button>
+                    </div>
+                    <div class="vx-col sm:w-full w-full">
+                        <vs-button
+                            class="w-full m-2"
+                            @click="popCrearTC = false"
                             color="primary"
                             type="filled"
                             >Volver</vs-button
@@ -483,6 +543,8 @@ export default {
             popCrearEjecutor: false,
             popCrearIP: false,
             popCrearTM: false,
+            popCrearR: false,
+            popCrearTC: false,
             editorOption: {
                 modules: {
                     toolbar: [
@@ -703,6 +765,8 @@ export default {
             codIP: "",
             desIP: "",
             desTM: "",
+            desR: "",
+            desTC: "",
             localVal: process.env.MIX_APP_URL
         };
     },
@@ -799,6 +863,53 @@ export default {
                     } else {
                         this.desTM = this.seleccionTipoMantencion.descripcionTipoMantencion;
                         this.popCrearTM = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNR() {
+            try {
+                if (
+                    this.seleccionRecursos.id == 0 ||
+                    this.seleccionRecursos.id == null
+                ) {
+                    if (
+                        this.seleccionRecursos.descripcionRecursos ===
+                            undefined ||
+                        this.seleccionRecursos.descripcionRecursos === null ||
+                        this.seleccionRecursos.descripcionRecursos == ""
+                    ) {
+                        this.desTM = this.seleccionRecursos;
+                        this.popCrearR = true;
+                    } else {
+                        this.desTM = this.seleccionRecursos.descripcionRecursos;
+                        this.popCrearR = true;
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        popNTC() {
+            try {
+                if (
+                    this.seleccionTipoCompra.id == 0 ||
+                    this.seleccionTipoCompra.id == null
+                ) {
+                    if (
+                        this.seleccionTipoCompra.descripcionTipoCompra ===
+                            undefined ||
+                        this.seleccionTipoCompra.descripcionTipoCompra ===
+                            null ||
+                        this.seleccionTipoCompra.descripcionTipoCompra == ""
+                    ) {
+                        this.desTC = this.seleccionTipoCompra;
+                        this.popCrearTC = true;
+                    } else {
+                        this.desTC = this.seleccionTipoCompra.descripcionTipoCompra;
+                        this.popCrearTC = true;
                     }
                 }
             } catch (error) {
@@ -1333,6 +1444,98 @@ export default {
                                 title: "Error",
                                 text:
                                     "No fue posible guardar al nuevo 'Tipo Mantencion' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoR(desR) {
+            try {
+                let objeto = {
+                    descripcionRecursos: desR
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNRecursos", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Recurso' a sido guardado con exito, se recargara listado de Recursos",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarRecursos();
+                            this.seleccionRecursos.id = 0;
+                            this.seleccionRecursos.descripcionRecursos = "";
+                            this.popCrearR = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Recurso' Intentelo nuevamente",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        guardarNuevoTC(desTC) {
+            try {
+                let objeto = {
+                    descripcionTipoCompra: desTC
+                };
+                const data = objeto;
+                axios
+                    .post(this.localVal + "/api/ART/PostNTipoCompras", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Guardado con Exito ",
+                                text:
+                                    "Nuevo 'Tipo Compra' a sido guardado con exito, se recargara listado de Tipo Compra",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.cargarTipoCompra();
+                            this.seleccionTipoCompra.id = 0;
+                            this.seleccionTipoCompra.descripcionTipoCompra = "";
+                            this.popCrearTC = false;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text:
+                                    "No fue posible guardar al nuevo 'Tipo Compra' Intentelo nuevamente",
                                 color: "danger",
                                 position: "top-right"
                             });

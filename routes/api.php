@@ -41,9 +41,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/ART/GetTipoMantenciones', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@index']);
     Route::get('/ART/GetDataByOC/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@DataByOC']);
     
-    //Posts 
+    //Posts PostNTipoCompras
     Route::post('/ART/PostNSolicitante', ['middleware' => 'cors', 'uses' => 'SolicitantesController@CreateSolicitante']);
     Route::post('/ART/PostNEjecutor', ['middleware' => 'cors', 'uses' => 'EjecutoresController@CreateEjecutor']);
     Route::post('/ART/PostNItemPresupuestario', ['middleware' => 'cors', 'uses' => 'ItemPresupuestariosController@CreateIP']);
     Route::post('/ART/PostNTipoMantencion', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@CreateTM']);
+    Route::post('/ART/PostNRecursos', ['middleware' => 'cors', 'uses' => 'RecursosController@CreateR']);
+    Route::post('/ART/PostNTipoCompras', ['middleware' => 'cors', 'uses' => 'TipoComprasController@CreateTC']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recursos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RecursosController extends Controller
 {
@@ -28,6 +29,15 @@ class RecursosController extends Controller
         //
     }
 
+    public function CreateR(Request $request){
+        try {
+            $get_all = Recursos::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }    
+    }
     /**
      * Store a newly created resource in storage.
      *
