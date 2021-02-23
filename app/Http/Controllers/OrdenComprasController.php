@@ -37,7 +37,7 @@ class OrdenComprasController extends Controller
            log::info($th);
            return false;
        }
-    },
+    }
 
     /**
      * Store a newly created resource in storage.
