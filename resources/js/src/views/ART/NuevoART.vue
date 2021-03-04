@@ -6,7 +6,10 @@
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Buscar por N° ART Existente:</h6>
                         <br />
-                        <vs-input class="inputx w-full"></vs-input>
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="idARTBusqueda"
+                        ></vs-input>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Buscar por N° OC Existente:</h6>
@@ -28,7 +31,8 @@
                     <div class="vx-col w-1/3 mt-5">
                         <h6>N° ART:</h6>
                         <br />
-                        <vs-input class="inputx w-full"> </vs-input>
+                        <vs-input class="inputx w-full" v-model="idART">
+                        </vs-input>
                     </div>
                     <div class="vx-col w-1/3 mt-5">
                         <h6>Fecha ART</h6>
@@ -826,6 +830,8 @@ import Datepicker from "vuejs-datepicker";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import moment from "moment";
+import { uuid } from "vue-uuid";
+
 export default {
     components: {
         ArchiveIcon,
@@ -870,8 +876,8 @@ export default {
                     ]
                 }
             },
-            fechaART: new Date(),
-            fechaFactura: new Date(),
+            fechaART: moment().format("YYYY-MM-DD"),
+            fechaFactura: moment().format("YYYY-MM-DD"),
             configFromdateTimePicker: {
                 altInput: true,
                 altFormat: "F j, Y",
@@ -1063,6 +1069,8 @@ export default {
                 id: 0,
                 descripcionTipoMantencion: ""
             },
+            idART: 0,
+            idARTBusqueda: "",
             descripcionART: "",
             montoART: 0,
             montoData: 0,
@@ -1298,11 +1306,11 @@ export default {
                         this.seleccionResolucionAdjudicaciones
                             .descripcionResAdj == ""
                     ) {
-                        this.desRL = this.seleccionResolucionAdjudicaciones;
-                        this.popCrearRL = true;
+                        this.desRA = this.seleccionResolucionAdjudicaciones;
+                        this.popCrearRA = true;
                     } else {
-                        this.desL = this.seleccionResolucionAdjudicaciones.descripcionResAdj;
-                        this.popCrearRL = true;
+                        this.desRA = this.seleccionResolucionAdjudicaciones.descripcionResAdj;
+                        this.popCrearRA = true;
                     }
                 }
             } catch (error) {
@@ -1447,203 +1455,273 @@ export default {
             }
         },
         popART() {
-            if (
-                this.seleccionSolicitantes.id == 0 ||
-                this.seleccionSolicitantes.id == null ||
-                this.seleccionSolicitantes.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Solicitante no Seleccionado, Seleccione algun Solicitante para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionEjecutor.id == 0 ||
-                this.seleccionEjecutor.id == null ||
-                this.seleccionEjecutor.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Ejecutor no Seleccionado, Seleccione algun Ejecutor para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionItemPresupuestario.id == 0 ||
-                this.seleccionItemPresupuestario.id == null ||
-                this.seleccionItemPresupuestario.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Item Presupuestario no Seleccionado, Seleccione algun Item Presupuestario para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionTipoMantencion.id == 0 ||
-                this.seleccionTipoMantencion.id == null ||
-                this.seleccionTipoMantencion.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Tipo Mantencion no Seleccionado, Seleccione algun Tipo Mantencion para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionRecursos.id == 0 ||
-                this.seleccionRecursos.id == null ||
-                this.seleccionRecursos.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Recursos no Seleccionado, Seleccione algun Recursos para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionTipoCompra.id == 0 ||
-                this.seleccionTipoCompra.id == null ||
-                this.seleccionTipoCompra.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Tipo Compra no Seleccionado, Seleccione algun Tipo Compra para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionLicitaciones.id == 0 ||
-                this.seleccionLicitaciones.id == null ||
-                this.seleccionLicitaciones.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Licitacion no Seleccionada, Seleccione alguna Licitacion para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionResolucionLlamado.id == 0 ||
-                this.seleccionResolucionLlamado.id == null ||
-                this.seleccionResolucionLlamado.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Resolucion Llamado no Seleccionada, Seleccione algun N° Resolucion Llamado para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionResolucionAdjudicaciones.id == 0 ||
-                this.seleccionResolucionAdjudicaciones.id == null ||
-                this.seleccionResolucionAdjudicaciones.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Resolucion Adjudicaciones no Seleccionada, Seleccione algun N° Resolucion Adjudicaciones para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionResolucionContrato.id == 0 ||
-                this.seleccionResolucionContrato.id == null ||
-                this.seleccionResolucionContrato.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Resolucion Contrato no Seleccionado, Seleccione algun N° Resolucion Contrato para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionCDP.id == 0 ||
-                this.seleccionCDP.id == null ||
-                this.seleccionCDP.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° CDP no Seleccionado, Seleccione algun N° CDP para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionOrdenCompra.id == 0 ||
-                this.seleccionOrdenCompra.id == null ||
-                this.seleccionOrdenCompra.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Orden Compra no Seleccionada, Seleccione algun N° Orden Compra para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionResolucionInterna.id == 0 ||
-                this.seleccionResolucionInterna.id == null ||
-                this.seleccionResolucionInterna.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Resolucion Interna no Seleccionada, Seleccione algun N° Resolucion Interna para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionMemo.id == 0 ||
-                this.seleccionMemo.id == null ||
-                this.seleccionMemo.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "N° Memo no Seleccionado, Seleccione algun N° Memo para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else if (
-                this.seleccionProveedores.id == 0 ||
-                this.seleccionProveedores.id == null ||
-                this.seleccionProveedores.id == ""
-            ) {
-                this.$vs.notify({
-                    time: 3000,
-                    title: "Error ",
-                    text:
-                        "Rut proveedor no seleccionado, Seleccione algun Rut proveedor para Continuar",
-                    color: "danger",
-                    position: "top-right"
-                });
-            } else {
-                console.log("A");
+            try {
+                if (
+                    this.seleccionSolicitantes.id == 0 ||
+                    this.seleccionSolicitantes.id == null ||
+                    this.seleccionSolicitantes.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Solicitante no Seleccionado, Seleccione algun Solicitante para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionEjecutor.id == 0 ||
+                    this.seleccionEjecutor.id == null ||
+                    this.seleccionEjecutor.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Ejecutor no Seleccionado, Seleccione algun Ejecutor para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionItemPresupuestario.id == 0 ||
+                    this.seleccionItemPresupuestario.id == null ||
+                    this.seleccionItemPresupuestario.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Item Presupuestario no Seleccionado, Seleccione algun Item Presupuestario para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionTipoMantencion.id == 0 ||
+                    this.seleccionTipoMantencion.id == null ||
+                    this.seleccionTipoMantencion.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Tipo Mantencion no Seleccionado, Seleccione algun Tipo Mantencion para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionRecursos.id == 0 ||
+                    this.seleccionRecursos.id == null ||
+                    this.seleccionRecursos.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Recursos no Seleccionado, Seleccione algun Recursos para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionTipoCompra.id == 0 ||
+                    this.seleccionTipoCompra.id == null ||
+                    this.seleccionTipoCompra.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Tipo Compra no Seleccionado, Seleccione algun Tipo Compra para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionLicitaciones.id == 0 ||
+                    this.seleccionLicitaciones.id == null ||
+                    this.seleccionLicitaciones.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Licitacion no Seleccionada, Seleccione alguna Licitacion para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionLlamado.id == 0 ||
+                    this.seleccionResolucionLlamado.id == null ||
+                    this.seleccionResolucionLlamado.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Llamado no Seleccionada, Seleccione algun N° Resolucion Llamado para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionAdjudicaciones.id == 0 ||
+                    this.seleccionResolucionAdjudicaciones.id == null ||
+                    this.seleccionResolucionAdjudicaciones.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Adjudicaciones no Seleccionada, Seleccione algun N° Resolucion Adjudicaciones para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionContrato.id == 0 ||
+                    this.seleccionResolucionContrato.id == null ||
+                    this.seleccionResolucionContrato.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Contrato no Seleccionado, Seleccione algun N° Resolucion Contrato para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionCDP.id == 0 ||
+                    this.seleccionCDP.id == null ||
+                    this.seleccionCDP.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° CDP no Seleccionado, Seleccione algun N° CDP para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionOrdenCompra.id == 0 ||
+                    this.seleccionOrdenCompra.id == null ||
+                    this.seleccionOrdenCompra.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Orden Compra no Seleccionada, Seleccione algun N° Orden Compra para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionInterna.id == 0 ||
+                    this.seleccionResolucionInterna.id == null ||
+                    this.seleccionResolucionInterna.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Interna no Seleccionada, Seleccione algun N° Resolucion Interna para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionMemo.id == 0 ||
+                    this.seleccionMemo.id == null ||
+                    this.seleccionMemo.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Memo no Seleccionado, Seleccione algun N° Memo para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionProveedores.id == 0 ||
+                    this.seleccionProveedores.id == null ||
+                    this.seleccionProveedores.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Rut proveedor no seleccionado, Seleccione algun Rut proveedor para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else {
+                    let objeto = {
+                        idART: this.idART,
+                        fechaART: this.fechaART,
+                        fechaFactura: this.fechaFactura,
+                        idProveedor: this.seleccionProveedores.id,
+                        idSolicitante: this.seleccionSolicitantes.id,
+                        idEjecutor: this.seleccionEjecutor.id,
+                        idItemPresupuestario: this.seleccionItemPresupuestario
+                            .id,
+                        idTipoMantencion: this.seleccionTipoMantencion.id,
+                        idRecurso: this.seleccionRecursos.id,
+                        idTipoCompra: this.seleccionTipoCompra.id,
+                        idLicitacion: this.seleccionLicitaciones.id,
+                        idResLlamado: this.seleccionResolucionLlamado.id,
+                        idResAdjudicacion: this
+                            .seleccionResolucionAdjudicaciones.id,
+                        idResContrato: this.seleccionResolucionContrato.id,
+                        idCDP: this.seleccionCDP.id,
+                        idOrdenCompra: this.seleccionOrdenCompra.id,
+                        idResInterna: this.seleccionResolucionInterna.id,
+                        idMemo: this.seleccionMemo.id,
+                        monto: this.montoData,
+                        cuotas: this.cuotaART,
+                        saldo: this.saldoData,
+                        uuid: uuid.v1(),
+                        nfactura: this.nfacturaART,
+                        detalleART: this.descripcionART
+                    };
+                    const data = objeto;
+                    axios
+                        .post(
+                            this.localVal + "/api/ART/PostRegistroART",
+                            data,
+                            {
+                                headers: {
+                                    Authorization:
+                                        `Bearer ` +
+                                        sessionStorage.getItem("token")
+                                }
+                            }
+                        )
+                        .then(res => {
+                            let respuesta = res.data;
+                            if (respuesta == true) {
+                                this.$vs.notify({
+                                    time: 3000,
+                                    title: "Guardado con Exito ",
+                                    text:
+                                        "Nuevo Registro de ART Guardado, Podra ser visualizado en el listado de ART",
+                                    color: "success",
+                                    position: "top-right"
+                                });
+                                this.limpiar();
+                            } else {
+                                this.$vs.notify({
+                                    time: 3000,
+                                    title: "Error",
+                                    text:
+                                        "No fue posible guardar el nuevo registro de ART, Intentelo nuevamente",
+                                    color: "danger",
+                                    position: "top-right"
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+            } catch (error) {
+                console.log(error);
             }
         },
         //Fin Apertura de Pops
@@ -1661,7 +1739,79 @@ export default {
                 return true;
             }
         },
-        limpiar() {},
+        limpiar() {
+            this.seleccionCDP = {
+                id: 0,
+                descripcionCDPS: ""
+            };
+            this.seleccionEjecutor = {
+                id: 0,
+                descripcionEjecutores: ""
+            };
+            this.seleccionItemPresupuestario = {
+                id: 0,
+                codigoItemPresupuestario: "",
+                descripcionItemPresupuestario: ""
+            };
+            this.seleccionLicitaciones = {
+                id: 0,
+                codigoLicitacion: ""
+            };
+            this.seleccionMemo = {
+                id: 0,
+                descripcionMemo: ""
+            };
+            this.seleccionOrdenCompra = {
+                id: 0,
+                descripcionOrdenCompras: "",
+                fecha_oc: new Date(),
+                idEstadoOC: 0
+            };
+            this.seleccionProveedores = {
+                id: 0,
+                rutProveedor: "",
+                descripcionProveedor: ""
+            };
+            this.seleccionRecursos = {
+                id: 0,
+                descripcionRecursos: ""
+            };
+            this.seleccionResolucionAdjudicaciones = {
+                id: 0,
+                descripcionResAdj: ""
+            };
+            this.seleccionResolucionContrato = {
+                id: 0,
+                descripcionResContratos: ""
+            };
+            this.seleccionResolucionInterna = {
+                id: 0,
+                descripcionResInternas: ""
+            };
+            this.seleccionResolucionLlamado = {
+                id: 0,
+                descripcionResLlamados: ""
+            };
+            this.seleccionSolicitantes = {
+                id: 0,
+                descripcionSolicitante: ""
+            };
+            this.seleccionTipoCompra = {
+                id: 0,
+                descripcionTipoCompra: ""
+            };
+            this.seleccionTipoMantencion = {
+                id: 0,
+                descripcionTipoMantencion: ""
+            };
+            this.descripcionART = "";
+            this.montoART = 0;
+            this.montoData = 0;
+            this.cuotaART = 0;
+            this.saldoART = 0;
+            this.saldoData = 0;
+            this.nfacturaART = 0;
+        },
         onFromChange(selectedDates, dateStr, instance) {
             this.$set(this.configTodateTimePicker, dateStr);
         },
@@ -1715,6 +1865,7 @@ export default {
         //Cargas de DATA Externa - Mercado Publico
         cargarAPIByOC() {
             try {
+                this.limpiar();
                 let id = this.seleccionOrdenCompraForAPI
                     .descripcionOrdenCompras;
                 axios

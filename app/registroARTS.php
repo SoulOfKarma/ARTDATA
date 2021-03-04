@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class registroARTS extends Model
 {
+    protected $table = 'registroarts';
+
     protected $fillable = [
         'idART',
         'fechaART',

@@ -70,7 +70,13 @@ class RegistroARTSController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            RegistroARTS::create($request->all());
+            return true;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**

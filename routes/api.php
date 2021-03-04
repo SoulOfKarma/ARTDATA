@@ -57,4 +57,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/ART/PostNRI', ['middleware' => 'cors', 'uses' => 'ResolucionInternasController@CreateRI']);
     Route::post('/ART/PostNMemo', ['middleware' => 'cors', 'uses' => 'MemosController@CreateMemo']);
     Route::post('/ART/PostNProveedor', ['middleware' => 'cors', 'uses' => 'ProveedoresController@CreateProveedor']);
+    Route::post('/ART/PostRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@store']);
 });
