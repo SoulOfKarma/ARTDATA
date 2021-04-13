@@ -317,7 +317,10 @@
             <vx-card title="">
                 <div class="vx-row mb-4">
                     <div class="vx-col w-1/2 mt-5">
-                        <vs-button class="fixedHeight w-full" color="primary"
+                        <vs-button
+                            class="fixedHeight w-full"
+                            color="primary"
+                            @click="volverPA"
                             >Volver</vs-button
                         >
                     </div>
@@ -1099,6 +1102,10 @@ export default {
         };
     },
     methods: {
+        //Retornar
+        volverPA() {
+            router.back();
+        },
         //Apertura de Pops
         popNSolicitante() {
             try {
@@ -3111,6 +3118,259 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        cargarARTEspecifico() {
+            try {
+                let id = this.$route.params.id;
+                axios
+                    .get(this.localVal + `/api/ART/GetARTDataByID/${id}`, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let arrayData = res.data;
+
+                        this.idART = arrayData.idART;
+                        let c = JSON.parse(
+                            JSON.stringify(this.listadoProveedores)
+                        );
+                        let b = [];
+                        let a = 0;
+                        c.forEach((value, index) => {
+                            a = arrayData.idProveedor;
+                            if (a == value.id) {
+                                this.seleccionProveedores.id = value.id;
+                                this.seleccionProveedores.rutProveedor =
+                                    value.rutProveedor;
+                                this.seleccionProveedores.descripcionProveedor =
+                                    value.descripcionProveedor;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoSolicitantes)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idSolicitante;
+                            if (a == value.id) {
+                                this.seleccionSolicitantes.id = value.id;
+                                this.seleccionSolicitantes.descripcionSolicitante =
+                                    value.descripcionSolicitante;
+                            }
+                        });
+
+                        c = JSON.parse(JSON.stringify(this.listadoEjecutores));
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idEjecutor;
+                            if (a == value.id) {
+                                this.seleccionEjecutor.id = value.id;
+                                this.seleccionEjecutor.descripcionEjecutores =
+                                    value.descripcionEjecutores;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoItemPresupuestario)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idItemPresupuestario;
+                            if (a == value.id) {
+                                this.seleccionItemPresupuestario.id = value.id;
+                                this.seleccionItemPresupuestario.codigoItemPresupuestario =
+                                    value.codigoItemPresupuestario;
+                                this.seleccionItemPresupuestario.descripcionItemPresupuestario =
+                                    value.descripcionItemPresupuestario;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoTipoMantencion)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idTipoMantencion;
+                            if (a == value.id) {
+                                this.seleccionTipoMantencion.id = value.id;
+                                this.seleccionTipoMantencion.descripcionTipoMantencion =
+                                    value.descripcionTipoMantencion;
+                            }
+                        });
+
+                        c = JSON.parse(JSON.stringify(this.listadoRecursos));
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idRecurso;
+                            if (a == value.id) {
+                                this.seleccionRecursos.id = value.id;
+                                this.seleccionRecursos.descripcionRecursos =
+                                    value.descripcionRecursos;
+                            }
+                        });
+
+                        c = JSON.parse(JSON.stringify(this.listadoTipoCompra));
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idTipoCompra;
+                            if (a == value.id) {
+                                this.seleccionTipoCompra.id = value.id;
+                                this.seleccionTipoCompra.descripcionTipoCompra =
+                                    value.descripcionTipoCompra;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoLicitaciones)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idLicitacion;
+                            if (a == value.id) {
+                                this.seleccionLicitaciones.id = value.id;
+                                this.seleccionLicitaciones.codigoLicitacion =
+                                    value.codigoLicitacion;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoResolucionLlamados)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idResLlamado;
+                            if (a == value.id) {
+                                this.seleccionResolucionLlamado.id = value.id;
+                                this.seleccionResolucionLlamado.descripcionResLlamados =
+                                    value.descripcionResLlamados;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoResolucionAdjudicaciones)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idResAdjudicacion;
+                            if (a == value.id) {
+                                this.seleccionResolucionAdjudicaciones.id =
+                                    value.id;
+                                this.seleccionResolucionAdjudicaciones.descripcionResAdj =
+                                    value.descripcionResAdj;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoResolucionContrato)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idResContrato;
+                            if (a == value.id) {
+                                this.seleccionResolucionContrato.id = value.id;
+                                this.seleccionResolucionContrato.descripcionResContratos =
+                                    value.descripcionResContratos;
+                            }
+                        });
+
+                        c = JSON.parse(JSON.stringify(this.listadoCDP));
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idCDP;
+                            if (a == value.id) {
+                                this.seleccionCDP.id = value.id;
+                                this.seleccionCDP.descripcionCDPS =
+                                    value.descripcionCDPS;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoOrdenCompras)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idOrdenCompra;
+                            if (a == value.id) {
+                                this.seleccionOrdenCompra.id = value.id;
+                                this.seleccionOrdenCompra.descripcionOrdenCompras =
+                                    value.descripcionOrdenCompras;
+                                this.seleccionOrdenCompra.fecha_oc =
+                                    value.fecha_oc;
+                                this.seleccionOrdenCompra.idEstadoOC =
+                                    value.idEstadoOC;
+                            }
+                        });
+
+                        c = JSON.parse(
+                            JSON.stringify(this.listadoResolucionInterna)
+                        );
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idResInterna;
+                            if (a == value.id) {
+                                this.seleccionResolucionInterna.id = value.id;
+                                this.seleccionResolucionInterna.descripcionResInternas =
+                                    value.descripcionResInternas;
+                            }
+                        });
+
+                        c = JSON.parse(JSON.stringify(this.listadoMemos));
+                        b = [];
+                        a = 0;
+
+                        c.forEach((value, index) => {
+                            a = arrayData.idMemo;
+                            if (a == value.id) {
+                                this.seleccionMemo.id = value.id;
+                                this.seleccionMemo.descripcionMemo =
+                                    value.descripcionMemo;
+                            }
+                        });
+
+                        this.montoART = arrayData.monto;
+                        this.convertirMonto();
+
+                        this.cuotaART = arrayData.cuotas;
+
+                        this.saldoART = arrayData.saldo;
+                        this.convertirSaldo();
+
+                        this.nfacturaART = arrayData.nfactura;
+
+                        this.descripcionART = arrayData.detalleART;
+                    });
+            } catch (error) {
+                console.log("Hubo un problema al capturar el id");
+            }
         }
         //Fin de Carga de data
     },
@@ -3132,6 +3392,7 @@ export default {
         this.cargarTipoMantencion();
         this.convertirMonto();
         this.convertirSaldo();
+        this.cargarARTEspecifico();
     }
 };
 </script>

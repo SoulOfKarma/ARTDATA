@@ -8,6 +8,8 @@ class registroARTS extends Model
 {
     protected $table = 'registroarts';
 
+    protected $dates = ['updated_at'];
+
     protected $fillable = [
         'idART',
         'fechaART',

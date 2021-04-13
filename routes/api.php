@@ -40,6 +40,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/ART/GetTipoCompras', ['middleware' => 'cors', 'uses' => 'TipoComprasController@index']);
     Route::get('/ART/GetTipoMantenciones', ['middleware' => 'cors', 'uses' => 'TipoMantencionesController@index']);
     Route::get('/ART/GetDataByOC/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@DataByOC']);
+    Route::get('/ART/GetRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@LRegistroArt']);
+    Route::get('/ART/GetARTDataByID/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@ARTDataByID']);
     
     //Posts 
     Route::post('/ART/PostNSolicitante', ['middleware' => 'cors', 'uses' => 'SolicitantesController@CreateSolicitante']);

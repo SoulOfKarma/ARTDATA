@@ -48,6 +48,11 @@ const router = new Router({
                     path: "/ListadoART",
                     name: "ListadoART",
                     component: () => import("./views/ART/ListadoART.vue")
+                },
+                {
+                    path: "/ModificarART",
+                    name: "ModificarART",
+                    component: () => import("./views/ART/ModificarART.vue")
                 }
             ]
         },
