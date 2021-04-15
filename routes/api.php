@@ -60,4 +60,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/ART/PostNMemo', ['middleware' => 'cors', 'uses' => 'MemosController@CreateMemo']);
     Route::post('/ART/PostNProveedor', ['middleware' => 'cors', 'uses' => 'ProveedoresController@CreateProveedor']);
     Route::post('/ART/PostRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@store']);
+
+    //Put como Post
+    Route::post('/ART/PutRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@MRegistroART']);
 });

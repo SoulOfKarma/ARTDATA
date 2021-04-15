@@ -31,7 +31,11 @@
                     <div class="vx-col w-1/3 mt-5">
                         <h6>N° ART:</h6>
                         <br />
-                        <vs-input class="inputx w-full" v-model="idART">
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="idART"
+                            disabled
+                        >
                         </vs-input>
                     </div>
                     <div class="vx-col w-1/3 mt-5">
@@ -327,9 +331,9 @@
                     <div class="vx-col w-1/2 mt-5">
                         <vs-button
                             class="fixedHeight w-full"
-                            color="success"
+                            color="warning"
                             @click="popART"
-                            >Guardar</vs-button
+                            >Modificar</vs-button
                         >
                     </div>
                 </div>
@@ -1683,23 +1687,18 @@ export default {
                         monto: this.montoData,
                         cuotas: this.cuotaART,
                         saldo: this.saldoData,
-                        uuid: uuid.v1(),
+                        //uuid: uuid.v1(),
                         nfactura: this.nfacturaART,
                         detalleART: this.descripcionART
                     };
                     const data = objeto;
                     axios
-                        .post(
-                            this.localVal + "/api/ART/PostRegistroART",
-                            data,
-                            {
-                                headers: {
-                                    Authorization:
-                                        `Bearer ` +
-                                        sessionStorage.getItem("token")
-                                }
+                        .post(this.localVal + "/api/ART/PutRegistroART", data, {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
                             }
-                        )
+                        })
                         .then(res => {
                             let respuesta = res.data;
                             if (respuesta == true) {
@@ -3131,6 +3130,10 @@ export default {
                     })
                     .then(res => {
                         let arrayData = res.data;
+
+                        this.fechaART = arrayData.fechaART;
+
+                        this.fechaFactura = arrayData.fechaFactura;
 
                         this.idART = arrayData.idART;
                         let c = JSON.parse(

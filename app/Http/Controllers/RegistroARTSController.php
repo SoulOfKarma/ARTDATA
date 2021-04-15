@@ -117,6 +117,25 @@ class RegistroARTSController extends Controller
         }
      }
 
+     public function MRegistroART(Request $request){
+         try {
+             RegistroARTS::where('registroarts.idART',$request->idART)
+             ->update(['fechaART' => $request->fechaART,'fechaFactura' => $request->fechaFactura,'idProveedor' => $request->idProveedor,
+             'idSolicitante' => $request->idSolicitante,'idEjecutor' => $request->idEjecutor,'idItemPresupuestario' => $request->idItemPresupuestario,
+             'idTipoMantencion' => $request->idTipoMantencion,'idRecurso' => $request->idRecurso,'idTipoCompra' => $request->idTipoCompra,
+             'idLicitacion' => $request->idLicitacion,'idResLlamado' => $request->idResLlamado,'idResAdjudicacion' => $request->idResAdjudicacion,
+             'idResContrato' => $request->idResContrato,'idCDP' => $request->idCDP,'idOrdenCompra' => $request->idOrdenCompra,
+             'idResInterna' => $request->idResInterna,'idMemo' => $request->idMemo,'monto' => $request->monto,
+             'cuotas' => $request->cuotas,'saldo' => $request->saldo,'nfactura' => $request->nfactura,
+             'detalleART' => $request->detalleART
+             ]);
+             return true;
+         } catch (\Throwable $th) {
+             log::info($th);
+             return false;
+         }
+     }
+
     /**
      * Show the form for creating a new resource.
      *
