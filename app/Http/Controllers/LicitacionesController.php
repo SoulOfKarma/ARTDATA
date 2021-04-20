@@ -31,8 +31,8 @@ class LicitacionesController extends Controller
 
     public function CreateLic(Request $request){
         try {
-            Licitaciones::create($request->all());
-            return true;
+            $resp = Licitaciones::create($request->all())->id;
+            return $resp;
         } catch (\Throwable $th) {
             log::info($th);
             return false;    

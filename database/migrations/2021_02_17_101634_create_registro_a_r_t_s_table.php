@@ -44,8 +44,7 @@ class CreateRegistroARTSTable extends Migration
             $table->foreign('idCDP')->references('id')->on('cdps');
             $table->bigInteger('idOrdenCompra')->unsigned()->nullable();
             $table->foreign('idOrdenCompra')->references('id')->on('orden_compras');
-            $table->bigInteger('idResInterna')->unsigned()->nullable();
-            $table->foreign('idResInterna')->references('id')->on('resolucion_internas');
+            $table->bigInteger('idResInterna')->nullable();
             $table->bigInteger('idMemo')->unsigned()->nullable();
             $table->foreign('idMemo')->references('id')->on('memos');
             $table->bigInteger('monto');
@@ -54,6 +53,7 @@ class CreateRegistroARTSTable extends Migration
             $table->uuid('uuid');
             $table->string('nfactura');
             $table->string('detalleART');
+            $table->bigInteger('idEstado')->nullable();
             $table->timestamps();
         });
     }

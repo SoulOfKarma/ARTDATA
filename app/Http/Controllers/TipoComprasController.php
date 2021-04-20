@@ -31,8 +31,8 @@ class TipoComprasController extends Controller
 
     public function CreateTC(Request $request){
         try {
-            TipoCompras::create($request);
-            return true;
+            $resp = TipoCompras::create($request->all())->id;
+            return $resp;
         } catch (\Throwable $th) {
             log::info($th);
             return false;

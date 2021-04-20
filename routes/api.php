@@ -61,6 +61,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/ART/PostNProveedor', ['middleware' => 'cors', 'uses' => 'ProveedoresController@CreateProveedor']);
     Route::post('/ART/PostRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@store']);
 
+    //Get como Post
+    Route::post('/ART/GetPBusquedaByArt', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@GetPBusquedaByArt']);
+
     //Put como Post
     Route::post('/ART/PutRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@MRegistroART']);
 });

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Proveedores;
+use App\Estados;
 use Illuminate\Http\Request;
+use DB;
 use Illuminate\Support\Facades\Log;
 
-class ProveedoresController extends Controller
+class EstadosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,13 @@ class ProveedoresController extends Controller
      */
     public function index()
     {
-        $get_all = Proveedores::all();
-        return $get_all;
+        try {
+            $get_all = Estados::all();
+            return $get_all;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
     }
 
     /**
@@ -27,16 +33,6 @@ class ProveedoresController extends Controller
     public function create()
     {
         //
-    }
-
-    public function CreateProveedor(Request $request){
-        try {
-            $resp = Proveedores::create($request->all())->id;
-            return $resp;
-        } catch (\Throwable $th) {
-            log::info($th);
-            return false;
-        }
     }
 
     /**
@@ -53,10 +49,10 @@ class ProveedoresController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Proveedores  $proveedores
+     * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedores $proveedores)
+    public function show(Estados $estados)
     {
         //
     }
@@ -64,10 +60,10 @@ class ProveedoresController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Proveedores  $proveedores
+     * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedores $proveedores)
+    public function edit(Estados $estados)
     {
         //
     }
@@ -76,10 +72,10 @@ class ProveedoresController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Proveedores  $proveedores
+     * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedores $proveedores)
+    public function update(Request $request, Estados $estados)
     {
         //
     }
@@ -87,10 +83,10 @@ class ProveedoresController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Proveedores  $proveedores
+     * @param  \App\Estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedores $proveedores)
+    public function destroy(Estados $estados)
     {
         //
     }

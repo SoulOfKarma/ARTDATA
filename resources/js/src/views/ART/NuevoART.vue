@@ -9,6 +9,8 @@
                         <vs-input
                             class="inputx w-full"
                             v-model="idARTBusqueda"
+                            @blur="buscarByART"
+                            @keypress="isNumber($event)"
                         ></vs-input>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
@@ -237,18 +239,6 @@
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
-                        <h6>Resolucion Interna:</h6>
-                        <br />
-                        <v-select
-                            class="w-full select-large"
-                            label="descripcionResInternas"
-                            v-model="seleccionResolucionInterna"
-                            :options="listadoResolucionInterna"
-                            taggable
-                            @input="popRI"
-                        ></v-select>
-                    </div>
-                    <div class="vx-col w-full mt-5">
                         <h6>N° Memo</h6>
                         <br />
                         <v-select
@@ -1020,6 +1010,10 @@ export default {
                 id: 0,
                 descripcionMemo: ""
             },
+            seleccionEstado: {
+                id: 1,
+                descripcionEstado: "Creado"
+            },
             seleccionOrdenCompra: {
                 id: 0,
                 descripcionOrdenCompras: "",
@@ -1050,8 +1044,8 @@ export default {
                 descripcionResContratos: ""
             },
             seleccionResolucionInterna: {
-                id: 0,
-                descripcionResInternas: ""
+                id: 1,
+                descripcionResInternas: "N/A"
             },
             seleccionResolucionLlamado: {
                 id: 0,
@@ -1613,19 +1607,6 @@ export default {
                         position: "top-right"
                     });
                 } else if (
-                    this.seleccionResolucionInterna.id == 0 ||
-                    this.seleccionResolucionInterna.id == null ||
-                    this.seleccionResolucionInterna.id == ""
-                ) {
-                    this.$vs.notify({
-                        time: 3000,
-                        title: "Error ",
-                        text:
-                            "N° Resolucion Interna no Seleccionada, Seleccione algun N° Resolucion Interna para Continuar",
-                        color: "danger",
-                        position: "top-right"
-                    });
-                } else if (
                     this.seleccionMemo.id == 0 ||
                     this.seleccionMemo.id == null ||
                     this.seleccionMemo.id == ""
@@ -1678,7 +1659,8 @@ export default {
                         saldo: this.saldoData,
                         uuid: uuid.v1(),
                         nfactura: this.nfacturaART,
-                        detalleART: this.descripcionART
+                        detalleART: this.descripcionART,
+                        idEstado: this.seleccionEstado.id
                     };
                     const data = objeto;
                     axios
@@ -1784,10 +1766,6 @@ export default {
                 id: 0,
                 descripcionResContratos: ""
             };
-            this.seleccionResolucionInterna = {
-                id: 0,
-                descripcionResInternas: ""
-            };
             this.seleccionResolucionLlamado = {
                 id: 0,
                 descripcionResLlamados: ""
@@ -1862,6 +1840,292 @@ export default {
             }
         },
         //Fin de Conversor
+        //Carga Data Interna
+        buscarByART() {
+            try {
+                let obj = {
+                    idART: this.idARTBusqueda
+                };
+                const data = obj;
+                axios
+                    .post(this.localVal + "/api/ART/GetPBusquedaByArt", data, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let arrayData = res.data;
+                        if (arrayData) {
+                            this.fechaART = arrayData.fechaART;
+
+                            this.fechaFactura = arrayData.fechaFactura;
+
+                            this.idART = arrayData.idART;
+                            let c = JSON.parse(
+                                JSON.stringify(this.listadoProveedores)
+                            );
+                            let b = [];
+                            let a = 0;
+                            c.forEach((value, index) => {
+                                a = arrayData.idProveedor;
+                                if (a == value.id) {
+                                    this.seleccionProveedores.id = value.id;
+                                    this.seleccionProveedores.rutProveedor =
+                                        value.rutProveedor;
+                                    this.seleccionProveedores.descripcionProveedor =
+                                        value.descripcionProveedor;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoSolicitantes)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idSolicitante;
+                                if (a == value.id) {
+                                    this.seleccionSolicitantes.id = value.id;
+                                    this.seleccionSolicitantes.descripcionSolicitante =
+                                        value.descripcionSolicitante;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoEjecutores)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idEjecutor;
+                                if (a == value.id) {
+                                    this.seleccionEjecutor.id = value.id;
+                                    this.seleccionEjecutor.descripcionEjecutores =
+                                        value.descripcionEjecutores;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoItemPresupuestario)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idItemPresupuestario;
+                                if (a == value.id) {
+                                    this.seleccionItemPresupuestario.id =
+                                        value.id;
+                                    this.seleccionItemPresupuestario.codigoItemPresupuestario =
+                                        value.codigoItemPresupuestario;
+                                    this.seleccionItemPresupuestario.descripcionItemPresupuestario =
+                                        value.descripcionItemPresupuestario;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoTipoMantencion)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idTipoMantencion;
+                                if (a == value.id) {
+                                    this.seleccionTipoMantencion.id = value.id;
+                                    this.seleccionTipoMantencion.descripcionTipoMantencion =
+                                        value.descripcionTipoMantencion;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoRecursos)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idRecurso;
+                                if (a == value.id) {
+                                    this.seleccionRecursos.id = value.id;
+                                    this.seleccionRecursos.descripcionRecursos =
+                                        value.descripcionRecursos;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoTipoCompra)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idTipoCompra;
+                                if (a == value.id) {
+                                    this.seleccionTipoCompra.id = value.id;
+                                    this.seleccionTipoCompra.descripcionTipoCompra =
+                                        value.descripcionTipoCompra;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoLicitaciones)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idLicitacion;
+                                if (a == value.id) {
+                                    this.seleccionLicitaciones.id = value.id;
+                                    this.seleccionLicitaciones.codigoLicitacion =
+                                        value.codigoLicitacion;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoResolucionLlamados)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idResLlamado;
+                                if (a == value.id) {
+                                    this.seleccionResolucionLlamado.id =
+                                        value.id;
+                                    this.seleccionResolucionLlamado.descripcionResLlamados =
+                                        value.descripcionResLlamados;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(
+                                    this.listadoResolucionAdjudicaciones
+                                )
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idResAdjudicacion;
+                                if (a == value.id) {
+                                    this.seleccionResolucionAdjudicaciones.id =
+                                        value.id;
+                                    this.seleccionResolucionAdjudicaciones.descripcionResAdj =
+                                        value.descripcionResAdj;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoResolucionContrato)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idResContrato;
+                                if (a == value.id) {
+                                    this.seleccionResolucionContrato.id =
+                                        value.id;
+                                    this.seleccionResolucionContrato.descripcionResContratos =
+                                        value.descripcionResContratos;
+                                }
+                            });
+
+                            c = JSON.parse(JSON.stringify(this.listadoCDP));
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idCDP;
+                                if (a == value.id) {
+                                    this.seleccionCDP.id = value.id;
+                                    this.seleccionCDP.descripcionCDPS =
+                                        value.descripcionCDPS;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoOrdenCompras)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idOrdenCompra;
+                                if (a == value.id) {
+                                    this.seleccionOrdenCompra.id = value.id;
+                                    this.seleccionOrdenCompra.descripcionOrdenCompras =
+                                        value.descripcionOrdenCompras;
+                                    this.seleccionOrdenCompra.fecha_oc =
+                                        value.fecha_oc;
+                                    this.seleccionOrdenCompra.idEstadoOC =
+                                        value.idEstadoOC;
+                                }
+                            });
+
+                            c = JSON.parse(
+                                JSON.stringify(this.listadoResolucionInterna)
+                            );
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idResInterna;
+                                if (a == value.id) {
+                                    this.seleccionResolucionInterna.id =
+                                        value.id;
+                                    this.seleccionResolucionInterna.descripcionResInternas =
+                                        value.descripcionResInternas;
+                                }
+                            });
+
+                            c = JSON.parse(JSON.stringify(this.listadoMemos));
+                            b = [];
+                            a = 0;
+
+                            c.forEach((value, index) => {
+                                a = arrayData.idMemo;
+                                if (a == value.id) {
+                                    this.seleccionMemo.id = value.id;
+                                    this.seleccionMemo.descripcionMemo =
+                                        value.descripcionMemo;
+                                }
+                            });
+
+                            this.montoART = arrayData.monto;
+                            this.convertirMonto();
+
+                            this.cuotaART = arrayData.cuotas;
+
+                            this.saldoART = arrayData.saldo;
+                            this.convertirSaldo();
+
+                            this.nfacturaART = arrayData.nfactura;
+
+                            this.descripcionART = arrayData.detalleART;
+                        } else {
+                            this.$vs.notify({
+                                time: 3000,
+                                title: "Error",
+                                text: "Datos no encontrados",
+                                color: "warning",
+                                position: "top-right"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } catch (error) {
+                console.log("No hay datos disponibles");
+            }
+        },
+        //Fin Carga Interna
         //Cargas de DATA Externa - Mercado Publico
         cargarAPIByOC() {
             try {
@@ -1903,12 +2167,15 @@ export default {
                             let lista = res1.data;
                             let count = lista.length;
                             if (count > 1) {
-                                console.log(lista);
+                                //console.log(lista);
                             } else {
                                 let list = res2.data;
-                                console.log(list);
+                                //console.log(list);
+                                //Asignar Posible Descripcion
                                 this.descripcionART =
                                     list.Listado[0].Items.Listado[0].EspecificacionProveedor;
+                                //Fin Asignar Posible Descripcion
+                                //Asignar Monto y Cantidad
                                 let monto = list.Listado[0].Total;
                                 let cantidad =
                                     list.Listado[0].Items.Listado[0].Cantidad;
@@ -1925,25 +2192,85 @@ export default {
                                         this.montoData
                                     );
                                 }
-
+                                //Fin Asignar Monto y Cantidad
+                                //Asignar o Crear OC
                                 let idOC = list.Listado[0].Codigo;
                                 let listOC = JSON.parse(
                                     JSON.stringify(this.listadoOrdenCompras)
                                 );
+
+                                let valOC = list.Listado[0].Codigo;
 
                                 listOC.forEach((value, index) => {
                                     if (idOC == value.descripcionOrdenCompras) {
                                         this.seleccionOrdenCompra.id = value.id;
                                         this.seleccionOrdenCompra.descripcionOrdenCompras =
                                             value.descripcionOrdenCompras;
+                                        valOC = 1;
                                     }
                                 });
 
+                                if (valOC == 0) {
+                                    let objeto = {
+                                        descripcionOrdenCompras:
+                                            list.Listado[0].Codigo,
+                                        fecha_oc: new Date(),
+                                        idEstadoOC: 1
+                                    };
+                                    const data = objeto;
+                                    axios
+                                        .post(
+                                            this.localVal + "/api/ART/PostNOC",
+                                            data,
+                                            {
+                                                headers: {
+                                                    Authorization:
+                                                        `Bearer ` +
+                                                        sessionStorage.getItem(
+                                                            "token"
+                                                        )
+                                                }
+                                            }
+                                        )
+                                        .then(res => {
+                                            let respuesta = res.data;
+                                            if (respuesta) {
+                                                this.$vs.notify({
+                                                    time: 3000,
+                                                    title:
+                                                        "Guardado con Exito ",
+                                                    text:
+                                                        "Nuevo 'N° Orden Compra' a sido guardado con exito, se recargara listado de Orden Compras",
+                                                    position: "top-right"
+                                                });
+                                                this.cargarOrdenCompras();
+                                                this.seleccionOrdenCompra.id = respuesta;
+                                                this.seleccionOrdenCompra.descripcionOrdenCompras =
+                                                    list.Listado[0].Codigo;
+                                            } else {
+                                                this.$vs.notify({
+                                                    time: 3000,
+                                                    title: "Error",
+                                                    text:
+                                                        "No fue posible guardar 'N° Orden Compra' Intentelo nuevamente",
+                                                    color: "danger",
+                                                    position: "top-right"
+                                                });
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                        });
+                                }
+                                //Fin Asignar o Crear OC
+                                //Asignar o Agregar nuevo proveedor
                                 let listProv = JSON.parse(
                                     JSON.stringify(this.listadoProveedores)
                                 );
                                 let rutProv =
                                     list.Listado[0].Proveedor.RutSucursal;
+
+                                let valRutP = 0;
                                 listProv.forEach((value, index) => {
                                     if (rutProv == value.rutProveedor) {
                                         this.seleccionProveedores.id = value.id;
@@ -1951,15 +2278,76 @@ export default {
                                             value.rutProveedor;
                                         this.seleccionProveedores.descripcionProveedor =
                                             value.descripcionProveedor;
+                                        valRutP = 1;
                                     }
                                 });
 
+                                if (valRutP == 0) {
+                                    let objeto = {
+                                        rutProveedor:
+                                            list.Listado[0].Proveedor
+                                                .RutSucursal,
+                                        descripcionProveedor:
+                                            list.Listado[0].Proveedor.Nombre
+                                    };
+                                    const data = objeto;
+                                    axios
+                                        .post(
+                                            this.localVal +
+                                                "/api/ART/PostNProveedor",
+                                            data,
+                                            {
+                                                headers: {
+                                                    Authorization:
+                                                        `Bearer ` +
+                                                        sessionStorage.getItem(
+                                                            "token"
+                                                        )
+                                                }
+                                            }
+                                        )
+                                        .then(res => {
+                                            let respuesta = res.data;
+                                            if (respuesta) {
+                                                this.$vs.notify({
+                                                    time: 3000,
+                                                    title:
+                                                        "Guardado con Exito ",
+                                                    text:
+                                                        "Nuevo 'Proveedor' a sido guardado con exito, se recargara listado de Proveedor",
+                                                    position: "top-right"
+                                                });
+                                                this.cargarProveedores();
+                                                this.seleccionProveedores.id = respuesta;
+                                                this.seleccionProveedores.rutProveedor =
+                                                    list.Listado[0].Proveedor.RutSucursal;
+                                                this.seleccionProveedores.descripcionProveedor =
+                                                    list.Listado[0].Proveedor.Nombre;
+                                            } else {
+                                                this.$vs.notify({
+                                                    time: 3000,
+                                                    title: "Error",
+                                                    text:
+                                                        "No fue posible guardar 'Proveedor' Intentelo nuevamente",
+                                                    color: "danger",
+                                                    position: "top-right"
+                                                });
+                                            }
+                                            valRutP = 0;
+                                        })
+                                        .catch(error => {
+                                            console.log(error);
+                                        });
+                                }
+                                //Fin Asignar o Crear Proveedor
+                                //Asignar o Crear Item Presupuestario
                                 let codigoIP = list.Listado[0].Financiamiento;
                                 let listIP = JSON.parse(
                                     JSON.stringify(
                                         this.listadoItemPresupuestario
                                     )
                                 );
+
                                 listIP.forEach((value, index) => {
                                     if (
                                         codigoIP ==
@@ -1973,9 +2361,11 @@ export default {
                                             value.descripcionItemPresupuestario;
                                     }
                                 });
-
+                                //Fin Asignar o Crear Item Presupuestario
+                                //Asignar o Crear Licitacion
                                 let codLic = list.Listado[0].CodigoLicitacion;
                                 let contador = codLic.length;
+                                let valLic = 0;
                                 if (contador > 1) {
                                     let listLic = JSON.parse(
                                         JSON.stringify(this.listadoLicitaciones)
@@ -1986,10 +2376,66 @@ export default {
                                                 value.id;
                                             this.seleccionLicitaciones.codigoLicitacion =
                                                 value.codigoLicitacion;
+                                            valLic = 1;
                                         }
                                     });
+
+                                    if (valLic == 0) {
+                                        let objeto = {
+                                            codigoLicitacion:
+                                                list.Listado[0].CodigoLicitacion
+                                        };
+                                        const data = objeto;
+                                        axios
+                                            .post(
+                                                this.localVal +
+                                                    "/api/ART/PostNLicitacion",
+                                                data,
+                                                {
+                                                    headers: {
+                                                        Authorization:
+                                                            `Bearer ` +
+                                                            sessionStorage.getItem(
+                                                                "token"
+                                                            )
+                                                    }
+                                                }
+                                            )
+                                            .then(res => {
+                                                let respuesta = res.data;
+                                                if (respuesta) {
+                                                    this.$vs.notify({
+                                                        time: 3000,
+                                                        title:
+                                                            "Guardado con Exito ",
+                                                        text:
+                                                            "Nuevo 'N° Licitacion' a sido guardado con exito, se recargara listado de Licitaciones",
+                                                        color: "success",
+                                                        position: "top-right"
+                                                    });
+                                                    this.cargarLicitaciones();
+                                                    this.seleccionLicitaciones.id = respuesta;
+                                                    this.seleccionLicitaciones.codigoLicitacion =
+                                                        list.Listado[0].CodigoLicitacion;
+                                                } else {
+                                                    this.$vs.notify({
+                                                        time: 3000,
+                                                        title: "Error",
+                                                        text:
+                                                            "No fue posible guardar 'N° Licitacion' Intentelo nuevamente",
+                                                        color: "danger",
+                                                        position: "top-right"
+                                                    });
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.log(error);
+                                            });
+                                    }
+
                                     this.cargarByIDLicitacion(codLic);
                                 }
+                                //Fin Asignar o crear Licitacion
                             }
                         })
                     )
@@ -2036,22 +2482,77 @@ export default {
                     )
                     .then(res => {
                         let list = res.data;
+                        //Asignar o Crear Tipo Compra
                         let tipoOC = list.Listado[0].Tipo;
                         let listOC = JSON.parse(
                             JSON.stringify(this.listadoTipoCompra)
                         );
+
+                        let valTipoOC = 0;
                         listOC.forEach((value, index) => {
                             if (tipoOC == value.descripcionTipoCompra) {
                                 this.seleccionTipoCompra.id = value.id;
                                 this.seleccionTipoCompra.descripcionTipoCompra =
                                     value.descripcionTipoCompra;
+                                valTipoOC = 1;
                             }
                         });
 
+                        if (valTipoOC == 0) {
+                            let objeto = {
+                                descripcionTipoCompra: list.Listado[0].Tipo
+                            };
+                            const data = objeto;
+                            axios
+                                .post(
+                                    this.localVal + "/api/ART/PostNTipoCompras",
+                                    data,
+                                    {
+                                        headers: {
+                                            Authorization:
+                                                `Bearer ` +
+                                                sessionStorage.getItem("token")
+                                        }
+                                    }
+                                )
+                                .then(res => {
+                                    let respuesta = res.data;
+                                    if (respuesta) {
+                                        this.$vs.notify({
+                                            time: 3000,
+                                            title: "Guardado con Exito ",
+                                            text:
+                                                "Nuevo 'Tipo Compra' a sido guardado con exito, se recargara listado de Tipo Compra",
+                                            color: "success",
+                                            position: "top-right"
+                                        });
+                                        this.cargarTipoCompra();
+                                        this.seleccionTipoCompra.id = respuesta;
+                                        this.seleccionTipoCompra.descripcionTipoCompra =
+                                            list.Listado[0].Tipo;
+                                    } else {
+                                        this.$vs.notify({
+                                            time: 3000,
+                                            title: "Error",
+                                            text:
+                                                "No fue posible guardar al nuevo 'Tipo Compra' Intentelo nuevamente",
+                                            color: "danger",
+                                            position: "top-right"
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                });
+                        }
+                        //Fin Asignar o Crear Tipo Compra
+                        //Asignar o Crear Resolucion Adjudicaciones
                         let listResAdj = JSON.parse(
                             JSON.stringify(this.listadoResolucionAdjudicaciones)
                         );
                         let nresadj = list.Listado[0].Adjudicacion.Numero;
+
+                        let valResAdj = 0;
 
                         listResAdj.forEach((value, index) => {
                             if (nresadj == value.descripcionResAdj) {
@@ -2059,9 +2560,62 @@ export default {
                                     value.id;
                                 this.seleccionResolucionAdjudicaciones.descripcionResAdj =
                                     value.descripcionResAdj;
+                                valResAdj = 1;
                             }
                         });
 
+                        if (valResAdj == 0) {
+                            let objeto = {
+                                descripcionResAdj:
+                                    list.Listado[0].Adjudicacion.Numero
+                            };
+                            const data = objeto;
+                            axios
+                                .post(
+                                    this.localVal +
+                                        "/api/ART/PostNResolucionAdjudicaciones",
+                                    data,
+                                    {
+                                        headers: {
+                                            Authorization:
+                                                `Bearer ` +
+                                                sessionStorage.getItem("token")
+                                        }
+                                    }
+                                )
+                                .then(res => {
+                                    let respuesta = res.data;
+                                    if (respuesta) {
+                                        this.$vs.notify({
+                                            time: 3000,
+                                            title: "Guardado con Exito ",
+                                            text:
+                                                "Nuevo 'N° Resolucion Adjudicaciones' a sido guardado con exito, se recargara listado de Resolucion Adjudicaciones",
+                                            color: "success",
+                                            position: "top-right"
+                                        });
+                                        this.cargarResolucionAdjudicaciones();
+                                        this.seleccionResolucionAdjudicaciones.id = respuesta;
+                                        this.seleccionResolucionAdjudicaciones.descripcionResAdj =
+                                            list.Listado[0].Adjudicacion.Numero;
+                                    } else {
+                                        this.$vs.notify({
+                                            time: 3000,
+                                            title: "Error",
+                                            text:
+                                                "No fue posible guardar 'N° Resolucion Adjudicaciones' Intentelo nuevamente",
+                                            color: "danger",
+                                            position: "top-right"
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                });
+                        }
+
+                        //Fin Asignar o Crear Resolucion Adjudicaciones
+                        //Asignar Presupuesto si existe
                         let presupuesto =
                             list.Listado[0].Items.Listado[0].Adjudicacion
                                 .MontoUnitario;

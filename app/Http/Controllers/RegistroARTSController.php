@@ -117,6 +117,18 @@ class RegistroARTSController extends Controller
         }
      }
 
+     public function GetPBusquedaByArt(Request $request){
+         try {
+             $get_all = RegistroARTS::select('registroarts.*')
+                        ->where('registroarts.idART',$request->idART)
+                        ->first();
+             return $get_all;
+         } catch (\Throwable $th) {
+             log::info($th);
+             return false;
+         }
+     }
+
      public function MRegistroART(Request $request){
          try {
              RegistroARTS::where('registroarts.idART',$request->idART)

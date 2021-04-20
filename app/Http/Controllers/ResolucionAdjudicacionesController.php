@@ -31,8 +31,8 @@ class ResolucionAdjudicacionesController extends Controller
 
     public function CreateRA(Request $request){
        try {
-           ResolucionAdjudicaciones::create($request->all());
-           return true;
+           $resp = ResolucionAdjudicaciones::create($request->all())->id;
+           return $resp;
        } catch (\Throwable $th) {
            log::info($th);
            return false;

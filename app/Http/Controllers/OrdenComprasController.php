@@ -31,8 +31,8 @@ class OrdenComprasController extends Controller
 
     public function CreateOC(Request $request){
        try {
-           OrdenCompras::create($request->all());
-           return true;
+           $resp = OrdenCompras::create($request->all())->id;
+           return $resp;
        } catch (\Throwable $th) {
            log::info($th);
            return false;
