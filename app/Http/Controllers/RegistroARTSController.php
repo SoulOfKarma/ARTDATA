@@ -22,7 +22,10 @@ class RegistroARTSController extends Controller
 
     public function LRegistroArt(){
         try {
-            $get_all = RegistroARTS::select('registroarts.id','registroarts.idART','registroarts.fechaART','registroarts.fechaFactura',
+            $get_all = RegistroARTS::select('registroarts.id','registroarts.idTipoMantencion',
+                       'registroarts.idART','registroarts.idLicitacion','registroarts.fechaART',
+                       'registroarts.fechaFactura',DB::raw('(CASE WHEN registroarts.idSegART IS NULL THEN registroarts.id
+                       ELSE registroarts.idSegART END) AS idSegART'),
                        'proveedores.rutProveedor','proveedores.descripcionProveedor','solicitantes.descripcionSolicitante',
                        'ejecutores.descripcionEjecutores','item_presupuestarios.codigoItemPresupuestario',
                        'item_presupuestarios.descripcionItemPresupuestario',
@@ -32,7 +35,6 @@ class RegistroARTSController extends Controller
                        'cdps.descripcionCDPS','orden_compras.descripcionOrdenCompras','resolucion_internas.descripcionResInternas',
                        'memos.descripcionMemo','monto','cuotas','saldo','nfactura',DB::RAW("fnStripTags(detalleART) as detalleART"),'uuid',
                        'registroarts.updated_at')
-
                        ->join('proveedores','registroarts.idProveedor','=','proveedores.id')
                        ->join('solicitantes','registroarts.idSolicitante','=','solicitantes.id')
                        ->join('ejecutores','registroarts.idEjecutor','=','ejecutores.id')
@@ -51,8 +53,8 @@ class RegistroARTSController extends Controller
                        ->get();
                         $data = [];
                         foreach($get_all as $e => $req ){       
-                            $data[$e] = ["id" => $req['id'],"idART" => $req['idART'],"fechaART" => $req['fechaART'],"fechaFactura" => $req['fechaFactura'],
-                                "rutProveedor" => $req['rutProveedor'],"descripcionProveedor" => $req['descripcionProveedor'],
+                            $data[$e] = ["id" => $req['id'],'idTipoMantencion' => $req['idTipoMantencion'],"idART" => $req['idART'],"idLicitacion" => $req['idLicitacion'],"fechaART" => $req['fechaART'],"fechaFactura" => $req['fechaFactura'],
+                                "idSegART" => $req['idSegART'],"rutProveedor" => $req['rutProveedor'],"descripcionProveedor" => $req['descripcionProveedor'],
                                 "descripcionSolicitante" => $req['descripcionSolicitante'],"descripcionEjecutores" => $req['descripcionEjecutores'],
                                 "codigoItemPresupuestario" => $req['codigoItemPresupuestario'],"descripcionItemPresupuestario" => $req['descripcionItemPresupuestario'],
                                 "descripcionTipoMantencion" => $req['descripcionTipoMantencion'],"descripcionRecursos" => $req['descripcionRecursos'],
@@ -70,6 +72,25 @@ class RegistroARTSController extends Controller
             log::info($th);
         }
      }
+
+     public function GetListadoOCByTMO(Request $request){
+        try {
+           $get_all = RegistroARTS::select('registroarts.id','registroarts.monto',
+           'registroarts.saldo','registroarts.idSegART',
+            DB::RAW('(registroarts.vpresupuesto - registroarts.saldo) AS totaloc')
+            ,DB::RAW('MAX(registroarts.id) AS idfinal')
+            )
+           ->Where('registroarts.id',$request->id)
+           ->orwhere('registroarts.idSegART', $request->idSegART)
+           ->where('registroarts.idTipoMantencion',$request->idTipoMantencion)
+           ->groupBy('registroarts.id')
+           ->orderBy('registroarts.id', 'desc')
+           ->first();
+           return $get_all;
+        } catch (\Throwable $th) {
+            log::info($th);
+        }
+    }
 
     public function DataByOC($id){
        try {
@@ -148,6 +169,43 @@ class RegistroARTSController extends Controller
          }
      }
 
+     public function GetConGastoART($id){
+        try {
+            $get_all = RegistroARTS::select('registroarts.id','registroarts.idTipoMantencion','registroarts.saldo',
+                        'registroarts.ntotalcuotas','registroarts.vpresupuesto','orden_compras.descripcionOrdenCompras',
+                        'registroarts.fechaART','estados.descripcionEstado','registroarts.nfactura',
+                        'registroarts.fechaFactura','registroarts.idART','registroarts.cuotas',
+                        'registroarts.monto',DB::RAW("fnStripTags(detalleART) as detalleART"))
+                        ->join('orden_compras','registroARTS.idOrdenCompra','=','orden_compras.id')
+                        ->join('estados','registroarts.idEstado','=','estados.id')
+                        ->where('registroarts.id',$id)
+                        ->get();
+            return $get_all;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
+     }
+
+     public function GetConGastoARTByLicitacion($id){
+        try {
+            $get_all = RegistroARTS::select('registroarts.id','registroarts.idTipoMantencion','registroarts.saldo',
+                        'registroarts.ntotalcuotas','registroarts.vpresupuesto','orden_compras.descripcionOrdenCompras',
+                        'registroarts.fechaART','estados.descripcionEstado','registroarts.nfactura','registroarts.fechaFactura',
+                        'registroarts.idART','registroarts.cuotas','registroarts.monto',
+                        DB::RAW("fnStripTags(detalleART) as detalleART"),'licitaciones.codigoLicitacion')
+                        ->join('orden_compras','registroARTS.idOrdenCompra','=','orden_compras.id')
+                        ->join('estados','registroarts.idEstado','=','estados.id')
+                        ->join('licitaciones','registroarts.idLicitacion','=','licitaciones.id')
+                        ->where('registroarts.idLicitacion',$id)
+                        ->get();
+            return $get_all;
+        } catch (\Throwable $th) {
+            log::info($th);
+            return false;
+        }
+     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -173,6 +231,16 @@ class RegistroARTSController extends Controller
             log::info($th);
             return false;
         }
+    }
+
+    public function RegistroARTAsoc(Request $request){
+      try {
+          RegistroARTS::create($request->all());
+          return true;
+      } catch (\Throwable $th) {
+          log::info($th);
+          return false;
+      }
     }
 
     /**

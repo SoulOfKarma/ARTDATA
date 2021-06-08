@@ -42,6 +42,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('/ART/GetDataByOC/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@DataByOC']);
     Route::get('/ART/GetRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@LRegistroArt']);
     Route::get('/ART/GetARTDataByID/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@ARTDataByID']);
+    Route::get('/ART/GetConGastoART/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@GetConGastoART']);
+    Route::get('/ART/GetConGastoARTByLicitacion/{id}', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@GetConGastoARTByLicitacion']);
+    
     
     //Posts 
     Route::post('/ART/PostNSolicitante', ['middleware' => 'cors', 'uses' => 'SolicitantesController@CreateSolicitante']);
@@ -60,9 +63,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/ART/PostNMemo', ['middleware' => 'cors', 'uses' => 'MemosController@CreateMemo']);
     Route::post('/ART/PostNProveedor', ['middleware' => 'cors', 'uses' => 'ProveedoresController@CreateProveedor']);
     Route::post('/ART/PostRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@store']);
+    Route::post('/ART/PostRegistroARTAsoc', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@RegistroARTAsoc']);
 
     //Get como Post
     Route::post('/ART/GetPBusquedaByArt', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@GetPBusquedaByArt']);
+    Route::post('/ART/GetListadoOCByTMO', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@GetListadoOCByTMO']);
 
     //Put como Post
     Route::post('/ART/PutRegistroART', ['middleware' => 'cors', 'uses' => 'RegistroARTSController@MRegistroART']);

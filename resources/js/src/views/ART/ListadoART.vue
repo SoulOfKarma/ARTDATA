@@ -26,6 +26,18 @@
                             <info-icon
                                 size="1.5x"
                                 class="custom-class"
+                                @click="
+                                    ControlGArt(
+                                        props.row.id,
+                                        props.row.idLicitacion,
+                                        props.row.idSegART,
+                                        props.row.idTipoMantencion
+                                    )
+                                "
+                            ></info-icon>
+                            <info-icon
+                                size="1.5x"
+                                class="custom-class"
                                 @click="informacionART(props.row.id)"
                             ></info-icon>
                             <trash-2-icon
@@ -190,6 +202,35 @@ export default {
                 });
             } catch (error) {
                 console.log("Hubo un error al tratar de dirigirse al sitio");
+            }
+        },
+        //Funciones
+        ControlGArt(id, idLic, idSegART, idTipoMantencion) {
+            try {
+                if (idSegART === null) {
+                    this.$router.push({
+                        name: "ControlGastoART",
+                        params: {
+                            id: `${id}`,
+                            idLic: `${idLic}`,
+                            idSegART: `${id}`,
+                            idTipoMantencion: `${idTipoMantencion}`
+                        }
+                    });
+                } else {
+                    this.$router.push({
+                        name: "ControlGastoART",
+                        params: {
+                            id: `${id}`,
+                            idLic: `${idLic}`,
+                            idSegART: `${idSegART}`,
+                            idTipoMantencion: `${idTipoMantencion}`
+                        }
+                    });
+                }
+            } catch (error) {
+                console.log("Hubo un error al tratar de dirigirse al sitio");
+                console.log(error);
             }
         },
         quitarItem(id) {

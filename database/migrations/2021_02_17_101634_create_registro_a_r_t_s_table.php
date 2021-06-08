@@ -16,6 +16,7 @@ class CreateRegistroARTSTable extends Migration
         Schema::create('registroARTS', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('idART');
+            $table->bigInteger('idSegART')->nullable();
             $table->date('fechaART');
             $table->date('fechaFactura');
             $table->bigInteger('idProveedor')->unsigned()->nullable();
@@ -47,7 +48,9 @@ class CreateRegistroARTSTable extends Migration
             $table->bigInteger('idResInterna')->nullable();
             $table->bigInteger('idMemo')->unsigned()->nullable();
             $table->foreign('idMemo')->references('id')->on('memos');
+            $table->bigInteger('vpresupuesto')->nullable();
             $table->bigInteger('monto');
+            $table->bigInteger('ntotalcuotas')->nullable();
             $table->bigInteger('cuotas');
             $table->bigInteger('saldo');
             $table->uuid('uuid');

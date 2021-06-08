@@ -30,6 +30,24 @@
             <br />
             <vx-card title="">
                 <div class="vx-row mb-4">
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>Nuevo ART o Asociar a ART Existente</h6>
+                        <br />
+                        <v-select
+                            class="w-full select-large"
+                            label="descripcionNorAsigART"
+                            v-model="seleccionNorAsoc"
+                            :options="listadoNOrAsocART"
+                            taggable
+                            @input="cargarBotonByNorAsoc(seleccionNorAsoc.id)"
+                        ></v-select>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>N° ART a Asociar:</h6>
+                        <br />
+                        <vs-input class="inputx w-full" v-model="idSegART">
+                        </vs-input>
+                    </div>
                     <div class="vx-col w-1/3 mt-5">
                         <h6>N° ART:</h6>
                         <br />
@@ -58,6 +76,7 @@
                             class="w-full"
                         />
                     </div>
+
                     <div class="vx-col w-1/2 mt-5">
                         <h6>Rut Proveedor</h6>
                         <br />
@@ -251,6 +270,38 @@
                         ></v-select>
                     </div>
                     <div class="vx-col w-1/2 mt-5">
+                        <h6>N° Cuota:</h6>
+                        <br />
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="cuotaART"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>N° Total Cuotas:</h6>
+                        <br />
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="ntotalcuotas"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
+                        <h6>Presupuesto:</h6>
+                        <br />
+                        <vs-input
+                            class="inputx w-full"
+                            v-model="presupuestoART"
+                            @blur="convertirPresupuesto"
+                            @focus="retornarPresupuesto"
+                            @keypress="isNumber($event)"
+                        >
+                        </vs-input>
+                    </div>
+                    <div class="vx-col w-1/2 mt-5">
                         <h6>Monto:</h6>
                         <br />
                         <vs-input
@@ -258,16 +309,6 @@
                             v-model="montoART"
                             @blur="convertirMonto"
                             @focus="retornarMonto"
-                            @keypress="isNumber($event)"
-                        >
-                        </vs-input>
-                    </div>
-                    <div class="vx-col w-1/2 mt-5">
-                        <h6>N° Cuota:</h6>
-                        <br />
-                        <vs-input
-                            class="inputx w-full"
-                            v-model="cuotaART"
                             @keypress="isNumber($event)"
                         >
                         </vs-input>
@@ -316,9 +357,26 @@
                             class="fixedHeight w-full"
                             color="success"
                             @click="popART"
-                            >Guardar</vs-button
+                            v-show="valN"
+                            >Guardar Nuevo ART</vs-button
+                        >
+                        <vs-button
+                            class="fixedHeight w-full"
+                            color="success"
+                            @click="popARTAsoc"
+                            v-show="valAsoc"
+                            >Guardar ART Asociado</vs-button
                         >
                     </div>
+                    <!-- <div class="vx-col w-1/2 mt-5">
+                        <vs-button
+                            class="fixedHeight w-full"
+                            color="success"
+                            @click="popART"
+                            v-show="valAsoc"
+                            >Guardar2</vs-button
+                        >
+                    </div> -->
                 </div>
             </vx-card>
         </div>
@@ -973,6 +1031,10 @@ export default {
                 enableSeconds: true,
                 noCalendar: false
             },
+            listadoNOrAsocART: [
+                { id: 1, descripcionNorAsigART: "Nuevo" },
+                { id: 2, descripcionNorAsigART: "Asociar" }
+            ],
             listadoCDP: [],
             listadoEjecutores: [],
             listadoItemPresupuestario: [],
@@ -989,6 +1051,10 @@ export default {
             listadoSolicitantes: [],
             listadoTipoCompra: [],
             listadoTipoMantencion: [],
+            seleccionNorAsoc: {
+                id: 1,
+                descripcionNorAsigART: "Nuevo"
+            },
             seleccionCDP: {
                 id: 0,
                 descripcionCDPS: ""
@@ -1063,6 +1129,7 @@ export default {
                 id: 0,
                 descripcionTipoMantencion: ""
             },
+            idSegART: 0,
             idART: 0,
             idARTBusqueda: "",
             descripcionART: "",
@@ -1071,7 +1138,12 @@ export default {
             cuotaART: 0,
             saldoART: 0,
             saldoData: 0,
+            presupuestoART: 0,
+            presupuestoARTData: 0,
+            ntotalcuotas: 0,
             nfacturaART: 0,
+            valN: true,
+            valAsoc: false,
             desSolicitante: "",
             desEjecutor: "",
             codIP: "",
@@ -1464,6 +1536,18 @@ export default {
                         position: "top-right"
                     });
                 } else if (
+                    this.seleccionNorAsoc.id == 2 ||
+                    this.seleccionNorAsoc.id == null ||
+                    this.seleccionNorAsoc.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text: "Seleccion de ART debe ser Nuevo no Asociado",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
                     this.seleccionEjecutor.id == 0 ||
                     this.seleccionEjecutor.id == null ||
                     this.seleccionEjecutor.id == ""
@@ -1642,6 +1726,7 @@ export default {
                         idEjecutor: this.seleccionEjecutor.id,
                         idItemPresupuestario: this.seleccionItemPresupuestario
                             .id,
+                        idSegART: 0,
                         idTipoMantencion: this.seleccionTipoMantencion.id,
                         idRecurso: this.seleccionRecursos.id,
                         idTipoCompra: this.seleccionTipoCompra.id,
@@ -1660,7 +1745,10 @@ export default {
                         uuid: uuid.v1(),
                         nfactura: this.nfacturaART,
                         detalleART: this.descripcionART,
-                        idEstado: this.seleccionEstado.id
+                        idEstado: this.seleccionEstado.id,
+                        vpresupuesto: this.presupuestoARTData,
+                        ntotalcuotas: this.ntotalcuotas,
+                        idSegART: 0
                     };
                     const data = objeto;
                     axios
@@ -1706,8 +1794,296 @@ export default {
                 console.log(error);
             }
         },
+        popARTAsoc() {
+            try {
+                if (
+                    this.seleccionSolicitantes.id == 0 ||
+                    this.seleccionSolicitantes.id == null ||
+                    this.seleccionSolicitantes.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Solicitante no Seleccionado, Seleccione algun Solicitante para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionNorAsoc.id == 1 ||
+                    this.seleccionNorAsoc.id == null ||
+                    this.seleccionNorAsoc.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text: "Seleccion de ART debe ser Nuevo no Asociado",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionEjecutor.id == 0 ||
+                    this.seleccionEjecutor.id == null ||
+                    this.seleccionEjecutor.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Ejecutor no Seleccionado, Seleccione algun Ejecutor para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionItemPresupuestario.id == 0 ||
+                    this.seleccionItemPresupuestario.id == null ||
+                    this.seleccionItemPresupuestario.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Item Presupuestario no Seleccionado, Seleccione algun Item Presupuestario para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionTipoMantencion.id == 0 ||
+                    this.seleccionTipoMantencion.id == null ||
+                    this.seleccionTipoMantencion.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Tipo Mantencion no Seleccionado, Seleccione algun Tipo Mantencion para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionRecursos.id == 0 ||
+                    this.seleccionRecursos.id == null ||
+                    this.seleccionRecursos.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Recursos no Seleccionado, Seleccione algun Recursos para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionTipoCompra.id == 0 ||
+                    this.seleccionTipoCompra.id == null ||
+                    this.seleccionTipoCompra.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Tipo Compra no Seleccionado, Seleccione algun Tipo Compra para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionLicitaciones.id == 0 ||
+                    this.seleccionLicitaciones.id == null ||
+                    this.seleccionLicitaciones.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Licitacion no Seleccionada, Seleccione alguna Licitacion para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionLlamado.id == 0 ||
+                    this.seleccionResolucionLlamado.id == null ||
+                    this.seleccionResolucionLlamado.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Llamado no Seleccionada, Seleccione algun N° Resolucion Llamado para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionAdjudicaciones.id == 0 ||
+                    this.seleccionResolucionAdjudicaciones.id == null ||
+                    this.seleccionResolucionAdjudicaciones.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Adjudicaciones no Seleccionada, Seleccione algun N° Resolucion Adjudicaciones para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionResolucionContrato.id == 0 ||
+                    this.seleccionResolucionContrato.id == null ||
+                    this.seleccionResolucionContrato.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Resolucion Contrato no Seleccionado, Seleccione algun N° Resolucion Contrato para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionCDP.id == 0 ||
+                    this.seleccionCDP.id == null ||
+                    this.seleccionCDP.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° CDP no Seleccionado, Seleccione algun N° CDP para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionOrdenCompra.id == 0 ||
+                    this.seleccionOrdenCompra.id == null ||
+                    this.seleccionOrdenCompra.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Orden Compra no Seleccionada, Seleccione algun N° Orden Compra para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionMemo.id == 0 ||
+                    this.seleccionMemo.id == null ||
+                    this.seleccionMemo.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "N° Memo no Seleccionado, Seleccione algun N° Memo para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else if (
+                    this.seleccionProveedores.id == 0 ||
+                    this.seleccionProveedores.id == null ||
+                    this.seleccionProveedores.id == ""
+                ) {
+                    this.$vs.notify({
+                        time: 3000,
+                        title: "Error ",
+                        text:
+                            "Rut proveedor no seleccionado, Seleccione algun Rut proveedor para Continuar",
+                        color: "danger",
+                        position: "top-right"
+                    });
+                } else {
+                    let objeto = {
+                        idART: this.idART,
+                        fechaART: this.fechaART,
+                        fechaFactura: this.fechaFactura,
+                        idProveedor: this.seleccionProveedores.id,
+                        idSolicitante: this.seleccionSolicitantes.id,
+                        idEjecutor: this.seleccionEjecutor.id,
+                        idItemPresupuestario: this.seleccionItemPresupuestario
+                            .id,
+                        idSegART: 0,
+                        idTipoMantencion: this.seleccionTipoMantencion.id,
+                        idRecurso: this.seleccionRecursos.id,
+                        idTipoCompra: this.seleccionTipoCompra.id,
+                        idLicitacion: this.seleccionLicitaciones.id,
+                        idResLlamado: this.seleccionResolucionLlamado.id,
+                        idResAdjudicacion: this
+                            .seleccionResolucionAdjudicaciones.id,
+                        idResContrato: this.seleccionResolucionContrato.id,
+                        idCDP: this.seleccionCDP.id,
+                        idOrdenCompra: this.seleccionOrdenCompra.id,
+                        idResInterna: this.seleccionResolucionInterna.id,
+                        idMemo: this.seleccionMemo.id,
+                        monto: this.montoData,
+                        cuotas: this.cuotaART,
+                        saldo: this.saldoData,
+                        uuid: uuid.v1(),
+                        nfactura: this.nfacturaART,
+                        detalleART: this.descripcionART,
+                        idEstado: this.seleccionEstado.id,
+                        vpresupuesto: this.presupuestoARTData,
+                        ntotalcuotas: this.ntotalcuotas,
+                        idSegART: this.idSegART
+                    };
+                    const data = objeto;
+                    console.log(objeto);
+                    axios
+                        .post(
+                            this.localVal + "/api/ART/PostRegistroARTAsoc",
+                            data,
+                            {
+                                headers: {
+                                    Authorization:
+                                        `Bearer ` +
+                                        sessionStorage.getItem("token")
+                                }
+                            }
+                        )
+                        .then(res => {
+                            let respuesta = res.data;
+                            if (respuesta == true) {
+                                this.$vs.notify({
+                                    time: 3000,
+                                    title: "Guardado con Exito ",
+                                    text:
+                                        "Nuevo Registro de ART Guardado, Podra ser visualizado en el listado de ART",
+                                    color: "success",
+                                    position: "top-right"
+                                });
+                                this.limpiar();
+                            } else {
+                                this.$vs.notify({
+                                    time: 3000,
+                                    title: "Error",
+                                    text:
+                                        "No fue posible guardar el nuevo registro de ART, Intentelo nuevamente",
+                                    color: "danger",
+                                    position: "top-right"
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
         //Fin Apertura de Pops
         //Metodos Reusables
+        cargarBotonByNorAsoc(id) {
+            try {
+                if (id == 2) {
+                    this.valAsoc = true;
+                    this.valN = false;
+                } else {
+                    this.valN = true;
+                    this.valAsoc = false;
+                }
+            } catch (error) {
+                console.log("Error al cargar datos");
+            }
+        },
         isNumber: function(evt) {
             evt = evt ? evt : window.event;
             var charCode = evt.which ? evt.which : evt.keyCode;
@@ -1819,6 +2195,27 @@ export default {
                 console.log(error);
             }
         },
+        convertirPresupuesto() {
+            try {
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
+
+                this.presupuestoARTData = this.presupuestoART;
+                this.presupuestoART = formatter.format(this.presupuestoARTData);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        retornarPresupuesto() {
+            try {
+                this.presupuestoART = this.presupuestoARTData;
+            } catch (error) {
+                console.log(error);
+            }
+        },
         convertirSaldo() {
             try {
                 const formatter = new Intl.NumberFormat("en-US", {
@@ -1860,7 +2257,7 @@ export default {
                             this.fechaART = arrayData.fechaART;
 
                             this.fechaFactura = arrayData.fechaFactura;
-
+                            this.idSegART = arrayData.idSegART;
                             this.idART = arrayData.idART;
                             let c = JSON.parse(
                                 JSON.stringify(this.listadoProveedores)
@@ -2096,7 +2493,7 @@ export default {
                                         value.descripcionMemo;
                                 }
                             });
-
+                            //asdf
                             this.montoART = arrayData.monto;
                             this.convertirMonto();
 
@@ -2104,6 +2501,20 @@ export default {
 
                             this.saldoART = arrayData.saldo;
                             this.convertirSaldo();
+
+                            this.presupuestoART = arrayData.vpresupuesto;
+                            this.convertirPresupuesto();
+
+                            this.ntotalcuotas = arrayData.ntotalcuotas;
+
+                            if (
+                                arrayData.idSegART === null ||
+                                arrayData.idSegART === undefined
+                            ) {
+                                this.idSegART = 0;
+                            } else {
+                                this.idSegART = arrayData.idSegART;
+                            }
 
                             this.nfacturaART = arrayData.nfactura;
 

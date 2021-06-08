@@ -53,6 +53,11 @@ const router = new Router({
                     path: "/ModificarART",
                     name: "ModificarART",
                     component: () => import("./views/ART/ModificarART.vue")
+                },
+                {
+                    path: "/ControlGastoART",
+                    name: "ControlGastoART",
+                    component: () => import("./views/ART/ControlGastoART.vue")
                 }
             ]
         },

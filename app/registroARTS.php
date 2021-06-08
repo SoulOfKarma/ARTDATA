@@ -32,6 +32,10 @@ class registroARTS extends Model
         'monto','cuotas','saldo',
         'uuid',
         'nfactura',
-        'detalleART'
+        'detalleART',
+        'vpresupuesto',
+        'ntotalcuotas',
+        'idSegART',
+        'idEstado'
     ];
 }
