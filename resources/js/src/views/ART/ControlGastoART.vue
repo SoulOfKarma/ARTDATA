@@ -261,31 +261,44 @@ export default {
             try {
                 let idTM = this.seleccionTipoMantencion.id;
                 let list = JSON.parse(JSON.stringify(this.listadoARTData));
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
                 let b = [];
                 let a = 0;
+                let idSeg = 0;
                 list.forEach((value, index) => {
                     a = idTM;
                     if (a == value.idTipoMantencion) {
+                        idSeg = value.id;
+                        value.monto = formatter.format(value.monto);
                         b.push(value);
                     }
                 });
+                //console.log(b.slice().reverse());
                 this.listadoART = b;
 
+                list = JSON.parse(JSON.stringify(this.listadoARTData));
                 b = [];
                 a = 0;
+
                 list.forEach((value, index) => {
                     a = idTM;
-                    if (a == value.idTipoMantencion) {
+                    if (idSeg == value.id) {
                         let objeto = {
                             id: value.id,
-                            montoTotal: value.monto,
-                            totalOC: value.vpresupuesto - value.saldo,
-                            saldoD: value.saldo
+                            monto: formatter.format(value.monto),
+                            totaloc: formatter.format(
+                                value.vpresupuesto - value.saldo
+                            ),
+                            saldo: formatter.format(value.saldo)
                         };
                         b.push(objeto);
                     }
                 });
-                this.listadoTotalART = b;
+                this.listadoTotalART = b.slice().reverse();
             } catch (error) {
                 console.log("Error al Filtrar datos");
             }
@@ -320,6 +333,11 @@ export default {
             try {
                 let id = this.$route.params.id;
                 let idLic = this.$route.params.idLic;
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
                 if (idLic == null || idLic == 0 || idLic == 1 || idLic == "") {
                     axios
                         .get(this.localVal + `/api/ART/GetConGastoART/${id}`, {
@@ -332,10 +350,17 @@ export default {
                             let data = res.data;
                             this.dataTM = data[0].detalleART;
                             this.dataLic = data[0].descripcionOrdenCompras;
-                            this.listadoART = JSON.parse(JSON.stringify(data));
+                            let list = JSON.parse(JSON.stringify(data));
                             this.listadoARTData = JSON.parse(
                                 JSON.stringify(data)
                             );
+                            let b = [];
+                            list.forEach((value, index) => {
+                                value.monto = formatter.format(value.monto);
+                                b.push(value);
+                            });
+
+                            this.listadoART = b;
                         });
                 } else {
                     axios
@@ -354,10 +379,18 @@ export default {
                             let data = res.data;
                             this.dataTM = data[0].detalleART;
                             this.dataLic = data[0].codigoLicitacion;
-                            this.listadoART = JSON.parse(JSON.stringify(data));
+                            let list = JSON.parse(JSON.stringify(data));
                             this.listadoARTData = JSON.parse(
                                 JSON.stringify(data)
                             );
+
+                            let b = [];
+                            list.forEach((value, index) => {
+                                value.monto = formatter.format(value.monto);
+                                b.push(value);
+                            });
+
+                            this.listadoART = b;
                         });
                 }
             } catch (error) {
@@ -394,6 +427,11 @@ export default {
                     idTipoMantencion: idTipoMantencion,
                     idSegART: idSegART
                 };
+                const formatter = new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0
+                });
                 axios
                     .post(this.localVal + "/api/ART/GetListadoOCByTMO", obj, {
                         headers: {
@@ -403,6 +441,9 @@ export default {
                     })
                     .then(res => {
                         let list = JSON.parse(JSON.stringify(res.data));
+                        list.monto = formatter.format(list.monto);
+                        list.saldo = formatter.format(list.saldo);
+                        list.totaloc = formatter.format(list.totaloc);
                         let c = [list];
                         this.listadoTotalART = c;
                     });

@@ -35,11 +35,11 @@
                                     )
                                 "
                             ></info-icon>
-                            <info-icon
+                            <upload-icon
                                 size="1.5x"
                                 class="custom-class"
                                 @click="informacionART(props.row.id)"
-                            ></info-icon>
+                            ></upload-icon>
                             <trash-2-icon
                                 size="1.5x"
                                 class="custom-class"
@@ -250,7 +250,19 @@ export default {
                         }
                     })
                     .then(res => {
-                        this.listadoART = res.data;
+                        let c = JSON.parse(JSON.stringify(res.data));
+                        let b = [];
+                        const formatter = new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 0
+                        });
+
+                        c.forEach((value, index) => {
+                            value.monto = formatter.format(value.monto);
+                            b.push(value);
+                        });
+                        this.listadoART = b;
                     });
             } catch (error) {
                 console.log(error);

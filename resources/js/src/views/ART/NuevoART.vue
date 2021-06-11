@@ -1747,8 +1747,7 @@ export default {
                         detalleART: this.descripcionART,
                         idEstado: this.seleccionEstado.id,
                         vpresupuesto: this.presupuestoARTData,
-                        ntotalcuotas: this.ntotalcuotas,
-                        idSegART: 0
+                        ntotalcuotas: this.ntotalcuotas
                     };
                     const data = objeto;
                     axios
