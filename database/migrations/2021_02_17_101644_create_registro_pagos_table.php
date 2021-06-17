@@ -11,7 +11,7 @@ class CreateRegistroPagosTable extends Migration
      *
      * @return void
      */
-    public function up()
+   /*  public function up()
     {
         Schema::create('registro_pagos', function (Blueprint $table) {
             $table->id();
@@ -25,7 +25,7 @@ class CreateRegistroPagosTable extends Migration
             $table->uuid('uuid');
             $table->timestamps();
         });
-    }
+    } */
 
     /**
      * Reverse the migrations.

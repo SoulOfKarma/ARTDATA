@@ -40,6 +40,16 @@
                                 class="custom-class"
                                 @click="informacionART(props.row.id)"
                             ></upload-icon>
+                            <plus-circle-icon
+                                size="1.5x"
+                                class="custom-class"
+                                @click="agregarNuevoDocumento(props.row.idART)"
+                            ></plus-circle-icon>
+                            <info-icon
+                                size="1.5x"
+                                class="custom-class"
+                                @click="informacionGeneral(props.row.idART)"
+                            ></info-icon>
                             <trash-2-icon
                                 size="1.5x"
                                 class="custom-class"
@@ -54,6 +64,173 @@
                     </template>
                 </vue-good-table>
             </vx-card>
+            <vs-popup
+                classContent="popGuardarDoc"
+                title="Subir Documento"
+                :active.sync="popGuardarDoc"
+            >
+                <div class="vx-col md:w-1/1 w-full mb-base">
+                    <div class="vx-row">
+                        <div class="vx-col sm:w-full w-full ">
+                            <vx-card>
+                                <div class="vx-row mb-12">
+                                    <div class="vx-col w-full mt-5">
+                                        <vs-input
+                                            type="file"
+                                            @change="getImage"
+                                            class="form-control w-full"
+                                        />
+                                    </div>
+                                </div>
+                            </vx-card>
+                            <br />
+                            <vx-card>
+                                <div class="vx-col sm:w-full w-full ">
+                                    <vs-button
+                                        color="danger"
+                                        type="filled"
+                                        class="w-full"
+                                        @click="uploadImage"
+                                        >Guardar Documento</vs-button
+                                    >
+                                </div>
+                                <br />
+                                <div class="vx-col sm:w-full w-full ">
+                                    <vs-button
+                                        @click="popGuardarDoc = false"
+                                        color="primary"
+                                        class="w-full"
+                                        type="filled"
+                                        >Volver</vs-button
+                                    >
+                                </div>
+                            </vx-card>
+                        </div>
+                    </div>
+                </div>
+            </vs-popup>
+            <vs-popup
+                classContent="popVerDoc"
+                title="Ver Documentos"
+                :active.sync="popVerDoc"
+            >
+                <div class="vx-col md:w-1/1 w-full mb-base">
+                    <div class="vx-row">
+                        <div class="vx-col sm:w-full w-full ">
+                            <vx-card>
+                                <vue-good-table
+                                    :columns="col"
+                                    :rows="listadoRegistroDocumentos"
+                                    :search-options="{
+                                        enabled: true
+                                    }"
+                                    :pagination-options="{
+                                        enabled: true,
+                                        perPage: pageLength
+                                    }"
+                                >
+                                    <template
+                                        slot="table-row"
+                                        slot-scope="props"
+                                    >
+                                        <!-- Column: Name -->
+                                        <span
+                                            v-if="
+                                                props.column.field ===
+                                                    'fullName'
+                                            "
+                                            class="text-nowrap"
+                                        >
+                                        </span>
+
+                                        <!-- Column: Action -->
+                                        <span
+                                            v-else-if="
+                                                props.column.field === 'action'
+                                            "
+                                        >
+                                            <plus-circle-icon
+                                                size="1.5x"
+                                                class="custom-class"
+                                                @click="
+                                                    verDoc(
+                                                        props.row
+                                                            .nombreDocumento
+                                                    )
+                                                "
+                                            ></plus-circle-icon>
+                                            <trash-2-icon
+                                                size="1.5x"
+                                                class="custom-class"
+                                                @click="
+                                                    popConfirmacionEliminacionDocumento(
+                                                        props.row.id
+                                                    )
+                                                "
+                                            ></trash-2-icon>
+                                        </span>
+
+                                        <!-- Column: Common -->
+                                        <span v-else>
+                                            {{
+                                                props.formattedRow[
+                                                    props.column.field
+                                                ]
+                                            }}
+                                        </span>
+                                    </template>
+                                </vue-good-table>
+                            </vx-card>
+                            <br />
+                            <vx-card>
+                                <div class="vx-col sm:w-full w-full ">
+                                    <vs-button
+                                        @click="popVerDoc = false"
+                                        color="primary"
+                                        class="w-full"
+                                        type="filled"
+                                        >Volver</vs-button
+                                    >
+                                </div>
+                            </vx-card>
+                        </div>
+                    </div>
+                </div>
+            </vs-popup>
+            <vs-popup
+                classContent="popDeleteDoc"
+                title="Realmente desea eliminar este documento?"
+                :active.sync="popDeleteDoc"
+            >
+                <div class="vx-col w-full mb-base">
+                    <div class="vx-row mb-4">
+                        <vx-card title="">
+                            <div class="vx-row mb-4">
+                                <div class="vx-col w-1/2 mt-5">
+                                    <vs-button
+                                        class="w-full"
+                                        color="primary"
+                                        @click="
+                                            (popDeleteDoc = false),
+                                                (popVerDoc = true)
+                                        "
+                                        >Volver</vs-button
+                                    >
+                                </div>
+                                <br />
+                                <div class="vx-col w-1/2 mt-5">
+                                    <vs-button
+                                        class="w-full"
+                                        color="warning"
+                                        @click="deleteDocumento()"
+                                        >Eliminar Documento</vs-button
+                                    >
+                                </div>
+                            </div>
+                        </vx-card>
+                    </div>
+                </div>
+            </vs-popup>
         </div>
     </vs-row>
 </template>
@@ -105,8 +282,16 @@ export default {
             pageLength: 10,
             dir: false,
             searchTerm: "",
+            popGuardarDoc: false,
+            popVerDoc: false,
+            popDeleteDoc: false,
             fileName: "",
+            image: "",
+            idART: 0,
+            idDelDoc: 0,
+            desDoc: "",
             listadoART: [],
+            listadoRegistroDocumentos: [],
             editorOption: {
                 modules: {
                     toolbar: [
@@ -185,9 +370,30 @@ export default {
                     field: "action"
                 }
             ],
+            col: [
+                {
+                    label: "ID",
+                    field: "id",
+                    type: "number"
+                },
+                {
+                    label: "ID ART",
+                    field: "idART",
+                    type: "number"
+                },
+                {
+                    label: "Descripcion Documento",
+                    field: "descripcionDocumento"
+                },
+                {
+                    label: "Documentos",
+                    field: "action"
+                }
+            ],
             popModificarART: false,
             CconfirmarModificar: false,
-            localVal: process.env.MIX_APP_URL
+            localVal: process.env.MIX_APP_URL,
+            urlDocumentos: process.env.MIX_APP_URL_DOCUMENTOS
         };
     },
     methods: {
@@ -203,6 +409,19 @@ export default {
             } catch (error) {
                 console.log("Hubo un error al tratar de dirigirse al sitio");
             }
+        },
+        agregarNuevoDocumento(id) {
+            this.popGuardarDoc = true;
+            this.idART = id;
+        },
+        verDoc(doc) {
+            const url = this.urlDocumentos + doc;
+            window.open(url, "_blank");
+        },
+        popConfirmacionEliminacionDocumento(id) {
+            this.popDeleteDoc = true;
+            this.popVerDoc = false;
+            this.idDelDoc = id;
         },
         //Funciones
         ControlGArt(id, idLic, idSegART, idTipoMantencion) {
@@ -239,6 +458,112 @@ export default {
                 console.log("Hubo un error al capturar el dato");
             }
         },
+        getImage(event) {
+            //Asignamos la imagen a  nuestra data
+            this.image = event.target.files[0];
+            this.desDoc = this.image.name;
+        },
+        uploadImage() {
+            //Creamos el formData
+            var data = new FormData();
+            //Añadimos la imagen seleccionada
+            data.append("avatar", this.image);
+            data.append("id", this.idART);
+            data.append("nombreDoc", this.desDoc);
+            axios
+                .post(this.localVal + "/api/ART/PostDocumentoF", data, {
+                    headers: {
+                        Authorization:
+                            `Bearer ` + sessionStorage.getItem("token")
+                    }
+                })
+                .then(response => {
+                    let resp = response.data;
+                    if (resp == true) {
+                        this.$vs.notify({
+                            title: "Documento Guardado ",
+                            text:
+                                "Podra Visualizarlo en el menu del costado para descargarlo o visualizarlo en el navegador ",
+                            color: "success",
+                            position: "top-right"
+                        });
+                        this.popGuardarDoc = false;
+                    } else {
+                        this.$vs.notify({
+                            title: "Error al subir el documento ",
+                            text:
+                                "Intente nuevamente con el formato PDF o alguna Imagen ",
+                            color: "danger",
+                            position: "top-right"
+                        });
+                    }
+                });
+        },
+        informacionGeneral(id) {
+            try {
+                this.popVerDoc = true;
+                let objeto = {
+                    idART: id
+                };
+                axios
+                    .post(
+                        this.localVal + "/api/ART/GetRegistroDocumentosF",
+                        objeto,
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ` + sessionStorage.getItem("token")
+                            }
+                        }
+                    )
+                    .then(res => {
+                        this.listadoRegistroDocumentos = res.data;
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        deleteDocumento() {
+            try {
+                let objeto = {
+                    id: this.idDelDoc
+                };
+                axios
+                    .post(this.localVal + "/api/ART/DestroyDocRegART", objeto, {
+                        headers: {
+                            Authorization:
+                                `Bearer ` + sessionStorage.getItem("token")
+                        }
+                    })
+                    .then(res => {
+                        let respuesta = res.data;
+                        if (respuesta == true) {
+                            this.$vs.notify({
+                                title: "Realizado ",
+                                text: "Documento Eliminado Correctamente ",
+                                color: "success",
+                                position: "top-right"
+                            });
+                            this.popDeleteDoc = false;
+                        } else {
+                            this.$vs.notify({
+                                title: "Error ",
+                                text: "No fue posible eliminar el documento ",
+                                color: "danger",
+                                position: "top-right"
+                            });
+                        }
+                    });
+            } catch (error) {
+                this.$vs.notify({
+                    title: "Error ",
+                    text:
+                        "Hubo un problema al tratar de eliminar el documento ",
+                    color: "danger",
+                    position: "top-right"
+                });
+            }
+        },
         //Carga Data
         cargarRegistros() {
             try {
@@ -269,6 +594,7 @@ export default {
             }
         }
     },
+
     created() {
         this.cargarRegistros();
     }

@@ -17,7 +17,9 @@
                     </div>
                     <div class="vx-col w-1/2 mt-5">
                         <vx-card>
-                            <h5 align="center">Cuota 36 de 36</h5>
+                            <h5 align="center">
+                                Cuota {{ cuotas }} de {{ ntotalcuotas }}
+                            </h5>
                         </vx-card>
                         <br />
                     </div>
@@ -180,6 +182,9 @@ export default {
             value1: 55,
             widthx: 55,
             heightx: 55,
+            ntotalcuotas: 0,
+            idTipoMantencion: 0,
+            cuotas: 0,
             columns: [
                 {
                     label: "ID",
@@ -269,6 +274,7 @@ export default {
                 let b = [];
                 let a = 0;
                 let idSeg = 0;
+
                 list.forEach((value, index) => {
                     a = idTM;
                     if (a == value.idTipoMantencion) {
@@ -287,6 +293,9 @@ export default {
                 list.forEach((value, index) => {
                     a = idTM;
                     if (idSeg == value.id) {
+                        this.cuotas = value.cuotas;
+                        this.ntotalcuotas = value.ntotalcuotas;
+                        this.dataTM = value.detalleART;
                         let objeto = {
                             id: value.id,
                             monto: formatter.format(value.monto),
@@ -333,14 +342,21 @@ export default {
             try {
                 let id = this.$route.params.id;
                 let idLic = this.$route.params.idLic;
+                let idSegART = this.$route.params.idSegART;
+                this.idTipoMantencion = this.$route.params.idTipoMantencion;
                 const formatter = new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
                     minimumFractionDigits: 0
                 });
+
+                let data = {
+                    id: id,
+                    idSegART: idSegART
+                };
                 if (idLic == null || idLic == 0 || idLic == 1 || idLic == "") {
                     axios
-                        .get(this.localVal + `/api/ART/GetConGastoART/${id}`, {
+                        .post(this.localVal + `/api/ART/GetConGastoART`, data, {
                             headers: {
                                 Authorization:
                                     `Bearer ` + sessionStorage.getItem("token")
@@ -356,8 +372,13 @@ export default {
                             );
                             let b = [];
                             list.forEach((value, index) => {
-                                value.monto = formatter.format(value.monto);
-                                b.push(value);
+                                if (
+                                    this.idTipoMantencion ==
+                                    value.idTipoMantencion
+                                ) {
+                                    value.monto = formatter.format(value.monto);
+                                    b.push(value);
+                                }
                             });
 
                             this.listadoART = b;
@@ -444,6 +465,8 @@ export default {
                         list.monto = formatter.format(list.monto);
                         list.saldo = formatter.format(list.saldo);
                         list.totaloc = formatter.format(list.totaloc);
+                        this.cuotas = list.cuotas;
+                        this.ntotalcuotas = list.ntotalcuotas;
                         let c = [list];
                         this.listadoTotalART = c;
                     });

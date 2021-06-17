@@ -1,0 +1,793 @@
+-- --------------------------------------------------------
+-- Host:                         localhost
+-- Versión del servidor:         5.7.24 - MySQL Community Server (GPL)
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             10.2.0.5599
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Volcando datos para la tabla laravel_p.calendario_ascensores: ~13 rows (aproximadamente)
+/*!40000 ALTER TABLE `calendario_ascensores` DISABLE KEYS */;
+INSERT IGNORE INTO `calendario_ascensores` (`id`, `title`, `descripcion_ascensores`, `id_turno`, `id_trabajador`, `id_edificio`, `label`, `classes`, `id_val_dia_administrativo`, `id_val_vacaciones`, `id_val_reemplazo`, `id_val_turno_extra`, `hora_inicio`, `hora_termino`, `startDate`, `endDate`, `dias_ejecucion`, `horas_ejecucion`, `created_at`, `updated_at`) VALUES
+	(1, 'Carlos Acevedo Dia', 'Ascensor Torre', 1, 3, 1, 'tdia', 'event-success', 2, 2, 2, 2, NULL, NULL, '2020-11-03', '2020-11-03', 0, 0, '2020-11-12 15:40:43', '2020-11-20 16:41:35'),
+	(2, 'Probando 2', 'Prueba 2', 1, 2, 2, 'tnoche', 'event-warning', 2, 2, 2, 2, '12:00:00', '12:00:00', '2020-11-10', '2020-11-10', 0, 0, '2020-11-12 16:00:04', '2020-11-23 11:37:12'),
+	(3, 'Prueba 3', 'Probando 3', 2, 2, 1, 'tdia', 'event-success', 2, 2, 2, 2, NULL, NULL, '2020-11-16', '2020-11-16', 0, 0, '2020-11-12 16:40:04', '2020-11-23 11:37:17'),
+	(4, 'Prueba 5', 'Probando 3', 2, 2, 1, 'tnoche', 'event-warning', 2, 2, 2, 2, NULL, NULL, '2020-11-16', '2020-11-16', 0, 0, '2020-11-12 16:40:18', '2020-11-23 11:37:21'),
+	(5, 'Prueba 5', 'Probando 5', 2, 2, 1, 'tnoche', 'event-warning', 2, 2, 2, 2, NULL, NULL, '2020-11-26', '2020-11-26', 0, 0, '2020-11-12 16:41:22', '2020-12-04 11:53:52'),
+	(6, 'Probando 6', 'Prueba 6', 1, 3, 2, 'tdia', 'event-success', 2, 2, 2, 2, '08:00:00', '20:00:00', '2020-11-19', '2020-11-19', 0, 0, '2020-11-13 12:03:29', '2020-11-25 10:33:22'),
+	(7, 'Prueba', 'Prueba', 1, 8, 1, 'sadicionales', 'event-dark', 2, 2, 2, 2, NULL, NULL, '2020-11-06', '2020-11-06', 0, 0, '2020-11-19 11:11:19', '2020-12-04 16:46:55'),
+	(8, 'Carlos Dia', 'Ascensor CDT', 1, 4, 2, 'tdia', 'event-success', 2, 2, 2, 2, NULL, NULL, '2020-11-04', '2020-11-04', 0, 0, '2020-11-19 11:21:34', '2020-11-20 10:59:27'),
+	(9, 'Alonso Gutierrez Noche', 'Ascensor CDT', 2, 3, 2, 'tnoche', 'event-warning', 2, 2, 2, 2, NULL, NULL, '2020-11-03', '2020-11-03', 0, 0, '2020-11-20 11:46:44', '2020-11-20 16:41:48'),
+	(10, 'Alonso Noche', 'Ascensor CDT', 2, 3, 2, 'tnoche', 'event-warning', 2, 1, 2, 2, NULL, NULL, '2020-11-04', '2020-11-04', 0, 0, '2020-11-20 11:54:08', '2020-11-20 12:01:31'),
+	(11, 'Lisandro Garcia Libre', 'Libre', 1, 2, 1, 'libre', 'event-danger', 2, 2, 2, 2, NULL, NULL, '2020-11-03', '2020-11-03', 0, 0, '2020-11-20 12:34:27', '2020-11-20 16:41:58'),
+	(15, 'Prueba V11', 'Prueba V11', 1, 2, 1, 'libre', 'event-danger', 2, 2, 2, 2, NULL, NULL, '2020-11-04', '2020-11-04', 0, 0, '2020-11-26 09:12:32', '2020-11-26 16:30:31'),
+	(16, 'Prueba 3', 'Prueba 3', 1, 3, 1, 'tdia', 'event-success', 2, 2, 2, 2, NULL, NULL, '2020-11-02', '2020-11-02', 0, 0, '2020-11-30 10:08:46', '2020-11-30 10:12:42'),
+	(17, 'Turno Carlos Varas Dia', 'Turno Juan Dia', 1, 5, 1, 'tdia', 'event-success', 2, 2, 2, 2, NULL, NULL, '2020-12-15', '2020-12-15', 0, 0, '2020-12-03 15:05:52', '2020-12-03 15:05:52');
+/*!40000 ALTER TABLE `calendario_ascensores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.calendario_ctelefonicas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `calendario_ctelefonicas` DISABLE KEYS */;
+INSERT IGNORE INTO `calendario_ctelefonicas` (`id`, `title`, `descripcion_ctelefonicas`, `id_turno`, `id_trabajador`, `id_edificio`, `label`, `classes`, `id_val_dia_administrativo`, `id_val_vacaciones`, `id_val_reemplazo`, `id_val_turno_extra`, `hora_inicio`, `hora_termino`, `startDate`, `endDate`, `dias_ejecucion`, `horas_ejecucion`, `created_at`, `updated_at`) VALUES
+	(1, 'Prueba 5', 'Prueba 5', 1, 3, 1, 'tnoche', 'event-warning', 2, 2, 2, 2, NULL, NULL, '2020-11-03', '2020-11-03', 0, 0, '2020-11-27 11:30:00', '2020-11-27 12:57:37');
+/*!40000 ALTER TABLE `calendario_ctelefonicas` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.cargo_usuarios: ~9 rows (aproximadamente)
+/*!40000 ALTER TABLE `cargo_usuarios` DISABLE KEYS */;
+INSERT IGNORE INTO `cargo_usuarios` (`id`, `descripcionCargo`, `created_at`, `updated_at`) VALUES
+	(1, 'Jefatura', NULL, NULL),
+	(2, 'Enfermer@', NULL, NULL),
+	(3, 'Secretari@', NULL, NULL),
+	(4, 'Administrativ@', NULL, NULL),
+	(5, 'Supervisor', NULL, NULL),
+	(6, 'Trabajador', NULL, NULL),
+	(7, 'Prevencionista Riesgo', '2020-10-28 16:51:23', '2020-10-28 16:53:14'),
+	(8, 'Informatico', NULL, NULL),
+	(9, 'Coordinacion de Obra', '2020-12-29 14:59:27', '2020-12-29 14:59:27'),
+	(10, 'C.R. Recursos Fisicos', '2020-12-29 14:59:37', '2020-12-29 14:59:37'),
+	(11, 'Equipos de Apoyo Clinico', '2020-12-29 15:01:23', '2020-12-29 15:01:23');
+/*!40000 ALTER TABLE `cargo_usuarios` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.categorias: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT IGNORE INTO `categorias` (`id`, `des_categoria`, `created_at`, `updated_at`) VALUES
+	(1, 'Infraestructura', NULL, NULL),
+	(2, 'Equipos Medicos', NULL, NULL),
+	(3, 'Industrial', NULL, NULL),
+	(4, 'Apoyo Medico', NULL, NULL),
+	(5, 'Informatica', NULL, NULL);
+/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.dia_administrativo_ascensores: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `dia_administrativo_ascensores` DISABLE KEYS */;
+INSERT IGNORE INTO `dia_administrativo_ascensores` (`id`, `id_calendario_ascensores`, `id_tipo_dia_administrativo`, `fecha_dia_administrativo`, `estado_dia_administrativo`, `created_at`, `updated_at`) VALUES
+	(1, 5, 3, '2020-11-17', 1, '2020-11-16 11:35:40', '2020-11-16 16:53:08'),
+	(2, 4, 3, '2020-11-17', 1, '2020-11-16 16:25:13', '2020-11-16 16:52:26'),
+	(3, 8, 1, '2020-11-04', 1, '2020-11-19 12:14:18', '2020-11-19 12:14:18'),
+	(4, 8, 2, '2020-11-19', 1, '2020-11-19 14:16:37', '2020-11-19 14:16:37'),
+	(5, 8, 2, '2020-11-04', 1, '2020-11-19 14:19:13', '2020-11-19 14:19:13'),
+	(6, 8, 1, '2020-11-05', 1, '2020-11-19 14:35:05', '2020-11-19 14:35:05'),
+	(7, 7, 1, '2020-11-06', 1, '2020-11-20 12:24:23', '2020-11-20 12:24:23'),
+	(8, 7, 2, '2020-12-06', 1, '2020-12-04 16:37:00', '2020-12-04 16:37:00');
+/*!40000 ALTER TABLE `dia_administrativo_ascensores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.dia_administrativo_c_telefonicas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `dia_administrativo_c_telefonicas` DISABLE KEYS */;
+INSERT IGNORE INTO `dia_administrativo_c_telefonicas` (`id`, `id_calendario_ctelefonicas`, `id_tipo_dia_administrativo`, `fecha_dia_administrativo`, `estado_dia_administrativo`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, '2020-11-03', 1, '2020-11-27 12:25:23', '2020-11-27 12:25:23');
+/*!40000 ALTER TABLE `dia_administrativo_c_telefonicas` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.duracion_solicitudes: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `duracion_solicitudes` DISABLE KEYS */;
+INSERT IGNORE INTO `duracion_solicitudes` (`id`, `descripcion_duracion`, `created_at`, `updated_at`) VALUES
+	(1, 'Chequeo', '2020-12-17 13:43:18', '2020-12-17 13:43:19'),
+	(2, 'Trabajo Diario', '2020-12-17 13:43:27', '2020-12-17 13:43:27'),
+	(3, 'Obra Menor', '2020-12-17 13:43:31', '2020-12-17 13:43:31'),
+	(4, 'Obra Mayor', '2020-12-17 13:43:36', '2020-12-17 13:43:36');
+/*!40000 ALTER TABLE `duracion_solicitudes` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.edificios: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `edificios` DISABLE KEYS */;
+INSERT IGNORE INTO `edificios` (`id`, `descripcionEdificio`, `created_at`, `updated_at`) VALUES
+	(1, 'Torre', NULL, NULL),
+	(2, 'CDT', NULL, '2020-10-28 15:10:40'),
+	(3, 'Chacabuco', NULL, NULL),
+	(4, 'Hellen Lee', NULL, NULL),
+	(6, 'Sin ubicacion', NULL, NULL);
+/*!40000 ALTER TABLE `edificios` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.especialidades: ~21 rows (aproximadamente)
+/*!40000 ALTER TABLE `especialidades` DISABLE KEYS */;
+INSERT IGNORE INTO `especialidades` (`id`, `descripcionEspecialidad`, `created_at`, `updated_at`) VALUES
+	(1, 'Ninguna', NULL, NULL),
+	(2, 'Electrico', NULL, NULL),
+	(3, 'Gasfiter', NULL, '2020-11-02 14:38:31'),
+	(4, 'Carpintero', NULL, NULL),
+	(5, 'Mecanico', '2020-10-29 15:48:44', '2020-10-29 15:48:44'),
+	(6, 'Multidiciplina', NULL, NULL),
+	(7, 'Electronico', '2020-11-05 14:16:03', '2020-11-05 14:18:02'),
+	(8, 'Bodega', '2020-11-05 14:16:13', '2020-11-05 14:22:40'),
+	(9, 'Calderero', '2020-11-05 14:16:25', '2020-11-05 14:22:57'),
+	(10, 'Equipo Industrial', '2020-11-05 14:25:31', '2020-11-05 14:25:31'),
+	(11, 'Gestor Ticket', '2020-11-05 14:26:01', '2020-11-05 14:26:01'),
+	(12, 'Apoyo Equipos Clinicos', '2020-11-05 14:56:27', '2020-11-05 14:56:27'),
+	(14, 'Apoyo Mantencion', '2020-11-05 14:56:39', '2020-11-05 14:56:39'),
+	(15, 'Equipos Medicos', '2020-11-05 14:56:36', '2020-11-05 14:56:36'),
+	(16, 'Obras', '2020-11-05 15:09:49', '2020-11-05 15:09:49'),
+	(17, 'Central Telefonica', '2020-11-25 10:28:41', '2020-11-25 10:28:41'),
+	(18, 'Ascensoristas', '2020-11-25 10:28:52', '2020-11-25 10:28:52'),
+	(19, 'Mantenimiento Infraestructura', '2020-12-29 11:55:19', '2020-12-29 11:55:19'),
+	(20, 'C.R. Recursos Fisicos', '2020-12-29 11:55:26', '2020-12-29 11:55:26'),
+	(21, 'Coordinacion Obra', '2020-12-29 11:55:35', '2020-12-29 11:55:35'),
+	(22, 'Mantenimiento Industrial', '2020-12-29 11:55:54', '2020-12-29 11:55:54');
+/*!40000 ALTER TABLE `especialidades` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.estado_solicituds: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `estado_solicituds` DISABLE KEYS */;
+INSERT IGNORE INTO `estado_solicituds` (`id`, `descripcionEstado`, `created_at`, `updated_at`) VALUES
+	(1, 'Enviado', NULL, NULL),
+	(2, 'En Proceso', NULL, NULL),
+	(3, 'En Espera de Repuestos', NULL, NULL),
+	(4, 'Pendiente', NULL, NULL),
+	(5, 'Resuelto', NULL, NULL),
+	(6, 'Finalizado', NULL, NULL),
+	(7, 'Eliminado', NULL, NULL);
+/*!40000 ALTER TABLE `estado_solicituds` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.gestion_solicitudes: ~13 rows (aproximadamente)
+/*!40000 ALTER TABLE `gestion_solicitudes` DISABLE KEYS */;
+INSERT IGNORE INTO `gestion_solicitudes` (`id`, `uuid`, `id_solicitud`, `id_trabajador`, `id_supervisor`, `idApoyo1`, `idApoyo2`, `idApoyo3`, `idTurno`, `idDuracion`, `horaInicio`, `horaCambiada`, `horaTermino`, `fechaInicio`, `fechaCambiada`, `fechaTermino`, `diasEjecucion`, `horasEjecucion`, `created_at`, `updated_at`) VALUES
+	(1, 'ae581a1b-6713-4eea-887d-bd83082d1b1c', 6, 2, 1, 1, 1, 1, 2, 1, '17:00:00', NULL, '18:00:00', '2020-12-17', NULL, '2020-12-17', 1, 1, '2020-12-17 14:42:34', '2020-12-17 14:42:34'),
+	(2, '92d68816-8ef8-466f-8121-b5e6884cfa28', 5, 4, 4, 1, 1, 1, 1, 1, '15:00:00', NULL, '16:00:00', '2020-12-17', NULL, '2020-12-17', 1, 1, '2020-12-17 14:51:48', '2020-12-17 14:51:48'),
+	(3, 'a92a3db6-e435-41ea-b6c7-f95db7d1f117', 7, 11, 5, 1, 1, 1, 2, 2, '20:00:00', NULL, '08:00:00', '2020-12-22', NULL, '2020-12-23', 1, 12, '2020-12-21 15:46:14', '2020-12-21 15:46:14'),
+	(4, 'd6bfa468-9917-41c9-b468-02ee5602b7b3', 8, 12, 5, 1, 1, 1, 1, 2, '08:00:00', NULL, '20:00:00', '2020-12-22', NULL, '2020-12-22', 1, 12, '2020-12-21 16:24:28', '2020-12-21 16:24:28'),
+	(5, '9394dfb2-6aad-421d-a88c-c2dae6964c86', 9, 13, 5, 1, 1, 1, 1, 2, '08:00:00', NULL, '20:00:00', '2020-12-23', NULL, '2020-12-23', 1, 12, '2020-12-22 14:59:35', '2020-12-22 14:59:35'),
+	(6, '2fe94698-8bea-4634-a61a-2b782dd53d99', 10, 12, 5, 1, 1, 1, 2, 2, '20:00:00', NULL, '08:00:00', '2020-12-23', NULL, '2020-12-24', 1, 12, '2020-12-22 15:43:02', '2020-12-22 15:43:02'),
+	(7, 'eced5ec0-cf73-41e9-b29e-e98d42a1288f', 11, 12, 5, 1, 1, 1, 2, 2, '20:00:00', NULL, '08:00:00', '2020-12-23', NULL, '2020-12-24', 1, 12, '2020-12-22 15:47:29', '2020-12-22 15:47:29'),
+	(8, '11854168-3c20-4592-a133-110c0402e3f6', 12, 13, 5, 1, 1, 1, 1, 2, '08:00:00', NULL, '20:00:00', '2020-12-24', NULL, '2020-12-24', 1, 12, '2020-12-23 16:36:49', '2020-12-23 16:36:49'),
+	(9, 'bd374806-d654-4d37-8725-d60a6a11c45f', 13, 12, 5, 1, 1, 1, 2, 2, '20:00:00', NULL, '08:00:00', '2020-12-24', NULL, '2020-12-25', 1, 12, '2020-12-23 16:39:22', '2020-12-23 16:39:22'),
+	(10, '9f6c2789-4a43-48ad-ae8e-641e178fc04e', 14, 12, 5, 1, 1, 1, 1, 2, '20:00:00', '08:00:00', '20:00:00', '2021-01-05', '2021-01-05', '2021-01-05', 1, 12, '2021-01-05 09:34:31', '2021-01-05 09:37:14'),
+	(11, 'dc466526-2d50-4caf-92a6-74999cda6d38', 15, 13, 5, 1, 1, 1, 2, 2, '20:00:00', NULL, '08:00:00', '2021-01-05', NULL, '2021-01-06', 1, 12, '2021-01-05 09:39:14', '2021-01-05 09:39:14'),
+	(12, '0dad6aad-8638-4e65-8158-d466af11e7f6', 16, 36, 6, 33, 1, 1, 1, 3, '09:00:00', NULL, '12:00:00', '2021-01-18', NULL, '2021-02-16', 29, 699, '2021-01-05 14:38:57', '2021-01-05 14:38:57'),
+	(13, 'ac74a6a0-5413-11eb-9786-f71d1801dd30', 17, 3, 3, 1, 1, 1, 1, 2, '15:00:00', NULL, '16:00:00', '2021-01-11', NULL, '2021-01-11', 1, 1, '2021-01-11 10:50:03', '2021-01-11 10:50:03');
+/*!40000 ALTER TABLE `gestion_solicitudes` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.migrations: ~30 rows (aproximadamente)
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT IGNORE INTO `migrations` (`id`, `migration`, `batch`) VALUES
+	(1, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
+	(2, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
+	(3, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
+	(4, '2016_06_01_000004_create_oauth_clients_table', 1),
+	(5, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
+	(6, '2020_08_20_111008_create_users_table', 1),
+	(7, '2020_08_20_111119_create_edificios_table', 1),
+	(8, '2020_08_20_111232_create_servicios_table', 1),
+	(9, '2020_08_20_111359_create_tipo_reparacions_table', 1),
+	(10, '2020_08_20_111618_create_unidad_esps_table', 1),
+	(11, '2020_08_20_111740_create_seguimiento_solicitudes_table', 1),
+	(12, '2020_08_20_111908_create_estado_solicituds_table', 1),
+	(13, '2020_08_20_112321_create_tbl_permiso_usuarios_table', 1),
+	(14, '2020_08_21_103131_create_gestion_solicitudes_table', 1),
+	(15, '2020_09_03_085315_create_categorias_table', 1),
+	(16, '2020_09_03_090213_create_solicitud_tickets_table', 1),
+	(17, '2020_10_09_162936_create_cargo_usuarios_table', 1),
+	(18, '2020_10_13_120206_create_turnos_table', 1),
+	(19, '2020_10_27_160646_especialidad', 1),
+	(20, '2020_10_27_162029_trabajadores', 1),
+	(21, '2020_10_27_162038_supervisores', 1),
+	(22, '2020_11_10_135923_calendario_ascensores', 1),
+	(23, '2020_11_12_103832_turno_extra_ascensores', 1),
+	(24, '2020_11_12_104013_reemplazo_ascensores', 1),
+	(25, '2020_11_12_104029_dia_administrativo_ascensores', 1),
+	(26, '2020_11_12_104044_vacaciones_ascensores', 1),
+	(27, '2020_11_26_164528_calendario_c_telefonicas', 1),
+	(28, '2020_11_27_090159_dia_administrativo_c_telefonicas', 1),
+	(29, '2020_11_27_090207_vacaciones_c_telefonicas', 1),
+	(30, '2020_11_27_090214_reemplazo_c_telefonicas', 1),
+	(31, '2020_11_27_090228_turno_extra_c_telefonicas', 1),
+	(32, '2020_12_09_102714_create_subir_documentos_table', 2),
+	(33, '2020_12_17_133518_duracion_solicitudes', 3),
+	(34, '2020_12_17_140403_gestion_solicitudes', 4);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.oauth_access_tokens: ~68 rows (aproximadamente)
+/*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
+INSERT IGNORE INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+	('0181ed137e5dac4eb6126efa6cd4ae1aa7a07fafdf2ccf508efb491a039cfed105b1528ca8e13e92', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 12:42:00', '2020-12-01 12:42:00', '2021-12-01 12:42:00'),
+	('04cc7c37a0cff337c265c1c637a5a584ba7e2c9c0a7815d927458b05d01458a6d50de3deb2388cd5', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:05:14', '2020-11-04 16:05:14', '2021-11-04 16:05:14'),
+	('139a31cf0906438c6043c191ce6e3d3734cbb0568822fbb967c124bffeb900379efedd202e2571d8', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:56', '2020-11-30 15:44:56', '2021-11-30 15:44:56'),
+	('14088073747eb45f1c5191f43156a998bb90cf42d1bd7164968b5539839ccce41363a22824198258', 1, 3, NULL, '[]', 0, '2020-11-30 15:09:31', '2020-11-30 15:09:31', '2021-11-30 15:09:31'),
+	('141f487f5dc80aa0d67d793e0d0ad898d0e22557d2c495593f2fcbf1ff13321085ae5ec277fca56b', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:04:25', '2020-11-04 16:04:25', '2021-11-04 16:04:25'),
+	('190bef47fd55746df2b989d8087188528501624e2c643a4b7134f77fda199368a64fd8c0c124e415', 1, 3, NULL, '[]', 0, '2020-11-30 15:05:38', '2020-11-30 15:05:38', '2021-11-30 15:05:38'),
+	('190f92e127a79f0765a56afbc100f11333ce66ea21fdf9100af69da920387854d4283b5ec54b32d1', 18, 5, 'Personal Access Token', '[]', 0, '2020-12-01 11:56:57', '2020-12-01 11:56:57', '2021-12-01 11:56:57'),
+	('236e960c342a0446b08eb8c721305147c94ba53319eb1d3fa87a1f2bacf3886c9bba942ba2e2dec2', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:52', '2020-11-30 15:44:52', '2021-11-30 15:44:52'),
+	('26605cf5da48aad556a29f17b5f9942963674c19776a4b663c6fd80687050fd976cd38df8fbc359d', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:44:53', '2020-11-30 16:44:53', '2021-11-30 16:44:53'),
+	('2968bf0efa302aa5517ebc5ef23195e43ced318be7d9be219db1b6c03bd17e6d5bf511b045c48ee3', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 13:11:27', '2020-12-01 13:11:27', '2021-12-01 13:11:27'),
+	('2be040f608568f0299e7fb38b3d0dac80a616c9be601a758c37abd0a59fa140a77807a8f808b091e', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:00:58', '2020-11-04 16:00:58', '2021-11-04 16:00:58'),
+	('30472161c7864a8d6ba803705231c3dc56b745a0b810245c8bf4ab2dd9f15244f52ad0027fd0aaf2', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:53', '2020-11-30 15:44:53', '2021-11-30 15:44:53'),
+	('336021a0b0ebdd77a0802a7ceb705aa24bde81e8705c052c8b5c3a40275231416a143d259f9e981c', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:11:33', '2020-11-04 16:11:33', '2021-11-04 16:11:33'),
+	('39ceec2251977d9eca1c9433116854375a8829c3107d1fdbce6a25a5891fc02f00b4d761c7f9b7e8', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:04:24', '2020-11-04 16:04:24', '2021-11-04 16:04:24'),
+	('3c8f31781430585dcdf9c576456f6af85e86cadade73b1210bcf69849dfd90c39245224b159473ab', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:25', '2020-11-30 15:44:25', '2021-11-30 15:44:25'),
+	('4a083582e7493d3b3df1ee709a8ea523deba7d8608e5e54ca1a93c4b41315b31e3462a1183d9240f', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:50', '2020-11-30 15:44:50', '2021-11-30 15:44:50'),
+	('4f5db6576707ef8daf6775c78f0ffb53d204ba6b8295c1171af208a684bdf439a719c51dbb95197a', 1, 3, NULL, '[]', 0, '2020-11-30 15:14:20', '2020-11-30 15:14:20', '2021-11-30 15:14:20'),
+	('5b298add8b0165942040529280966f54eec11794cc498e728f39893dba29b47935e2509683eeb819', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:39:29', '2020-11-30 16:39:29', '2021-11-30 16:39:29'),
+	('5bf821cc245bb7d9d1749040a06b0801d6ef8249127c5b5eec063153b62b3330261da5d393dc8357', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 15:34:02', '2020-12-01 15:34:02', '2021-12-01 15:34:02'),
+	('5e2ef99040d294a8db638e3244ed3fea1ea33f5ebc5c65cccac941da7177bccd176e9a8cc9ec7e61', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:52', '2020-11-30 15:44:52', '2021-11-30 15:44:52'),
+	('631432b7ee265e8ea7e1a9cae0f7c7b2f9d868276307fee6d8e9822cc9fc6a0a95449626a0558ad8', 1, 3, 'Personal Access Token', '[]', 0, '2020-12-01 08:26:50', '2020-12-01 08:26:50', '2021-12-01 08:26:50'),
+	('646c292f234708a9f9928ad9fee89e4ec8d3962873679eefcec8d7367250a5244bf7c42bbb129937', 18, 5, 'Personal Access Token', '[]', 0, '2020-12-01 11:37:38', '2020-12-01 11:37:38', '2021-12-01 11:37:38'),
+	('6992450f6103a85fa92b9e879f58d4c1225aa329be2b5dbfb4ff179f9641ddd0255c2f3f8d9931b2', 1, 3, NULL, '[]', 0, '2020-11-30 15:07:28', '2020-11-30 15:07:28', '2021-11-30 15:07:28'),
+	('6bac5b2a30cf66889b90318ad66f264e6b322f63af4a47711c5a7a084bd0284deff642fd44b2c97e', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:35', '2020-11-30 15:44:35', '2021-11-30 15:44:35'),
+	('6c617daad30d6f5ea8e31a16364f3b6e76d7491070118de16e2c11e4d894505b5d8c19265e84a696', 1, 3, 'Personal Access Token', '[]', 0, '2020-12-01 08:35:09', '2020-12-01 08:35:09', '2021-12-01 08:35:09'),
+	('6d986e30a7c91d5167b2da6e6bbcf781466628c123610a296d0a772ea10b9fe7abea0f2ab5021ecb', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:07:21', '2020-11-04 16:07:21', '2021-11-04 16:07:21'),
+	('73f02d221ad54e4578762323f6551e44cb45ffa956d47738f4fd1e4f62a1db45d858acbae1747501', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 15:49:24', '2020-11-04 15:49:24', '2021-11-04 15:49:24'),
+	('79cc36e8ed6658b2e36596fe664118b436bdcab0a8b9741fb152c8fb7178f158b10f0a646b85e8ad', 18, 3, 'Personal Access Token', '[]', 0, '2020-12-01 08:43:32', '2020-12-01 08:43:32', '2021-12-01 08:43:32'),
+	('7acc94cf9ec130974431ff0c155fd14e914311aa95b4a32a5d3452c9b17991cc116b61a499ec0b52', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:23', '2020-11-30 15:44:23', '2021-11-30 15:44:23'),
+	('7e53bfd6d330d73311ea54624d7ec5b44ce78359f1abe8a43d40a0f8b2aef7107771579d3c5df2e2', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:03:18', '2020-11-04 16:03:18', '2021-11-04 16:03:18'),
+	('80445d640a549e71355dc7aa2476f2f6a16d8f0009a698c97462ad30c8c6d98ea02f1dee7a6437d3', 1, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:18:19', '2020-11-30 16:18:19', '2021-11-30 16:18:19'),
+	('8146abca8d94191e6603df83762cafce50cb6357fefe163dccf62ba19725aba17f1d202521e24942', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:05:43', '2020-11-04 16:05:43', '2021-11-04 16:05:43'),
+	('84e491a567459242503f994f43b214793d5e1d10ba8278efded771da2f44c09cd3521fab0e28f486', 1, 3, NULL, '[]', 0, '2020-11-30 15:13:10', '2020-11-30 15:13:10', '2021-11-30 15:13:10'),
+	('86324ea7cb22e92e32e181005600fc3827e4467ce6e9f9edb5218a524af3ce36260feaa6967d9e23', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 12:41:58', '2020-12-01 12:41:58', '2021-12-01 12:41:58'),
+	('89b790eea92fc29c52ca7e1a8141730912627dd28abdd18a519fb28ec985a4a182f35f068126af64', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 15:41:52', '2020-11-04 15:41:52', '2021-11-04 15:41:52'),
+	('8d7283dbbb1413c70c2be6e27c2b8b38ab4fd80231902ac4c55c950ad329913c0c8cd0018e788811', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:32:30', '2020-11-30 16:32:30', '2021-11-30 16:32:30'),
+	('91f1e40e148c89606d2e53fe1a47b26711e3b793955508fac25889acc00b92dae7cc0eadee42c519', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:03:09', '2020-11-04 16:03:09', '2021-11-04 16:03:09'),
+	('9388ab2781813fd056d36c32c920532bb446e346f54efa32945869e06dbaebaa4dccbb460bdd34d9', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 13:58:06', '2020-12-01 13:58:06', '2021-12-01 13:58:06'),
+	('9392bf207bf0c2654336d119491dede09ec8e87511c313117297abf014a2505d38bce1e7393dcb46', 18, 3, 'Personal Access Token', '[]', 0, '2020-12-01 09:27:37', '2020-12-01 09:27:37', '2021-12-01 09:27:37'),
+	('95b1a86aa56faaf19785cbc53fb48ab0b892fefc37cf58d17030773e811dc1f74961dfe81da3c415', 1, 3, NULL, '[]', 0, '2020-11-30 15:13:13', '2020-11-30 15:13:13', '2021-11-30 15:13:13'),
+	('98c81c72c854baf5e8779e0d7d692e3e3d5d6d9d4173e04962dc51d3c2144ddfe58c0ece2b5f45d3', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:08:06', '2020-11-04 16:08:06', '2021-11-04 16:08:06'),
+	('98ca3e3c115eccfdbd638da59d0c102e8f3afef91002480d35117075e570119ac268047237efd727', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 15:19:39', '2020-12-01 15:19:39', '2021-12-01 15:19:39'),
+	('9d38ce1fe6f5502685b8bf3610f5a004ba262bd6dd62c83edd891ea711ca6ebe2e589ef29cba8df6', 1, 3, NULL, '[]', 0, '2020-11-30 15:18:14', '2020-11-30 15:18:14', '2021-11-30 15:18:14'),
+	('9e9f32f1b40000ad7eeaf07b06bee98dc272c2c874f8e9366f2bbf07c799aa2c2594a8c47246324d', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:50:57', '2020-11-30 16:50:57', '2021-11-30 16:50:57'),
+	('ab1df45a2144f7f490565dbe0e01c5be4b7f4622d26ebba60a18f2cf2190d555a1c33eda8567d2c9', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 15:20:45', '2020-12-01 15:20:45', '2021-12-01 15:20:45'),
+	('adfe7514fc1ef069586a7cb211bff14989c69a24eaeef9b24f22bf42b8c4468b49d86200dcb785bf', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 15:25:50', '2020-12-01 15:25:50', '2021-12-01 15:25:50'),
+	('af7d3d7d73ba7be67e385075b1ed9e08cb7730ae6f5d2aa52268cc818ce82d28866a4cb34eed6595', 1, 3, 'Personal Access Token', '[]', 0, '2020-11-30 15:46:40', '2020-11-30 15:46:40', '2021-11-30 15:46:40'),
+	('b002bdbab86e4f184284cf36787553dfcdc5f855bd0f686c69e769308f82cf5bcf9eadda2dc93a1b', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:51', '2020-11-30 15:44:51', '2021-11-30 15:44:51'),
+	('b1ba1bf7b43c9bddba2d90a396aa0c9e42b0b77f072cd0c97238bca1f476d1924a8bb5535ace92c3', 1, 3, 'Personal Access Token', '[]', 0, '2020-11-30 15:45:55', '2020-11-30 15:45:55', '2021-11-30 15:45:55'),
+	('b2d59874cd52b6bdf064e771ffc675c778e9f61c52a3d610bd95d9f622d7123abe808561c7c2a2f7', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:29', '2020-11-30 15:44:29', '2021-11-30 15:44:29'),
+	('b5a97f695d82f5da64b2011230f8bdae5f6008268c29f7e631cd4c81ac896bb5b502fd873b063579', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:33:18', '2020-11-30 16:33:18', '2021-11-30 16:33:18'),
+	('c3b92d0c4fe850a0bb2a671bf8f8eb47b9c9746e3fe2403cb71fa945b51d0ecfb8fc88cee7f30984', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:04:21', '2020-11-04 16:04:21', '2021-11-04 16:04:21'),
+	('c3bcadf77b4046a13055e586ca2cac673d3f2e45f8e81dd47a78b66bef53806b90945ff72c74db5e', 1, 3, NULL, '[]', 0, '2020-11-30 15:16:06', '2020-11-30 15:16:06', '2021-11-30 15:16:06'),
+	('c9345c104a580307f6db65b184b25386d6cc27203f0b32dc0966dab148e0bba9cb2372b9746d1316', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:35:40', '2020-11-30 16:35:40', '2021-11-30 16:35:40'),
+	('d93a28c07641165b33ab788c479dc308fff5bdc84f1a1628ff68c7f67b5c748ae7c53f6afcaf6930', 1, 3, NULL, '[]', 0, '2020-11-30 15:14:33', '2020-11-30 15:14:33', '2021-11-30 15:14:33'),
+	('da3b50f607265c20740118024bf0e285f8adab1d7c6439b31ec43dc2a8654ca8a32ae0d8c1142e55', 1, 3, NULL, '[]', 0, '2020-11-30 15:34:41', '2020-11-30 15:34:41', '2021-11-30 15:34:41'),
+	('dcf672a22833658b1fee5e83b203c549bed1e4921a03027d4a22021989e1da5422ea5f0d33d487aa', 1, 3, NULL, '[]', 0, '2020-11-30 15:44:56', '2020-11-30 15:44:56', '2021-11-30 15:44:56'),
+	('de19b6a5c89035cb7de5d765707cb219c71e831f9dced0884555d2f00652fc82c6c78ddb8b1b7eef', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:30:49', '2020-11-30 16:30:49', '2021-11-30 16:30:49'),
+	('e0ab6b3f079b95aa672a85e1c195f7b511ec44d7549bd583ab53e47dbf2bff6da1081c827dd1fb47', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 17:08:51', '2020-12-01 17:08:51', '2021-12-01 17:08:51'),
+	('e3072562f91d2b3326674576afd696580394dad0ada893918b2b023d6f92990119f0577650927b61', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:36:05', '2020-11-30 16:36:05', '2021-11-30 16:36:05'),
+	('e580163be20c3d3f4aea16f80ede0bde3fe7f0a0cd7dc371c4ff77e853ed7b6502d01df8735b70c1', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:40:56', '2020-11-30 16:40:56', '2021-11-30 16:40:56'),
+	('e5f2475299e71851ab0b7601ec6a8ade464d0cb9ca5ae70e2f2956621292aae2505bda611c630937', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 16:58:08', '2020-12-01 16:58:08', '2021-12-01 16:58:08'),
+	('e86e81cf60debdb207544cf5533742dda19979dead1c4b01f8ec8cd25fb6144b07caa661672b11ab', 18, 5, 'Personal Access Token', '[]', 0, '2020-12-01 11:41:38', '2020-12-01 11:41:38', '2021-12-01 11:41:38'),
+	('e8dafd28bf9f5a786e66396ee38ffa3b2f687bbdd1e642b7243cc63012e527b22b3d1c6b07ad049a', 18, 7, 'Personal Access Token', '[]', 0, '2020-12-01 12:44:57', '2020-12-01 12:44:57', '2021-12-01 12:44:57'),
+	('ea4536540bf2eb678b854d0b5340dbd6cb46ff2817997746a30a0f95f9125f0c23da15034883af66', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:50:12', '2020-11-30 16:50:12', '2021-11-30 16:50:12'),
+	('ebb29e8ae91006ae93ac4f8765089286d5e0385ccae45c1854f544027c16e68f84ba7be6c2512117', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:00:02', '2020-11-04 16:00:02', '2021-11-04 16:00:02'),
+	('ef15220b6b85806fb550e280cc31f190c4d408f0c262cb40aa337b7089bd9b3f9ce91a6b3b6566d3', 1, 3, NULL, '[]', 0, '2020-11-30 15:09:19', '2020-11-30 15:09:19', '2021-11-30 15:09:19'),
+	('f22439c75c93480e7575e81a5812bcbd12f5efce5439c8958e4753cdc93c2e44ce9c91d8dd75f6c1', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:31:15', '2020-11-30 16:31:15', '2021-11-30 16:31:15'),
+	('f36805c6d2fdbca6e705797b9a719372302399fa015d0858148d17651ab0c853bf0067ca7a7a0ede', 18, 3, 'Personal Access Token', '[]', 0, '2020-11-30 16:40:16', '2020-11-30 16:40:16', '2021-11-30 16:40:16'),
+	('f779bf669f76d6d02cab1baa609111456b2c6342f98f45594c9784cad70869f640bf48376e4d3d33', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:01:25', '2020-11-04 16:01:25', '2021-11-04 16:01:25'),
+	('fc6409ca6091c131d7c56cbcc38449d359a1acd3428bcf1d2b230e7f705b7927dd3eb905d8dee32d', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:12:17', '2020-11-04 16:12:17', '2021-11-04 16:12:17'),
+	('fdc93f133c59695a21787d797b4f9c81d783b1f67cbd6a4c9eb27c3cfcb952820ab259f1955254a8', 1, 3, NULL, '[]', 0, '2020-11-30 15:07:12', '2020-11-30 15:07:12', '2021-11-30 15:07:12'),
+	('ff16331167ba9a33c87cb6ac5238e4adf54638d1355ba9b8c3b2437afb18ee1f8f38a209187e0831', 1, 1, 'Personal Access Token', '[]', 0, '2020-11-04 16:03:17', '2020-11-04 16:03:17', '2021-11-04 16:03:17');
+/*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.oauth_auth_codes: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.oauth_clients: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
+INSERT IGNORE INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+	(1, NULL, 'Laravel Personal Access Client', 'cPZAh4FeMFXKwmTINljtf1ZTJieTYW6zre180txn', 'http://localhost', 1, 0, 0, '2020-11-04 14:48:13', '2020-11-04 14:48:13'),
+	(2, NULL, 'Laravel Password Grant Client', 'Sm6avnVvAPM4KZNbY712ZxajNe0wXU1fhHx07rNs', 'http://localhost', 0, 1, 0, '2020-11-04 14:48:14', '2020-11-04 14:48:14'),
+	(3, NULL, 'Laravel Personal Access Client', 'iNF0aPJk6TESfzhpfR5sisM24PM8mQtFPMFBtg33', 'http://localhost', 1, 0, 0, '2020-11-30 13:40:16', '2020-11-30 13:40:16'),
+	(4, NULL, 'Laravel Password Grant Client', 'zeUqvrOR9tVBZK5kZytunWCwtUK41GlHrXj5Seoa', 'http://localhost', 0, 1, 0, '2020-11-30 13:40:16', '2020-11-30 13:40:16'),
+	(5, NULL, 'Laravel Personal Access Client', 'PTysVgyjmpxjrNVarJbbG5k4zyP63Lk3DUHeQHEa', 'http://localhost', 1, 0, 0, '2020-12-01 09:41:30', '2020-12-01 09:41:30'),
+	(6, NULL, 'Laravel Password Grant Client', 'bUurl2GvFaULW5cqCVL1X731ED1Xu5b1dkfT3glZ', 'http://localhost', 0, 1, 0, '2020-12-01 09:41:31', '2020-12-01 09:41:31'),
+	(7, NULL, 'Laravel Personal Access Client', 'vEeqjiJSpHy5EMqKQIsHcdvOCWpErN3f1vdHEvWl', 'http://localhost', 1, 0, 0, '2020-12-01 12:14:15', '2020-12-01 12:14:15'),
+	(8, NULL, 'Laravel Password Grant Client', 'A2iJMhi5L5KeS7aUyLUI5a56jqEwqq495oQQQrT5', 'http://localhost', 0, 1, 0, '2020-12-01 12:14:15', '2020-12-01 12:14:15');
+/*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.oauth_personal_access_clients: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
+INSERT IGNORE INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+	(1, 1, '2020-11-04 14:48:14', '2020-11-04 14:48:14'),
+	(2, 3, '2020-11-30 13:40:16', '2020-11-30 13:40:16'),
+	(3, 5, '2020-12-01 09:41:31', '2020-12-01 09:41:31'),
+	(4, 7, '2020-12-01 12:14:15', '2020-12-01 12:14:15');
+/*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.oauth_refresh_tokens: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `oauth_refresh_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.reemplazo_ascensores: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `reemplazo_ascensores` DISABLE KEYS */;
+INSERT IGNORE INTO `reemplazo_ascensores` (`id`, `id_calendario_ascensores`, `id_trabajador_reemplazo`, `fecha_inicio_reemplazo`, `fecha_termino_reemplazo`, `dias_reemplazo`, `estado_reemplazo`, `created_at`, `updated_at`) VALUES
+	(1, 4, 2, '2020-11-16', '2020-11-18', 0, 1, '2020-11-16 15:21:23', '2020-11-16 15:21:23'),
+	(2, 5, 3, '2020-11-26', '2020-11-27', 0, 1, '2020-11-17 09:27:28', '2020-11-17 09:27:28'),
+	(3, 5, 2, '2020-11-26', '2020-11-27', 0, 1, '2020-11-20 10:46:29', '2020-11-20 10:46:29'),
+	(4, 1, 3, '2020-11-26', '2020-11-27', 0, 1, '2020-11-20 10:59:02', '2020-11-20 10:59:02'),
+	(5, 8, 3, '2020-11-26', '2020-11-27', 0, 1, '2020-11-20 10:59:27', '2020-11-20 10:59:27'),
+	(6, 7, 4, '2020-11-06', '2020-11-06', 0, 1, '2020-11-24 11:55:06', '2020-11-24 11:55:06'),
+	(7, 7, 3, '2020-11-06', '2020-11-06', 0, 1, '2020-11-24 14:04:08', '2020-11-24 14:04:08');
+/*!40000 ALTER TABLE `reemplazo_ascensores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.reemplazo_c_telefonicas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `reemplazo_c_telefonicas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reemplazo_c_telefonicas` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.seguimiento_solicitudes: ~25 rows (aproximadamente)
+/*!40000 ALTER TABLE `seguimiento_solicitudes` DISABLE KEYS */;
+INSERT IGNORE INTO `seguimiento_solicitudes` (`id`, `uuid`, `id_solicitud`, `id_user`, `descripcionSeguimiento`, `created_at`, `updated_at`) VALUES
+	(1, 'd59df95d-7083-46a1-abe0-a610f309a120', 1, 3, 'Se a creado el Ticket N°1 por el Usuario: Miguel Aguilera', '2020-11-05 15:50:40', '2020-11-05 15:50:40'),
+	(2, 'e737249d-0de6-42c9-b410-9ccbbfeedf44', 2, 18, 'Se a creado el Ticket N°2 por el Usuario: Ricardo Soto', '2020-11-06 11:43:59', '2020-11-06 11:43:59'),
+	(3, '98035be0-2da2-11eb-a343-bb62435c72c2', 3, 18, 'Ticket creado', '2020-11-23 12:43:12', '2020-11-23 12:43:12'),
+	(4, 'a6f1a6e9-db6b-41e4-a35c-d6f13f4f7e46', 2, 2, 'Se a creado el Ticket N°2 por el Usuario: Cristian Michell', '2020-12-17 13:05:35', '2020-12-17 13:05:35'),
+	(5, 'cd379a2d-310c-4aa1-aa26-1a91f28c3082', 3, 2, 'Se a creado el Ticket N°3 por el Usuario: Cristian Michell', '2020-12-17 13:05:49', '2020-12-17 13:05:49'),
+	(6, '284a60a2-935a-4aaa-a567-ef64e200afcf', 4, 2, 'Se a creado el Ticket N°4 por el Usuario: Cristian Michell', '2020-12-17 13:22:52', '2020-12-17 13:22:52'),
+	(7, '92d68816-8ef8-466f-8121-b5e6884cfa28', 5, 2, 'Se a creado el Ticket N°5 por el Usuario: Cristian Michell', '2020-12-17 13:23:13', '2020-12-17 13:23:13'),
+	(8, 'ae581a1b-6713-4eea-887d-bd83082d1b1c', 6, 2, 'Se a creado el Ticket N°6 por el Usuario: Cristian Michell', '2020-12-17 13:27:22', '2020-12-17 13:27:22'),
+	(9, 'ae581a1b-6713-4eea-887d-bd83082d1b1c', 6, 1, 'El Agente Ricardo a asignado un ticket a Lisandro Garcia en el Ticket N°6', '2020-12-17 14:42:34', '2020-12-17 14:42:34'),
+	(10, '92d68816-8ef8-466f-8121-b5e6884cfa28', 5, 1, 'El Agente Ricardo a asignado un ticket a Cesar Bravo en el Ticket N°5', '2020-12-17 14:51:47', '2020-12-17 14:51:47'),
+	(11, '92d68816-8ef8-466f-8121-b5e6884cfa28', 5, 15, '<p>El Agente Cristian Michell a eliminado el Ticket N°5 </p><p>Razon de la eliminacion:</p><p>BIUS</p>', '2020-12-17 15:45:48', '2020-12-17 15:45:48'),
+	(12, 'a92a3db6-e435-41ea-b6c7-f95db7d1f117', 7, 3, 'Se a creado el Ticket N°7 por el Usuario: Cristian Michell', '2020-12-21 15:46:14', '2020-12-21 15:46:14'),
+	(13, 'd6bfa468-9917-41c9-b468-02ee5602b7b3', 8, 3, 'Se a creado el Ticket N°8 por el Usuario: Cristian Michell', '2020-12-21 16:24:28', '2020-12-21 16:24:28'),
+	(14, '9394dfb2-6aad-421d-a88c-c2dae6964c86', 9, 3, 'Se a creado el Ticket N°9 por el Usuario: Cristian Michell', '2020-12-22 14:59:35', '2020-12-22 14:59:35'),
+	(15, '2fe94698-8bea-4634-a61a-2b782dd53d99', 10, 12, 'Se a creado el Ticket N°10 por el Usuario: Cristian Michell', '2020-12-22 15:43:02', '2020-12-22 15:43:02'),
+	(16, '2fe94698-8bea-4634-a61a-2b782dd53d99', 10, 15, '<p>El Agente Cristian Michell a eliminado el Ticket N°10 </p><p>Razon de la eliminacion:</p><p>Mal ingresado</p>', '2020-12-22 15:46:09', '2020-12-22 15:46:09'),
+	(17, 'eced5ec0-cf73-41e9-b29e-e98d42a1288f', 11, 3, 'Se a creado el Ticket N°11 por el Usuario: Cristian Michell', '2020-12-22 15:47:29', '2020-12-22 15:47:29'),
+	(18, '11854168-3c20-4592-a133-110c0402e3f6', 12, 3, 'Se a creado el Ticket N°12 por el Usuario: Cristian Michell', '2020-12-23 16:36:49', '2020-12-23 16:36:49'),
+	(19, 'bd374806-d654-4d37-8725-d60a6a11c45f', 13, 3, 'Se a creado el Ticket N°13 por el Usuario: Cristian Michell', '2020-12-23 16:39:22', '2020-12-23 16:39:22'),
+	(20, '9f6c2789-4a43-48ad-ae8e-641e178fc04e', 14, 3, 'Se a creado el Ticket N°14 por el Usuario: Cristian Michell', '2021-01-05 09:34:31', '2021-01-05 09:34:31'),
+	(21, '9f6c2789-4a43-48ad-ae8e-641e178fc04e', 14, 15, 'El Agente Cristian Michell a realizado una modificacion en el Ticket N°14 <br/>Razon del cambio:<p>Días mal ingresados</p><p><br></p>', '2021-01-05 09:37:13', '2021-01-05 09:37:13'),
+	(22, 'dc466526-2d50-4caf-92a6-74999cda6d38', 15, 3, 'Se a creado el Ticket N°15 por el Usuario: Cristian Michell', '2021-01-05 09:39:14', '2021-01-05 09:39:14'),
+	(23, '0dad6aad-8638-4e65-8158-d466af11e7f6', 16, 2, 'Se a creado el Ticket N°16 por el Usuario: Ricardo Soto', '2021-01-05 14:38:57', '2021-01-05 14:38:57'),
+	(24, 'ac74a6a0-5413-11eb-9786-f71d1801dd30', 17, 18, 'Ticket creado', '2021-01-11 10:48:23', '2021-01-11 10:48:23'),
+	(25, 'ac74a6a0-5413-11eb-9786-f71d1801dd30', 17, 15, 'El Agente Cristian a asignado un ticket a Alonso Gutierrez en el Ticket N°17', '2021-01-11 10:50:03', '2021-01-11 10:50:03');
+/*!40000 ALTER TABLE `seguimiento_solicitudes` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.servicios: ~112 rows (aproximadamente)
+/*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
+INSERT IGNORE INTO `servicios` (`id`, `descripcionServicio`, `id_edificio`, `created_at`, `updated_at`) VALUES
+	(3, 'Informatica', 1, NULL, NULL),
+	(4, 'Oirs', 2, NULL, NULL),
+	(5, 'Personal', 3, NULL, NULL),
+	(6, 'Estadistica', 3, NULL, NULL),
+	(7, 'Diabetes', 4, NULL, NULL),
+	(8, 'Nutricionista', 4, NULL, NULL),
+	(9, 'Oftalmologia', 2, '2020-10-28 15:54:59', '2020-10-28 16:05:39'),
+	(10, 'CR RRFF', 1, '2020-10-29 09:07:19', '2020-10-29 09:07:19'),
+	(11, 'Imagenologia', 2, '2020-11-05 16:48:01', '2020-11-05 16:48:01'),
+	(14, 'Sin Ubicacion', 6, NULL, NULL),
+	(15, 'Bodega Abastecimiento', 2, '2020-11-09 10:28:34', '2020-11-09 10:28:34'),
+	(16, 'Archivo', 2, '2020-11-09 10:28:46', '2020-11-09 10:28:46'),
+	(17, 'Movilizacion', 2, '2020-11-09 10:28:52', '2020-11-09 10:28:52'),
+	(18, 'Aramark', 2, '2020-11-09 10:28:57', '2020-11-09 10:28:57'),
+	(19, 'Casilleros Hombres', 2, '2020-11-09 10:30:31', '2020-11-09 10:30:31'),
+	(20, 'Casilleros Mujeres', 2, '2020-11-09 10:30:44', '2020-11-09 10:30:44'),
+	(21, 'Urgencia', 2, '2020-11-09 10:30:51', '2020-11-09 10:30:51'),
+	(22, 'Imagenologia', 2, '2020-11-09 10:30:59', '2020-11-09 10:30:59'),
+	(23, 'Rehabilitacion y Medicina Fisica', 2, '2020-11-09 10:31:14', '2020-11-09 10:31:14'),
+	(24, 'GES', 2, '2020-11-09 10:31:18', '2020-11-09 10:31:18'),
+	(25, 'Hospitalizacion Domiciliaria', 2, '2020-11-09 10:31:28', '2020-11-09 10:31:28'),
+	(26, 'SOME', 2, '2020-11-09 10:31:35', '2020-11-09 10:31:35'),
+	(27, 'Admision', 2, '2020-11-09 10:31:47', '2020-11-09 10:31:47'),
+	(28, 'Recaudacion', 2, '2020-11-09 10:31:55', '2020-11-09 10:31:55'),
+	(29, 'Toma de Muestras', 2, '2020-11-09 10:32:01', '2020-11-09 10:32:16'),
+	(30, 'Farmacia', 2, '2020-11-09 10:33:39', '2020-11-09 10:33:39'),
+	(31, 'Poli-Pediatria', 2, '2020-11-09 10:33:48', '2020-11-09 10:33:48'),
+	(32, 'Poli-Medicina', 2, '2020-11-09 10:33:56', '2020-11-09 10:33:56'),
+	(33, 'Poli-Cirugia', 2, '2020-11-09 10:34:03', '2020-11-09 10:34:03'),
+	(34, 'Nefrologia-Dialisis', 2, '2020-11-09 10:34:11', '2020-11-09 10:34:11'),
+	(35, 'Poli-Ginecologia', 2, '2020-11-09 10:34:21', '2020-11-09 10:34:21'),
+	(36, 'Poli-Taco', 2, '2020-11-09 10:34:28', '2020-11-09 10:34:28'),
+	(37, 'Abastecimiento', 3, '2020-11-09 10:35:50', '2020-11-09 10:35:50'),
+	(38, 'Contabilidad', 3, '2020-11-09 10:35:56', '2020-11-09 10:35:56'),
+	(39, 'Inventario', 3, '2020-11-09 10:36:02', '2020-11-09 10:36:02'),
+	(40, 'Oficina Partes', 3, '2020-11-09 10:36:09', '2020-11-09 10:36:09'),
+	(41, 'USSOMA', 3, '2020-11-09 10:36:15', '2020-11-09 10:36:15'),
+	(42, 'Asistente Social', 3, '2020-11-09 10:36:30', '2020-11-09 10:36:30'),
+	(43, 'Salud Funcionaria', 3, '2020-11-09 10:36:42', '2020-11-09 10:36:42'),
+	(44, 'Gestion de Contrato', 3, '2020-11-09 10:36:51', '2020-11-09 10:36:51'),
+	(45, 'Dental Personal', 3, '2020-11-09 10:36:57', '2020-11-09 10:36:57'),
+	(46, 'Cirugia', 3, '2020-11-09 10:37:02', '2020-11-09 10:37:02'),
+	(47, 'UGA', 3, '2020-11-09 10:37:28', '2020-11-09 10:37:28'),
+	(48, 'Farmacia', 3, '2020-11-09 10:37:36', '2020-11-09 10:37:36'),
+	(49, 'SIGGES', 3, '2020-11-09 10:37:39', '2020-11-09 10:37:39'),
+	(50, 'Chile Crece Contigo', 3, '2020-11-09 10:37:50', '2020-11-09 10:37:50'),
+	(51, 'Reumatologia', 4, '2020-11-09 10:38:08', '2020-11-09 10:38:08'),
+	(52, 'Estanques Calderas', 1, '2020-11-09 10:38:33', '2020-11-09 10:38:33'),
+	(53, 'Calderas y Oxigeno', 1, '2020-11-09 10:38:42', '2020-11-09 10:38:42'),
+	(54, 'Talleres', 1, '2020-11-09 10:38:46', '2020-11-09 10:38:46'),
+	(55, 'Esterilizacion', 1, '2020-11-09 10:38:52', '2020-11-09 10:38:52'),
+	(56, 'Estadistica', 1, '2020-11-09 10:38:56', '2020-11-09 10:38:56'),
+	(57, 'Anatomia Patologia', 1, '2020-11-09 10:39:03', '2020-11-09 10:39:03'),
+	(58, 'Alimentacion(Casino)', 1, '2020-11-09 10:39:14', '2020-11-09 10:39:14'),
+	(59, 'Roperia', 1, '2020-11-09 10:39:19', '2020-11-09 10:39:19'),
+	(60, 'Equipos Medicos', 1, '2020-11-09 10:39:27', '2020-11-09 10:39:27'),
+	(61, 'UCI', 1, '2020-11-09 10:39:31', '2020-11-09 10:39:31'),
+	(62, 'Hemodinamia', 1, '2020-11-09 10:39:37', '2020-11-09 10:39:37'),
+	(63, 'Banco de Sangre - Urgencia Obstetrica', 1, '2020-11-09 10:39:49', '2020-11-09 10:39:49'),
+	(64, 'Recaudacion', 1, '2020-11-09 10:39:55', '2020-11-09 10:39:55'),
+	(65, 'Oirs - Primer Piso', 1, '2020-11-09 10:40:07', '2020-11-09 10:42:15'),
+	(66, 'Laboratorio Koch', 1, '2020-11-09 10:40:26', '2020-11-09 10:40:26'),
+	(67, 'Informacion', 1, '2020-11-09 10:40:30', '2020-11-09 10:40:30'),
+	(68, 'Asistente Social', 1, '2020-11-09 10:40:37', '2020-11-09 10:40:37'),
+	(69, 'Asuntos Institucionales', 1, '2020-11-09 10:40:50', '2020-11-09 10:40:50'),
+	(70, 'Coronaria', 1, '2020-11-09 10:40:55', '2020-11-09 10:40:55'),
+	(71, 'Medicina Mujeres', 1, '2020-11-09 10:41:01', '2020-11-09 10:41:01'),
+	(72, 'Medicina Agudos / Inmunosuprimidos', 1, '2020-11-09 10:41:14', '2020-11-09 10:41:14'),
+	(73, 'STI', 1, '2020-11-09 10:41:18', '2020-11-09 10:41:18'),
+	(74, 'Procuramiento', 1, '2020-11-09 10:41:25', '2020-11-09 10:41:25'),
+	(75, 'Oirs - Tercer Piso', 1, '2020-11-09 10:41:40', '2020-11-09 10:41:40'),
+	(76, 'Cirugia Cardiaca', 1, '2020-11-09 10:41:48', '2020-11-09 10:41:48'),
+	(77, 'Pre-Operatorio', 1, '2020-11-09 10:42:02', '2020-11-09 10:42:02'),
+	(78, 'Cirugia Mujeres', 1, '2020-11-09 10:43:26', '2020-11-09 10:43:26'),
+	(79, 'UCIQ', 1, '2020-11-09 10:43:31', '2020-11-09 10:43:31'),
+	(80, 'Cirugia Hombres', 1, '2020-11-09 10:43:42', '2020-11-09 10:43:42'),
+	(81, 'Cirugia Torre - Tercer Piso', 1, '2020-11-09 10:45:16', '2020-11-09 10:45:16'),
+	(82, 'Medicina Interna', 2, '2020-11-09 10:52:34', '2020-11-09 10:52:34'),
+	(83, 'Poli-Neuro Adulto', 2, '2020-11-09 10:53:58', '2020-11-09 10:53:58'),
+	(84, 'Poli-Neuro Infantil', 2, '2020-11-09 10:54:10', '2020-11-09 10:54:10'),
+	(85, 'Poli-Oftalmologia', 2, '2020-11-09 10:54:18', '2020-11-09 10:54:18'),
+	(86, 'Poli-Otorrino', 2, '2020-11-09 10:54:25', '2020-11-09 10:54:25'),
+	(87, 'Poli-Maxilofacial', 2, '2020-11-09 10:54:39', '2020-11-09 10:54:39'),
+	(88, 'Poli-Bronco', 2, '2020-11-09 10:54:48', '2020-11-09 10:55:15'),
+	(89, 'Poli-Urologia', 2, '2020-11-09 10:55:29', '2020-11-09 10:55:29'),
+	(90, 'Poli-Dermatologia', 2, '2020-11-09 10:55:37', '2020-11-09 10:55:37'),
+	(91, 'Poli-Cardiologia', 2, '2020-11-09 10:55:46', '2020-11-09 10:55:46'),
+	(92, 'GRD', 2, '2020-11-09 10:55:53', '2020-11-09 10:55:53'),
+	(93, 'Poli-Oncologia', 2, '2020-11-09 10:56:04', '2020-11-09 10:56:04'),
+	(94, 'Mezcla-Intravenosa', 2, '2020-11-09 10:56:19', '2020-11-09 10:56:19'),
+	(95, 'Laboratorio Central', 2, '2020-11-09 10:56:33', '2020-11-09 10:56:33'),
+	(96, 'UCA', 2, '2020-11-09 10:56:37', '2020-11-09 10:56:37'),
+	(97, 'Poli-Gastro', 2, '2020-11-09 10:56:43', '2020-11-09 10:56:43'),
+	(98, 'Direccion', 2, '2020-11-09 10:57:49', '2020-11-09 10:57:49'),
+	(99, 'Medicina Nuclear', 2, '2020-11-09 10:57:57', '2020-11-09 10:57:57'),
+	(100, 'Oltalmologia', 1, '2020-11-09 10:58:22', '2020-11-09 10:58:22'),
+	(101, 'Urologia', 1, '2020-11-09 10:58:28', '2020-11-09 10:58:28'),
+	(102, 'Medicina y UNAG', 1, '2020-11-09 10:58:38', '2020-11-09 10:58:38'),
+	(103, 'Cirugia - Cuarto Piso', 1, '2020-11-09 10:58:48', '2020-11-09 10:58:48'),
+	(104, 'Pabellones Centrales', 1, '2020-11-09 10:58:58', '2020-11-09 10:58:58'),
+	(105, 'Puerperio Quirurgico', 1, '2020-11-09 10:59:11', '2020-11-09 10:59:11'),
+	(106, 'Alto Riesgo', 1, '2020-11-09 10:59:18', '2020-11-09 10:59:18'),
+	(107, 'Ginecologia', 1, '2020-11-09 10:59:45', '2020-11-09 10:59:45'),
+	(108, 'Pabellon Partos', 1, '2020-11-09 11:00:01', '2020-11-09 11:00:01'),
+	(109, 'Sedile', 1, '2020-11-09 11:00:05', '2020-11-09 11:00:05'),
+	(110, 'UPC-Pediatrica', 1, '2020-11-09 11:00:13', '2020-11-09 11:00:13'),
+	(111, 'Pediatria', 1, '2020-11-09 11:00:19', '2020-11-09 11:00:19'),
+	(112, 'Oncologia Infantil', 1, '2020-11-09 11:00:29', '2020-11-09 11:00:29'),
+	(113, 'Pensionados', 1, '2020-11-09 11:00:34', '2020-11-09 11:00:34'),
+	(114, 'Neonatologia', 1, '2020-11-09 11:01:40', '2020-11-09 11:01:40'),
+	(115, 'Otorrino', 1, '2020-11-09 11:01:44', '2020-11-09 11:01:44'),
+	(116, 'Neonatologia - Prematuros', 1, '2020-11-09 11:01:54', '2020-11-09 11:01:54'),
+	(117, 'Jardin Infantil', 1, '2021-01-05 14:34:05', '2021-01-05 14:34:05');
+/*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.solicitud_tickets: ~17 rows (aproximadamente)
+/*!40000 ALTER TABLE `solicitud_tickets` DISABLE KEYS */;
+INSERT IGNORE INTO `solicitud_tickets` (`id`, `uuid`, `id_user`, `id_estado`, `id_edificio`, `id_servicio`, `id_ubicacionEx`, `id_tipoReparacion`, `id_categoria`, `tituloP`, `descripcionP`, `created_at`, `updated_at`) VALUES
+	(1, 'd59df95d-7083-46a1-abe0-a610f309a120', 3, 2, 1, 10, 9, 4, 1, 'revisar pozos cdt', '<p>chequeo pozos </p>', '2020-11-05 15:50:39', '2020-11-05 15:50:39'),
+	(2, 'a6f1a6e9-db6b-41e4-a35c-d6f13f4f7e46', 2, 2, 1, 55, 15, 4, 1, 'Falla monomando', '<p>Reparación llave monomando</p>', '2020-12-17 13:05:35', '2020-12-17 13:05:35'),
+	(3, 'cd379a2d-310c-4aa1-aa26-1a91f28c3082', 2, 2, 1, 55, 15, 4, 1, 'Falla monomando', '<p>Reparación llave monomando</p>', '2020-12-17 13:05:49', '2020-12-17 13:05:49'),
+	(4, '284a60a2-935a-4aaa-a567-ef64e200afcf', 2, 2, 1, 112, 31, 1, 1, ',kReparación monomando', '<p>zmbndaijv</p>', '2020-12-17 13:22:52', '2020-12-17 13:22:52'),
+	(5, '92d68816-8ef8-466f-8121-b5e6884cfa28', 2, 7, 1, 112, 31, 1, 1, ',kReparación monomando', '<p>zmbndaijv</p>', '2020-12-17 13:23:13', '2020-12-17 15:45:49'),
+	(6, 'ae581a1b-6713-4eea-887d-bd83082d1b1c', 2, 2, 2, 11, 30, 5, 1, 'Reparación puerta', '<p>Reparación puerta TC2      </p>', '2020-12-17 13:27:22', '2020-12-17 14:42:34'),
+	(7, 'a92a3db6-e435-41ea-b6c7-f95db7d1f117', 3, 2, 1, 10, 9, 1, 1, 'Turno Noche', '<p>Cubrir turno noche</p>', '2020-12-21 15:46:14', '2020-12-21 15:46:14'),
+	(8, 'd6bfa468-9917-41c9-b468-02ee5602b7b3', 3, 2, 1, 10, 9, 1, 1, 'Turno Noche', '<p>Cubrir turno de noche</p>', '2020-12-21 16:24:28', '2020-12-21 16:24:28'),
+	(9, '9394dfb2-6aad-421d-a88c-c2dae6964c86', 3, 2, 1, 10, 9, 1, 1, 'Turno de día', '<p>Cubrir turno de día</p>', '2020-12-22 14:59:35', '2020-12-22 14:59:35'),
+	(10, '2fe94698-8bea-4634-a61a-2b782dd53d99', 12, 7, 1, 10, 9, 1, 1, 'Cubrir turno', '<p>Cubrir turno de noche</p>', '2020-12-22 15:43:01', '2020-12-22 15:46:09'),
+	(11, 'eced5ec0-cf73-41e9-b29e-e98d42a1288f', 3, 2, 1, 10, 9, 1, 1, 'Turno de noche', '<p>Cubrir turno de noche</p>', '2020-12-22 15:47:29', '2020-12-22 15:47:29'),
+	(12, '11854168-3c20-4592-a133-110c0402e3f6', 3, 2, 1, 10, 9, 1, 1, 'Cubrir turno', '<p>Cubrir turno día	</p>', '2020-12-23 16:36:49', '2020-12-23 16:36:49'),
+	(13, 'bd374806-d654-4d37-8725-d60a6a11c45f', 3, 2, 1, 10, 9, 1, 1, 'Cubrir turno', '<p>Cubrir turno de noche</p>', '2020-12-23 16:39:22', '2020-12-23 16:39:22'),
+	(14, '9f6c2789-4a43-48ad-ae8e-641e178fc04e', 3, 2, 1, 10, 9, 1, 1, 'Cubrir turno día', '<p>Cubrir turno eléctrico día</p><p><br></p>', '2021-01-05 09:34:31', '2021-01-05 09:37:14'),
+	(15, 'dc466526-2d50-4caf-92a6-74999cda6d38', 3, 2, 1, 10, 9, 1, 1, 'Cubrir turno noche', '<p>Cubrir turno eléctrico noche</p>', '2021-01-05 09:39:14', '2021-01-05 09:39:14'),
+	(16, '0dad6aad-8638-4e65-8158-d466af11e7f6', 2, 4, 1, 117, 33, 7, 1, 'Trabajo en jardin Infantil', '<p>Mejoramiento de espacio laboral</p>', '2021-01-05 14:38:57', '2021-01-05 14:38:57'),
+	(17, 'ac74a6a0-5413-11eb-9786-f71d1801dd30', 18, 2, 1, 103, 34, 4, 1, 'Cambio monomando', '<p>Reparación de llave de lavamanos del baño de pacientes</p>', '2021-01-11 10:48:23', '2021-01-11 10:50:03');
+/*!40000 ALTER TABLE `solicitud_tickets` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.subir_documentos: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `subir_documentos` DISABLE KEYS */;
+INSERT IGNORE INTO `subir_documentos` (`id`, `id_solicitud`, `nombre_documento`, `created_at`, `updated_at`) VALUES
+	(5, 1, 'users/Documentacion/QZ27fh71BiiDc2UhmlRz8EnnpQxzLSGNkInyyrA9.html', '2020-12-09 14:59:49', '2020-12-09 14:59:49'),
+	(6, 1, 'users/Documentacion/dSrE63AYNuu0RyHtOKN7vlhZpxVInvzKNsecbB3z.pdf', '2020-12-09 16:24:24', '2020-12-09 16:24:24');
+/*!40000 ALTER TABLE `subir_documentos` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.supervisores: ~9 rows (aproximadamente)
+/*!40000 ALTER TABLE `supervisores` DISABLE KEYS */;
+INSERT IGNORE INTO `supervisores` (`id`, `sup_run`, `sup_nombre`, `sup_apellido`, `id_especialidad1`, `id_especialidad2`, `created_at`, `updated_at`) VALUES
+	(1, '18305150-4', 'Daniela', 'Valencia', 10, 1, '2020-11-05 14:59:38', '2020-11-05 14:59:38'),
+	(2, '19062926-0', 'Sofia', 'Guajardo', 12, 1, '2020-11-05 15:04:11', '2020-11-05 15:04:11'),
+	(3, '10116315-6', 'Hector', 'Jara', 4, 6, '2020-11-05 15:08:03', '2020-11-05 15:08:03'),
+	(4, '18366109-4', 'Hector', 'Morales', 16, 6, '2020-11-05 15:10:41', '2020-11-05 15:10:41'),
+	(5, '18699082-K', 'Manuel', 'Philimon', 2, 1, '2020-11-05 15:11:35', '2020-11-05 15:11:35'),
+	(6, '17489508-2', 'Sergio', 'Cerda', 5, 3, '2020-11-05 15:13:08', '2020-11-05 15:13:08'),
+	(7, '17795448-9', 'Paula', 'Bravo', 14, 1, '2020-11-05 15:15:34', '2020-11-05 15:15:34'),
+	(8, '16909529-9', 'Cristian', 'Michell', 11, 1, '2020-11-05 15:18:04', '2020-12-17 10:15:55'),
+	(9, '17946528-0', 'Miguel', 'Aguilera', 2, 6, '2020-11-06 09:00:53', '2020-11-06 09:00:54'),
+	(11, '12645818-5', 'Jacqueline', 'Salas Campo', 14, 1, '2020-12-29 15:09:44', '2020-12-29 15:09:44');
+/*!40000 ALTER TABLE `supervisores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.tbl_permiso_usuarios: ~56 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbl_permiso_usuarios` DISABLE KEYS */;
+INSERT IGNORE INTO `tbl_permiso_usuarios` (`id`, `run_usuario`, `permiso_usuario`, `estado_login`, `created_at`, `updated_at`) VALUES
+	(1, '18499714-2', '1', '1', '2020-12-07 15:40:52', '2020-11-02 14:31:28'),
+	(6, '13744117-9', '1', '1', '2020-10-29 09:08:36', '2020-11-02 14:31:41'),
+	(7, '17946528-0', '1', '1', '2020-11-05 14:28:24', '2020-11-05 14:28:24'),
+	(8, '18305150-4', '1', '1', '2020-11-05 14:59:38', '2020-11-05 14:59:38'),
+	(9, '19062926-0', '1', '1', '2020-11-05 15:04:11', '2020-11-05 15:04:11'),
+	(10, '10116315-6', '1', '1', '2020-11-05 15:08:04', '2020-11-05 15:08:04'),
+	(11, '18366109-4', '1', '1', '2020-11-05 15:10:41', '2020-11-05 15:10:41'),
+	(12, '18699082-K', '1', '1', '2020-11-05 15:11:35', '2020-11-05 15:11:35'),
+	(13, '17489508-2', '1', '1', '2020-11-05 15:13:08', '2020-11-05 15:13:08'),
+	(14, '17795448-9', '1', '1', '2020-11-05 15:15:34', '2020-11-05 15:15:34'),
+	(15, '16909529-9', '1', '1', '2020-11-05 15:18:04', '2020-12-17 10:15:55'),
+	(16, '16042492-3', '3', '1', '2020-11-05 16:36:00', '2020-11-05 16:36:00'),
+	(17, '10037421-8', '2', '1', '2020-11-05 16:51:58', '2020-11-05 16:51:58'),
+	(18, '12680646-9', '2', '1', '2020-11-05 16:54:31', '2020-11-05 16:54:31'),
+	(19, '13342909-3', '3', '1', '2020-12-17 17:09:22', '2020-12-17 17:09:22'),
+	(20, '14652701-9', '3', '1', '2020-12-18 09:14:26', '2020-12-18 09:14:26'),
+	(21, '22419525-7', '3', '1', '2020-12-21 15:34:42', '2020-12-21 15:34:42'),
+	(22, '10728252-1', '3', '1', '2020-12-21 16:12:36', '2020-12-21 16:12:36'),
+	(23, '19854763-8', '3', '1', '2020-12-22 14:55:05', '2020-12-22 14:55:05'),
+	(24, '19820142-1', '3', '1', '2020-12-29 10:57:23', '2020-12-29 10:57:23'),
+	(25, '10603302-1', '3', '1', '2020-12-29 10:58:37', '2020-12-29 10:58:37'),
+	(26, '20947927-3', '3', '1', '2020-12-29 11:00:27', '2020-12-29 11:00:27'),
+	(27, '7210011-5', '3', '1', '2020-12-29 11:09:36', '2020-12-29 11:09:36'),
+	(28, '12452553-5', '3', '1', '2020-12-29 11:45:52', '2020-12-29 11:45:52'),
+	(29, '17835895-2', '3', '1', '2020-12-29 11:50:51', '2020-12-29 11:50:51'),
+	(30, '12673891-9', '3', '1', '2020-12-29 11:51:36', '2020-12-29 11:51:36'),
+	(31, '12118525-3', '3', '1', '2020-12-29 11:52:17', '2020-12-29 11:52:17'),
+	(32, '7043760-0', '3', '1', '2020-12-29 11:52:50', '2020-12-29 11:52:50'),
+	(33, '8828331-7', '3', '1', '2020-12-29 11:53:45', '2020-12-29 11:53:45'),
+	(34, '9359510-6', '3', '1', '2020-12-29 11:58:35', '2020-12-29 11:58:35'),
+	(35, '17730451-4', '3', '1', '2020-12-29 12:23:46', '2020-12-29 12:23:46'),
+	(36, '14278694-K', '3', '1', '2020-12-29 12:24:25', '2020-12-29 12:24:25'),
+	(37, '9406418-K', '3', '1', '2020-12-29 12:25:43', '2020-12-29 12:25:43'),
+	(38, '10572882-4', '3', '1', '2020-12-29 12:26:27', '2020-12-29 12:26:27'),
+	(39, '13918093-3', '3', '1', '2020-12-29 12:33:05', '2020-12-29 12:33:05'),
+	(40, '16422498-8', '3', '1', '2020-12-29 12:33:53', '2020-12-29 12:33:53'),
+	(41, '9465143-3', '3', '1', '2020-12-29 12:34:36', '2020-12-29 12:34:36'),
+	(42, '17623818-6', '3', '1', '2020-12-29 12:35:17', '2020-12-29 12:35:17'),
+	(43, '25785469-8', '3', '1', '2020-12-29 12:36:49', '2020-12-29 12:36:49'),
+	(44, '17230869-4', '3', '1', '2020-12-29 12:37:23', '2020-12-29 12:37:23'),
+	(45, '17279740-7', '3', '1', '2020-12-29 12:38:33', '2020-12-29 12:38:33'),
+	(46, '26600326-9', '3', '1', '2020-12-29 12:39:27', '2020-12-29 12:39:27'),
+	(47, '18365306-7', '3', '1', '2020-12-29 12:39:58', '2020-12-29 12:39:58'),
+	(48, '26084026-6', '3', '1', '2020-12-29 12:40:50', '2020-12-29 12:40:50'),
+	(49, '14338413-6', '3', '1', '2020-12-29 12:41:47', '2020-12-29 12:41:47'),
+	(50, '19730977-6', '3', '1', '2020-12-29 12:42:30', '2020-12-29 12:42:30'),
+	(51, '23321308-K', '3', '1', '2020-12-29 12:43:25', '2020-12-29 12:43:25'),
+	(52, '22729295-4', '3', '1', '2020-12-29 12:44:04', '2020-12-29 12:44:04'),
+	(53, '26702952-0', '3', '1', '2020-12-29 12:45:04', '2020-12-29 12:45:04'),
+	(54, '19239387-6', '3', '1', '2020-12-29 14:20:47', '2020-12-29 14:20:47'),
+	(55, '25799166-0', '3', '1', '2020-12-29 14:23:36', '2020-12-29 14:23:36'),
+	(56, '8442424-2', '3', '1', '2020-12-29 14:24:10', '2020-12-29 14:24:10'),
+	(57, '12656955-6', '3', '1', '2020-12-29 14:24:47', '2020-12-29 14:24:47'),
+	(58, '14157372-1', '3', '1', '2020-12-29 14:25:23', '2020-12-29 14:25:23'),
+	(59, '19292397-2', '2', '1', '2020-12-29 15:00:39', '2020-12-29 15:00:39'),
+	(60, '11695264-5', '2', '1', '2020-12-29 15:02:27', '2020-12-29 15:02:27'),
+	(61, '15509621-7', '2', '1', '2020-12-29 15:03:36', '2020-12-29 15:03:36'),
+	(62, '12645818-5', '1', '1', '2020-12-29 15:09:44', '2020-12-29 15:09:44'),
+	(63, '20332838-9', '3', '1', '2020-12-29 15:11:11', '2020-12-29 15:11:11'),
+	(64, '19162642-7', '3', '1', '2020-12-29 15:12:01', '2020-12-29 15:12:01'),
+	(65, '17429507-7', '2', '1', '2020-12-29 15:15:43', '2020-12-29 15:15:43'),
+	(66, '7042535-1', '2', '1', '2021-01-11 12:49:41', '2021-01-11 12:49:41'),
+	(67, '10790848-K', '2', '1', '2021-01-11 13:00:46', '2021-01-11 13:00:46');
+/*!40000 ALTER TABLE `tbl_permiso_usuarios` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.tipo_reparacions: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipo_reparacions` DISABLE KEYS */;
+INSERT IGNORE INTO `tipo_reparacions` (`id`, `descripcionTipoReparacion`, `created_at`, `updated_at`) VALUES
+	(1, 'Electrico', '2020-12-07 13:22:56', '2020-12-07 13:22:57'),
+	(2, 'Multidiciplina', '2020-12-07 13:22:56', '2020-12-07 13:22:59'),
+	(3, 'Carpinteria', '2020-12-07 13:22:55', '2020-12-07 13:22:55'),
+	(4, 'Gasfiteria', '2020-12-07 13:22:54', '2020-12-07 13:22:54'),
+	(5, 'Mecanico', '2020-10-29 08:49:35', '2020-10-29 09:05:02'),
+	(6, 'Informatica', '2020-12-07 13:22:53', '2020-12-07 13:22:53');
+/*!40000 ALTER TABLE `tipo_reparacions` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.trabajadores: ~49 rows (aproximadamente)
+/*!40000 ALTER TABLE `trabajadores` DISABLE KEYS */;
+INSERT IGNORE INTO `trabajadores` (`id`, `tra_run`, `tra_nombre`, `tra_apellido`, `id_especialidad1`, `created_at`, `updated_at`) VALUES
+	(1, '00000000-0', 'Sin', 'Asignar', 1, '2020-12-04 16:36:01', '2020-12-04 16:36:02'),
+	(2, '17734013-8', 'Lisandro', 'Garcia', 3, '2020-12-04 16:36:01', '2020-11-02 14:32:09'),
+	(3, '18890671-0', 'Alonso', 'Gutierrez', 3, '2020-12-04 16:36:00', '2020-12-04 16:36:02'),
+	(4, '16793504-4', 'Cesar', 'Bravo', 4, '2020-12-04 16:36:00', '2020-12-04 16:36:03'),
+	(5, '13933006-4', 'Carlos', 'Varas', 4, '2020-10-29 11:41:45', '2020-10-30 10:59:47'),
+	(6, '13124492-4', 'Raul', 'Cerda', 6, '2020-12-04 16:35:59', '2020-12-04 16:36:03'),
+	(7, '16042492-3', 'Carlos', 'Acevedo', 10, '2020-11-05 16:36:00', '2020-11-05 16:36:00'),
+	(9, '13342909-3', 'Jorge', 'Benavides', 6, '2020-12-17 17:09:22', '2020-12-17 17:09:22'),
+	(10, '14652701-9', 'David', 'Castillo', 4, '2020-12-18 09:14:26', '2020-12-18 09:14:26'),
+	(11, '22419525-7', 'Cristopher', 'Bañares', 2, '2020-12-21 15:34:42', '2020-12-21 15:34:42'),
+	(12, '10728252-1', 'Daniel', 'Espinoza', 2, '2020-12-21 16:12:36', '2020-12-21 16:12:36'),
+	(13, '19854763-8', 'Mauricio', 'Ibañez', 2, '2020-12-22 14:55:05', '2020-12-22 14:55:05'),
+	(14, '19820142-1', 'Raul', 'Cerda Flores', 14, '2020-12-29 10:57:23', '2020-12-29 10:57:23'),
+	(15, '10603302-1', 'Jorge', 'Karmi Roman', 15, '2020-12-29 10:58:37', '2020-12-29 10:58:37'),
+	(16, '20947927-3', 'Jose', 'Palma Cerda', 12, '2020-12-29 11:00:27', '2020-12-29 11:00:27'),
+	(17, '7210011-5', 'Alfredo', 'Araneda Morales', 14, '2020-12-29 11:09:36', '2020-12-29 11:09:36'),
+	(18, '12452553-5', 'Cinthia', 'Atallares Flores', 17, '2020-12-29 11:45:52', '2020-12-29 11:45:52'),
+	(19, '17835895-2', 'Carlos', 'Becerra Escribar', 10, '2020-12-29 11:50:51', '2020-12-29 11:50:51'),
+	(20, '12673891-9', 'Osvaldo', 'Bustos Peñailillo', 10, '2020-12-29 11:51:36', '2020-12-29 11:51:36'),
+	(21, '12118525-3', 'Roberto', 'Calderón Mellado', 10, '2020-12-29 11:52:17', '2020-12-29 11:52:17'),
+	(22, '7043760-0', 'Mario', 'Carreño Guerrero', 10, '2020-12-29 11:52:50', '2020-12-29 11:52:50'),
+	(23, '8828331-7', 'Angelina', 'Cavieres Gonzalez', 17, '2020-12-29 11:53:45', '2020-12-29 11:53:45'),
+	(24, '9359510-6', 'Luis', 'Cortes Vivar', 19, '2020-12-29 11:58:35', '2020-12-29 11:58:35'),
+	(25, '17730451-4', 'Benjamin', 'Palma Nuñez', 22, '2020-12-29 12:23:46', '2020-12-29 12:23:46'),
+	(26, '14278694-K', 'Ruben', 'Parada Luna', 22, '2020-12-29 12:24:25', '2020-12-29 12:24:25'),
+	(27, '9406418-K', 'Maria', 'Rozas Morales', 18, '2020-12-29 12:25:42', '2020-12-29 12:25:42'),
+	(28, '10572882-4', 'Isabel', 'Sanchez Donoso', 18, '2020-12-29 12:26:27', '2020-12-29 12:26:27'),
+	(29, '13918093-3', 'Jorge', 'Vergara Hernandez', 17, '2020-12-29 12:33:05', '2020-12-29 12:33:05'),
+	(30, '16422498-8', 'Jose', 'Nuñez Aliaga', 19, '2020-12-29 12:33:53', '2020-12-29 12:33:53'),
+	(31, '9465143-3', 'Alonso', 'Gutierrez Palma', 19, '2020-12-29 12:34:36', '2020-12-29 12:34:36'),
+	(32, '17623818-6', 'Carlos', 'Cardemil Navarrete', 19, '2020-12-29 12:35:17', '2020-12-29 12:35:17'),
+	(33, '25785469-8', 'Angelo', 'Ferrer Figueroa', 19, '2020-12-29 12:36:49', '2020-12-29 12:36:49'),
+	(34, '17230869-4', 'Carlos', 'Varas Pinaud', 19, '2020-12-29 12:37:23', '2020-12-29 12:37:23'),
+	(35, '17279740-7', 'Victor', 'Aravena Valdivia', 19, '2020-12-29 12:38:33', '2020-12-29 12:38:33'),
+	(36, '26600326-9', 'Efrain', 'Rodriguez Castrillon', 19, '2020-12-29 12:39:27', '2020-12-29 12:39:27'),
+	(37, '18365306-7', 'Mauricio', 'Ibañez Sarmiento', 19, '2020-12-29 12:39:58', '2020-12-29 12:39:58'),
+	(38, '26084026-6', 'Basilio', 'De Jesús Mateo', 12, '2020-12-29 12:40:50', '2020-12-29 12:40:50'),
+	(39, '14338413-6', 'Marcelo', 'Marillan', 19, '2020-12-29 12:41:47', '2020-12-29 12:41:47'),
+	(40, '19730977-6', 'Daniel', 'Espinoza Flores', 19, '2020-12-29 12:42:30', '2020-12-29 12:42:30'),
+	(41, '23321308-K', 'Alex', 'Rodriguez Gomez', 19, '2020-12-29 12:43:25', '2020-12-29 12:43:25'),
+	(42, '22729295-4', 'Angelica', 'Castillo Quirhuayo', 19, '2020-12-29 12:44:04', '2020-12-29 12:44:04'),
+	(43, '26702952-0', 'Luis Miguel', 'Jaimes Sanchez', 19, '2020-12-29 12:45:04', '2020-12-29 12:45:04'),
+	(44, '19239387-6', 'Maximiliano', 'Zamora Escobar', 19, '2020-12-29 14:20:47', '2020-12-29 14:20:47'),
+	(45, '25799166-0', 'Pedro Cesar', 'Carvajal Flores', 19, '2020-12-29 14:23:36', '2020-12-29 14:23:36'),
+	(46, '8442424-2', 'Hernan', 'Diaz', 19, '2020-12-29 14:24:09', '2020-12-29 14:24:09'),
+	(47, '12656955-6', 'Mauricio', 'Rubio', 19, '2020-12-29 14:24:47', '2020-12-29 14:24:47'),
+	(48, '14157372-1', 'Felipe', 'Apablaza', 19, '2020-12-29 14:25:23', '2020-12-29 14:25:23'),
+	(49, '20332838-9', 'Mayra', 'Preter Galarce', 22, '2020-12-29 15:11:11', '2020-12-29 15:11:11'),
+	(50, '19162642-7', 'Fabio', 'Toro Diaz', 20, '2020-12-29 15:12:01', '2020-12-29 15:12:01');
+/*!40000 ALTER TABLE `trabajadores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.turnos: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `turnos` DISABLE KEYS */;
+INSERT IGNORE INTO `turnos` (`id`, `descripcionTurno`, `created_at`, `updated_at`) VALUES
+	(1, 'Dia', '2020-11-06 09:20:52', '2020-11-06 09:20:53'),
+	(2, 'Noche', '2020-11-06 09:20:54', '2020-11-06 09:20:55'),
+	(3, 'Libre', '2020-11-24 14:48:16', '2020-11-24 14:48:17');
+/*!40000 ALTER TABLE `turnos` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.turno_extra_ascensores: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `turno_extra_ascensores` DISABLE KEYS */;
+INSERT IGNORE INTO `turno_extra_ascensores` (`id`, `id_calendario_ascensores`, `hora_inicio_turno_extra`, `hora_termino_turno_extra`, `fecha_inicio_turno_extra`, `fecha_termino_turno_extra`, `dias_ejecucion_turno_extra`, `horas_ejecucion_turno_extra`, `estado_turno_extra`, `created_at`, `updated_at`) VALUES
+	(1, 4, '20:00:00', '06:00:00', '2020-11-16', '2020-11-17', 0, 0, 1, '2020-11-16 15:28:31', '2020-11-16 15:28:31'),
+	(2, 7, '12:00:00', '12:00:00', '2020-11-06', '2020-11-06', 0, 0, 1, '2020-11-24 12:08:33', '2020-11-24 12:08:33'),
+	(3, 7, '12:00:00', '18:00:00', '2020-11-06', '2020-11-06', 0, 0, 1, '2020-11-24 14:03:30', '2020-11-24 14:03:30');
+/*!40000 ALTER TABLE `turno_extra_ascensores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.turno_extra_c_telefonicas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `turno_extra_c_telefonicas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `turno_extra_c_telefonicas` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.unidad_esps: ~27 rows (aproximadamente)
+/*!40000 ALTER TABLE `unidad_esps` DISABLE KEYS */;
+INSERT IGNORE INTO `unidad_esps` (`id`, `descripcionUnidadEsp`, `id_servicio`, `created_at`, `updated_at`) VALUES
+	(6, 'Jefatura - Personal', 5, NULL, NULL),
+	(7, 'Secretaria - Personal', 5, '2020-10-28 16:33:46', '2020-10-28 16:35:25'),
+	(8, 'Jefatura - RRFF', 10, '2020-10-29 09:07:45', '2020-10-29 09:07:45'),
+	(9, 'Mantencion', 10, '2020-10-29 09:15:54', '2020-10-29 09:15:54'),
+	(10, 'Jefatura - Informatica', 3, '2020-11-05 16:42:58', '2020-11-05 16:43:19'),
+	(11, 'Equipo Desarrollo - Informatica', 3, '2020-11-05 16:43:06', '2020-11-05 16:43:31'),
+	(13, 'Jefatura - Imagenologia', 11, '2020-11-05 16:49:16', '2020-11-05 16:49:37'),
+	(14, 'Sin Ubicacion Especifica', 14, NULL, NULL),
+	(15, 'Jefatura - Esterilizacion', 55, '2020-12-07 12:04:25', '2020-12-07 12:04:25'),
+	(16, 'Sin Ubicacion - Esterilizacion', 55, '2020-12-07 12:27:44', '2020-12-07 12:27:44'),
+	(17, 'Sin Ubicacion - Imagenologia', 11, '2020-12-07 12:45:53', '2020-12-07 12:45:53'),
+	(18, 'Sin Ubicacion - Oirs', 4, '2020-12-07 13:17:15', '2020-12-07 13:17:15'),
+	(19, 'Sin Ubicacion - Nutricionista', 8, '2020-12-07 14:03:21', '2020-12-07 14:03:21'),
+	(20, 'Jefatura - Estadistica', 6, '2020-12-07 14:47:35', '2020-12-07 14:47:35'),
+	(21, 'Sin Ubicacion - Estadistica', 6, '2020-12-07 14:48:01', '2020-12-07 14:48:01'),
+	(22, 'Jefatura - Archivo', 16, '2020-12-07 14:50:26', '2020-12-07 14:50:26'),
+	(23, 'Sin Ubicacion - Archivo', 16, '2020-12-07 14:54:16', '2020-12-07 14:54:16'),
+	(24, 'Jefatura - Admision', 27, '2020-12-07 14:54:52', '2020-12-07 14:54:52'),
+	(25, 'Jefatura - Toma de Muestras', 29, '2020-12-07 15:15:49', '2020-12-07 15:15:49'),
+	(26, 'Jefatura - Poliginecologia', 35, '2020-12-07 15:16:08', '2020-12-07 15:16:08'),
+	(27, 'Jefatura - Pediatria', 31, '2020-12-07 15:16:55', '2020-12-07 15:16:55'),
+	(28, 'Jefatura - Farmacia', 30, '2020-12-07 16:32:18', '2020-12-07 16:32:18'),
+	(29, 'Oncología', 110, '2020-12-17 12:56:31', '2020-12-17 12:56:31'),
+	(30, 'Rayos', 11, '2020-12-17 13:13:07', '2020-12-17 13:13:07'),
+	(31, 'Oncología', 112, '2020-12-17 13:20:43', '2020-12-17 13:20:43'),
+	(32, 'Sin Ubicacion - STI', 73, '2020-12-18 08:58:43', '2020-12-18 08:58:43'),
+	(33, 'Sin Ubicacion - Jardin Infantil', 117, '2021-01-05 14:34:58', '2021-01-05 14:34:58'),
+	(34, 'Sector E', 103, '2021-01-11 10:47:38', '2021-01-11 10:47:38'),
+	(35, 'Sin Ubicacion - Personal', 5, '2021-01-11 11:20:04', '2021-01-11 11:20:04'),
+	(36, 'Sin Ubicacion - Diabetes', 7, '2021-01-11 11:20:17', '2021-01-11 11:20:17'),
+	(37, 'Sin Ubicacion - Oftalmologia', 9, '2021-01-11 11:20:40', '2021-01-11 11:20:40'),
+	(38, 'Jefatura - Direccion', 98, '2021-01-11 12:48:18', '2021-01-11 12:48:18'),
+	(39, 'Sin Ubicacion - Asuntos Institucionales', 69, '2021-01-11 12:56:59', '2021-01-11 12:56:59'),
+	(40, 'Sin Ubicacion - Calderas', 52, '2021-01-11 13:02:30', '2021-01-11 13:02:30');
+/*!40000 ALTER TABLE `unidad_esps` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.users: ~61 rows (aproximadamente)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT IGNORE INTO `users` (`id`, `run`, `email`, `nombre`, `apellido`, `anexo`, `id_cargo`, `id_cargo_asociado`, `id_edificio`, `id_servicio`, `id_unidadEspecifica`, `password`, `api_token`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, '18499714-2', 'ricardo.soto.g@redsalud.gov.cl', 'Ricardo', 'Soto', 286857, 5, 0, 1, 1, 1, '$2y$10$lcpGX10TS.gicAKnfda/oep4uZqQd/C8dUynV5OMfgDU.AkIFv7H.', '$2y$10$52BYzcWf/0PjpAZ8VaZbkOsOtl1W245gZWvprxvU3RUVZ5SAjje7m', NULL, '2020-11-30 16:34:23', '2021-01-11 12:11:37'),
+	(2, '13744117-9', 'javier.verar@redsalud.gov.cl', 'Javier', 'Vera Rojas', 286547, 1, 0, 1, 10, 8, '$2y$10$6QGBs1Cq5HLC9s0dDEzlMOLsK1xZQbBuvfd4yy/LLaHQpriKJ8Eqa', '$2y$10$eTqZRlDnhnuML0Qke0yNvu6iSUzCuQzCiYq0h40mqwbYfkx3CoyCK', NULL, '2020-10-29 09:08:36', '2020-12-16 19:23:52'),
+	(3, '17946528-0', 'mantencion.hsjd@redsalud.gov.cl', 'Miguel', 'Aguilera', 242396, 1, 6, 1, 10, 9, '$2y$10$IsxYIJ9QfvWx3DTUcrCKq.OyYuHxq3XGN85dtgUY/7LFujYCQSC2S', '$2y$10$kafXecFQmgLimBY5RhGDVOJwkpEnxubXOnPY5s5mwjPVf/5XUAPru', NULL, '2020-11-05 14:28:24', '2020-11-05 15:44:00'),
+	(9, '19062926-0', 'mantencion.hsjd@redsalud.gov.cl', 'Sofia', 'Guajardo', 242396, 5, 3, 1, 10, 9, '$2y$10$V4q9B9ToBejsG2H0V3R/lu6jgLMOJ2elhY1UT8D9ACzzeSUFvGVjy', '$2y$10$zEu2H0hsxxJ7TkPG0t8KKuc4cvXnK9xwkiRMh74IiutccN1ugKkEK', NULL, '2020-11-05 15:04:10', '2020-12-17 15:45:39'),
+	(10, '10116315-6', 'mantencion.hsjd@redsalud.gov.cl', 'Hector', 'Jara', 242396, 5, 3, 1, 10, 9, '$2y$10$Uj/mwPXbl56naEQhBhXnKOgp8guDsmlEJAG0TJ2cU2Pjuc2/eSMTK', 'XZQIgXNFxxkr4RKFK0ScaDX94m1NMXOwmkPy2Pxszxr3dPi0niFaCP3WvAeB', NULL, '2020-11-05 15:08:03', '2020-11-05 15:08:03'),
+	(11, '18366109-4', 'mantencion.hsjd@redsalud.gov.cl', 'Hector', 'Morales', 242396, 5, 3, 1, 10, 9, '$2y$10$9pF55fPbdRicMV6TiGYG4Onbg0au1feZK2uuKpUIRlowpG4FqMmAy', '6GwAgSN6D37Zty6CTbzW8diFixtnvMzZz3L5VywVAQwyxZBH915h1KkiXl9O', NULL, '2020-11-05 15:10:41', '2020-11-05 15:10:41'),
+	(12, '18699082-K', 'mantencion.hsjd@redsalud.gov.cl', 'Manuel', 'Philimon', 242396, 5, 3, 1, 10, 9, '$2y$10$eubFNoxrJRh4AXmOouCh9uLafWT4BPqebI.vuUr7ANYu8O9bhgjLe', 'kfpG5wwT9pDQXsc77hzOjlA1XXcqoROAy2cb68hf3oWoJerH1NviLU6QQGkX', NULL, '2020-11-05 15:11:35', '2020-11-05 15:11:35'),
+	(13, '17489508-2', 'mantencion.hsjd@redsalud.gov.cl', 'Sergio', 'Cerda', 242396, 5, 3, 1, 10, 9, '$2y$10$RNLH1Y5eI2N4ANtQPJAuMeVXi/BB2YF.f42wBYP2.HB2RsWVazsTu', 'Sz0HHsGohiA1Lg94KN0LZVo0b462J7qgWYssq0V9zihA8EnTmRTLWHMaKqRD', NULL, '2020-11-05 15:13:08', '2020-11-05 15:13:08'),
+	(14, '17795448-9', 'paula.bravog@redsalud.gov.cl', 'Paula', 'Bravo', 286857, 5, 2, 1, 10, 9, '$2y$10$XbdsaT5EVhnJoyLZWm3xAOmLtRTeVpPD5dGUnKlylyaJ62gbqdJwO', 'BydgPSetP7YOlrI4uhLIdIwzNcxaki2V2u1yqYJjrCXlX3xMnDjs30OGYyou', NULL, '2020-11-05 15:15:34', '2020-11-05 15:15:34'),
+	(15, '16909529-9', 'mantencion.hsjd@redsalud.gov.cl', 'Cristian', 'Michell', 242396, 5, 3, 1, 10, 9, '$2y$10$nUWYunwLZYaj.jbqPWX9EOJbssvrsu74VWfxXIsPgnTG.hkFG.nFK', '$2y$10$XBifESxRFc6rvrKhRbQ9.OWnplPryRDEz1IFCREOlRnyYtnWYNikm', NULL, '2020-11-05 15:18:04', '2021-01-11 10:48:38'),
+	(16, '16042492-3', 'mantencion.hsjd@redsalud.gov.cl', 'Carlos', 'Acevedo', 242396, 6, 1, 1, 10, 9, '$2y$10$xgVnRD.MH/oB6uWE1JGbieqCKLCeZtytpFetDBoGtPq5h72u7DUT2', '$2y$10$FdWujx4Yao6RuXFxGrDYeexFYnkD5SqQOB.UQGWsusTeuCQolTR8m', NULL, '2020-11-05 16:36:00', '2020-12-10 10:15:00'),
+	(17, '10037421-8', 'guido.gonzalezt@redsalud.gov.cl', 'Guido', 'Gonzalez', 242396, 1, 0, 2, 11, 13, '$2y$10$XQiS9xbBbV0YyNcvjKoa/em/5uYS9bIvVRvJqpektBy5QQgzCgP0O', '$2y$10$1rg6Miv/Ac1sqzbuYCd8Ku.z10s/e8VMknI348/NdFzoGCM62mBY2', NULL, '2020-11-05 16:51:58', '2020-11-26 16:25:36'),
+	(18, '12680646-9', 'gomez.soto.ricardo@gmail.com', 'Ricardo', 'Soto', 286857, 8, 0, 1, 10, 9, '$2y$10$xE2WDToWy7RnoHQ97OqHLOP4DZrdHjqmG4H6qI/Ujs9Oabwv.Ns7G', '$2y$10$vei8HdN8VY4fHEmuW2Mvxu5LPqjtBWZ101iJ3wFQQ.3LbuS5u3sWa', NULL, '2020-11-05 16:54:31', '2021-01-11 11:12:54'),
+	(19, '13342909-3', 'mantencion.hsjd@redsalud.gob.cl', 'Jorge', 'Benavides', 285478, 6, 3, 1, 10, 8, '$2y$10$ilL0UtQw.rc3pL2YDYmWwu83NCanm.euESFGpp/1y3BdSiQXcXPjK', 'qIRyAQQ5OCYMSr1mYhdXV4QC8OyeliYEoRwgFgEN7RHtx9NftuLHqutQ8HwY', NULL, '2020-12-17 17:09:22', '2020-12-17 17:09:22'),
+	(20, '14652701-9', 'mantencion.hsjd@redsalud.gov.cl', 'David', 'Castillo', 285475, 6, 8, 1, 10, 9, '$2y$10$AtbgDZ1FyxPGST/rh2G2D.vpKyNVStXvFg.pzthSYvAtjggMr1Imm', 'Wpf07ZakyS0w4jKVzJetFNQ9sQQOva38pldIstOLWM85lo65OnMLHDPfkgzw', NULL, '2020-12-18 09:14:26', '2020-12-18 09:14:26'),
+	(22, '22419525-7', 'mantencion.hsjd@redsalud.gov.cl', 'Cristopher', 'Bañares', 0, 6, 5, 1, 10, 9, '$2y$10$Alw29.KX2NS7OqGZ2Q4Ta.LtHq7WQdKQLZ2CskL5g7M3rsw3nN//G', 'y1a5hpC4tOqWNiPsqiHoqYOjEKEEs8xdBuzgXlPreCCsc505mhkLqpuy2ShZ', NULL, '2020-12-21 15:34:42', '2020-12-21 15:34:42'),
+	(23, '10728252-1', 'mantencion.hsjd@redsalud.gov.cl', 'Daniel', 'Espinoza', 0, 6, 5, 1, 10, 9, '$2y$10$3tiOqYKtslSGNJHXVMYEq.JbymnM5UzmBmaOLyGNCJxaiVBPHfFhm', '7MmT9pC0lsaopECo1buiToqk885WWJeySlOQwEjbqIJmburBZz6JqZpnFiIa', NULL, '2020-12-21 16:12:36', '2020-12-21 16:12:36'),
+	(24, '19854763-8', 'mantencion.hsjd@redsauld.gov.cl', 'Mauricio', 'Ibañez', 0, 6, 5, 1, 10, 9, '$2y$10$Vh9M/.ZxvZdub2TryutkS.p93OR64Bb5NIobIinjYOaMQx6MaozyG', 'azagCDGqLc3AzlMSp0wleSBeFJ9XQcmhBBMmVidgo7YdXSGJ9DWYGzy0JZcN', NULL, '2020-12-22 14:55:05', '2020-12-22 14:55:05'),
+	(25, '19820142-1', 'mantencion.hsjd@redsalud.gov.cl', 'Raul', 'Cerda Flores', 286857, 6, 8, 1, 10, 9, '$2y$10$tv2I06MOHju7IJLzxS615enuuIlKuzvUpcwKRLapr4qDbXHlvy7NO', '2AJdXze8dugDuXFnHCLmo4cWLFpP5jEMYKfbsidRssN12Bt0VtlpKosNawo6', NULL, '2020-12-29 10:57:23', '2020-12-29 10:57:23'),
+	(26, '10603302-1', 'mantencion.hsjd@redsalud.gov.cl', 'Jorge', 'Karmi Roman', 286857, 6, 2, 1, 10, 9, '$2y$10$rXCXQmYSYkcOtGY52Gak1.8Nn1s23vkMR6LstKEcVHNHLmdyun3Cy', 'B9GTMTD6dXvoRlFQ1rRU7dM4q5E98FeJccPeCauoS0jdHDacDwt5vBrbLtDa', NULL, '2020-12-29 10:58:37', '2020-12-29 10:58:37'),
+	(27, '20947927-3', 'mantencion.hsjd@redsalud.gov.cl', 'Jose', 'Palma Cerda', 286857, 6, 2, 1, 10, 9, '$2y$10$4/xfZ4Cgz9O0Kgx6/Qv.2OaihBq/Ums71UA19NpymjRkOMW8VsTtq', '1sHo7BrhUW31OJHnHEVvY11micmmJ8v3cDHiw9Z7yTFzq4Kgq5URQoMRDaYg', NULL, '2020-12-29 11:00:27', '2020-12-29 11:00:27'),
+	(28, '7210011-5', 'mantencion.hsjd@redsalud.gov.cl', 'Alfredo', 'Araneda Morales', 286857, 6, 1, 1, 10, 9, '$2y$10$2hh1xJX3oRn.dYDcTRASDe.j2S8mKlgxdReDKDIlaexjSQWROPYIi', 'FIvhp0I6aQbb97ifTTE11jL6JP7TB3kvaLnSxWysQ0QrVaHug28iiK9jHHYq', NULL, '2020-12-29 11:09:36', '2020-12-29 11:09:36'),
+	(29, '12452553-5', 'mantencion.hsjd@redsalud.gov.cl', 'Cinthia', 'Atallares Flores', 286857, 6, 8, 1, 10, 9, '$2y$10$jWyJtkavqAWG1cfAihsuwuma6e8a58D0JV/z0.Ban7o7q6Q8lmy3e', 'OcgZtZKkXGrAetarWnr2DzZLuKb6XRZbHx0sAmevlfZ4zN9RWNs2uo2LbvmF', NULL, '2020-12-29 11:45:52', '2020-12-29 11:45:52'),
+	(30, '17835895-2', 'mantencion.hsjd@redsalud.gov.cl', 'Carlos', 'Becerra Escribar', 286857, 6, 3, 1, 10, 9, '$2y$10$8SL93Ob28SsrSzuuji6qk.XK.iHPb1cCx246i8rdBGPN6VFDiMhmG', 'YcIyM8SFmgTxDigNZVtaXR1fi3LKLs5U97qihiLlvNrs42AJLLSkzr3oBtGF', NULL, '2020-12-29 11:50:51', '2020-12-29 11:50:51'),
+	(31, '12673891-9', 'mantencion.hsjd@redsalud.gov.cl', 'Osvaldo', 'Bustos Peñailillo', 286857, 6, 3, 1, 10, 9, '$2y$10$tk5GQUibRC35K/OurRgyMOwxtcYWhRcXJ.BITCXEcJyRsx7ulW7zS', 'j0numCZ0qmd5CEPtjMHpq3rjRKqY9m9WqFJeHZbA1j2uZVGpuB7C3cdUIzDJ', NULL, '2020-12-29 11:51:36', '2020-12-29 11:51:36'),
+	(32, '12118525-3', 'mantencion.hsjd@redsalud.gov.cl', 'Roberto', 'Calderón Mellado', 286857, 6, 3, 1, 10, 9, '$2y$10$ZuptouTnc8Cmo5hGDHAjoOVRgQoK88XfAfeSSOmYl/dl.wNP/9FGi', '7gOK1QnLPH6gVWm6Uk7Uhwl8dkO2kwzDU5n3zW3dgRbv7GOcc3auSP4VxWtQ', NULL, '2020-12-29 11:52:16', '2020-12-29 11:52:16'),
+	(33, '7043760-0', 'mantencion.hsjd@redsalud.gov.cl', 'Mario', 'Carreño Guerrero', 286857, 6, 3, 1, 10, 9, '$2y$10$0ZI63iCxthGhHGywyKHnZeRc6vEC0YxvYS9HDuUa3YZYPapZQXTP2', 'O8ltk5vltmOl2k3wOmKYouQXcBOcusbiVFmDEgrfsPpavYjPPkVsmjZvkufR', NULL, '2020-12-29 11:52:50', '2020-12-29 11:52:50'),
+	(34, '8828331-7', 'mantencion.hsjd@redsalud.gov.cl', 'Angelina', 'Cavieres Gonzalez', 286857, 6, 8, 1, 10, 9, '$2y$10$iFLU4YI6KOALp2h4wZ5By.SvnI25RWNx.Jzu517GNA7mKbCx2WuzC', 't3NZ8IxhrQwQEIvvZE7hAND4VehWhGHFuYFYzR1zApowxEZFSJ54CgHUNcme', NULL, '2020-12-29 11:53:44', '2020-12-29 11:53:44'),
+	(37, '9359510-6', 'mantencion.hsjd@redsalud.gov.cl', 'Luis', 'Cortes Vivar', 286857, 6, 8, 1, 10, 9, '$2y$10$czNTGheXaNWqYCHmvICqkO8/.VRKvCmoTXY5wgJrQQamGrSevEwO.', '0dRYK6GUqNszyqQ0ExPoPhQ0EpGwEVOfJgY5bBLxeXdQjFlSIdRFirEfbdvP', NULL, '2020-12-29 11:58:34', '2020-12-29 11:58:34'),
+	(39, '17730451-4', 'mantencion.hsjd@redsalud.gov.cl', 'Benjamin', 'Palma Nuñez', 286857, 6, 3, 1, 10, 9, '$2y$10$yfWXSAFZJwcIg0usyLEWBeX2PBGQY2YwjCUsnE2xvieNyXdf8BjSa', '2Sq2Qg8a9c5OaPvAxgOVE2zWJwwCjm3uYhlgv842dFFmTwwX1g3oFAxpxpE0', NULL, '2020-12-29 12:23:46', '2020-12-29 12:23:46'),
+	(40, '14278694-K', 'mantencion.hsjd@redsalud.gov.cl', 'Ruben', 'Parada Luna', 286857, 6, 3, 1, 10, 9, '$2y$10$Y35oHIS3u46GdE4Od.00iOf0Bi/5Yy4MqashTiIdFwZS8EY4Os2U2', '6WpWFl6nIUGurggFK39vDw0KPCOHlVXloP8AhVHJyWaie2zUhch7FtCfEt4h', NULL, '2020-12-29 12:24:25', '2020-12-29 12:24:25'),
+	(41, '9406418-K', 'mantencion.hsjd@redsalud.gov.cl', 'Maria', 'Rozas Morales', 286857, 6, 8, 1, 10, 9, '$2y$10$..UQ7KmNWyB56acuYK1haus3gZQD/xPcrLN0NEPRtWxyT9quoYGua', 'zgb1dWTnHo29JdOmcEeyfQQQ4E3lDSXPYUHlo8n213U2GOj1Uv8jTu1ByErV', NULL, '2020-12-29 12:25:42', '2020-12-29 12:25:42'),
+	(42, '10572882-4', 'mantencion.hsjd@redsalud.gov.cl', 'Isabel', 'Sanchez Donoso', 286857, 6, 8, 1, 10, 9, '$2y$10$duZxIjdrcqmO9tMwDdRVhOUz4lx1eH6OeCvTt/ZEPR6POLX9Caaee', 'LAKxEGHE7JvmYSfBn0cPY5rGnZ7eBrhwyeRsbdzmTColmssTPFTfW0ipez6z', NULL, '2020-12-29 12:26:26', '2020-12-29 12:26:26'),
+	(43, '13918093-3', 'mantencion.hsjd@redsalud.gov.cl', 'Jorge', 'Vergara Hernandez', 286857, 6, 8, 1, 10, 9, '$2y$10$n7vUJpKjsQYQZ9Ug3tNbJeJkH2anRCo9OPGdT2onmXEBvdZ53QSPm', 'ubOOVf5eVs4rZJI89Lktl7utxh2OjzSnY4opnE30phnmWgVPfMpAnYVhb4W9', NULL, '2020-12-29 12:33:05', '2020-12-29 12:33:05'),
+	(44, '16422498-8', 'mantencion.hsjd@redsald.gov.cl', 'Jose', 'Nuñez Aliaga', 286857, 6, 8, 1, 10, 9, '$2y$10$wDV20sreitw0/cgy//k7he99BbfZPGd.o8y14TVbf79ZStt59/r0G', 'H5rO63XVhP46XKSb8XJ4VJHXeLO8nIjrqxVweepJKkSpNw4XbKKvBoNBfnMM', NULL, '2020-12-29 12:33:52', '2020-12-29 12:33:52'),
+	(45, '9465143-3', 'mantencion.hsjd@redsalud.gov.cl', 'Alonso', 'Gutierrez Palma', 286857, 6, 8, 1, 10, 9, '$2y$10$J1eVGYQgP.WrYR7QnmUyY.ULIywm3BD/Vh96ijbUE/WOAGudn66C2', 'EdRJYuZjV6hWfsVt6AEWZcdyqC5l66vtMfPpKRez2rJFOd99mehXpmJbnLln', NULL, '2020-12-29 12:34:36', '2020-12-29 12:34:36'),
+	(46, '17623818-6', 'mantencion.hsjd@redsalud.gov.cl', 'Carlos', 'Cardemil Navarrete', 286857, 6, 8, 1, 10, 9, '$2y$10$Cuv4WVerskoEkxofQZqjueFDXLnh4zVmNrQwYEz.CxjGnXyFM/9RC', 'J4LnyBaUvqVUzOmrMioLpTLqIP5gHyJN336BAhg4Jx77eoXaOWDqrFJG9FGy', NULL, '2020-12-29 12:35:17', '2020-12-29 12:35:17'),
+	(47, '25785469-8', 'mantencion.hsjd@redsalud.gov.cl', 'Angelo', 'Ferrer Figueroa', 286857, 6, 8, 1, 10, 9, '$2y$10$aKO7Pc4W7ZF6/T3U2PrizenF0XO6VvXsQCJ8YlW1zHOjGNiV.aePm', 'lDSGm2LVVfRdDWsdSg3iOqowu1us0PR33xhbuOwetY7UoHeOyeDCOXOkFzUL', NULL, '2020-12-29 12:36:49', '2020-12-29 12:36:49'),
+	(48, '17230869-4', 'mantencion.hsjd@redsalud.gov.cl', 'Carlos', 'Varas Pinaud', 286857, 6, 8, 1, 10, 9, '$2y$10$ambLRtwXN51sk4WhUTQ0kOfGJnsRmjCF0VnttSM6GYsSUSLzHjG/e', '3LnLy8cNIK3rfhjeP2SRa2iaOYzXmi7nAJ0dBgiAwq1NjQWe9s0VjLuG5D3d', NULL, '2020-12-29 12:37:23', '2020-12-29 12:37:23'),
+	(49, '17279740-7', 'mantencion.hsjd@redsalud.gov.cl', 'Victor', 'Aravena Valdivia', 286857, 6, 8, 1, 10, 9, '$2y$10$oguHQJDvdqlE9cRDHkH/G.N8Xg070.YbyNFS6UXC9vwTffsPx4RvK', 'vXlNiQ15vvO3QQLT1LpHWeVVkX90Fk0qcSs9d8cPn2hzqoLdeONlHwGw0VVu', NULL, '2020-12-29 12:38:33', '2020-12-29 12:38:33'),
+	(50, '26600326-9', 'mantencion.hsjd@redsalud.gov.cl', 'Efrain', 'Rodriguez Castrillon', 286857, 6, 8, 1, 10, 9, '$2y$10$kLbm2aqFrc0vn2BD3IpsOuUh1ddVpLqrisY925UxyA/V4mLee5BqK', 'dq3cXw6iAZCHJekN5wwQg7KW9p4haXU3AA9oj9s0dy1LmA1tz38pW5Lp5BgG', NULL, '2020-12-29 12:39:27', '2020-12-29 12:39:27'),
+	(51, '18365306-7', 'mantencion.hsjd@redsalud.gov.cl', 'Mauricio', 'Ibañez Sarmiento', 286857, 6, 8, 1, 10, 9, '$2y$10$20Rf/AxCud7ukJOE7f/WkeQXz/5.mo7JFbrvij6ikSWsoQdSNjsBu', 'veujCyZQ6tMpsje86bOHhAAfj3CwFgccDl8UaIhdp7XnWGieAYr5A4n7EOna', NULL, '2020-12-29 12:39:58', '2020-12-29 12:39:58'),
+	(52, '26084026-6', 'mantencion.hsjd@redsalud.gov.cl', 'Basilio', 'De Jesús Mateo', 286857, 6, 2, 1, 10, 9, '$2y$10$CpnUOtFeAi2iQN0VPFPV.uYghq9yxiroO8fytntAQf3U4DXH1c8Sq', 'WKcyULHf0VFUv7wphN3zDquS1L8jRb51MtensytqhtMFtdD9Zex821VLQ5iQ', NULL, '2020-12-29 12:40:50', '2020-12-29 12:40:50'),
+	(53, '14338413-6', 'mantencion.hsjd@redsalud.gov.cl', 'Marcelo', 'Marillan', 286857, 6, 8, 1, 10, 9, '$2y$10$pH9woCudyfk20BvRfGJ2OO6jQ83i.3Bgv8zcQyw/ujzueCf6Q.W7q', 'LFLw9jeUA9v0791kVujxA7Qy2FOaKfATMLwDHenuHdsJSpLDFovc5vLASEOV', NULL, '2020-12-29 12:41:47', '2020-12-29 12:41:47'),
+	(54, '19730977-6', 'mantencion.hsjd@redsalud.gov.cl', 'Daniel', 'Espinoza Flores', 286857, 6, 8, 1, 10, 9, '$2y$10$devSV7NYEP2ivK1k5BXhAOHN23K0nWMRKieKMTO0j1zpAJl8lwRne', '89Ht6iEoUaFNCEH2iO9FdlXFpRiz38RWP7dRa0xfD3dQ7bW0IZ092tAMuCrU', NULL, '2020-12-29 12:42:30', '2020-12-29 12:42:30'),
+	(55, '23321308-K', 'mantencion.hsjd@redsalud.gov.cl', 'Alex', 'Rodriguez Gomez', 286857, 6, 8, 1, 10, 9, '$2y$10$Ni4PN2BqirCxHZevqxRA1.AXBcBozLlKwTPlxseRXR2qTyodIs2PC', 'salUyj6KLnvfkizuDg5QcmdFMkZ4iCEfLKMEo0d7pzHNzoCvRgKcU0btFk47', NULL, '2020-12-29 12:43:25', '2020-12-29 12:43:25'),
+	(56, '22729295-4', 'mantencion.hsjd@redsalud.gov.cl', 'Angelica', 'Castillo Quirhuayo', 286857, 6, 8, 1, 10, 9, '$2y$10$r1QuVnYseutPWp0iA80pH.KNHv093jT6iwXtIu/3ql4aPwCudpMpG', '6OLoW47TcS0PM0erhUfdDJrAav9CV9Bp90gK9vb1X1y7Hrh3R58bXOmsmdfo', NULL, '2020-12-29 12:44:04', '2020-12-29 12:44:04'),
+	(57, '26702952-0', 'mantencion.hsjd@redsalud.gov.cl', 'Luis Miguel', 'Jaimes Sanchez', 286857, 6, 8, 1, 10, 9, '$2y$10$PiQzmN1IZFadnMm3208tC.PaVF.3/CM3xcXwkexclmePZ3rG1kMAm', 'uLWVE8XMJoX5FIFOahls6z0KgjbrWvragyohKdOZLzovr9w2K6SiZ8XyDZrl', NULL, '2020-12-29 12:45:04', '2020-12-29 12:45:04'),
+	(58, '19239387-6', 'mantencion.hsjd@redsalud.gov.cl', 'Maximiliano', 'Zamora Escobar', 286857, 6, 8, 1, 10, 9, '$2y$10$yzdwy6E1aBwRuKgK5b7cl.iJzGN2qYCGojH6mevZx4Hq4Rdm8GwVW', '9JjzIg9lmbc8duz43yMD6PEPcSQpRkCOgzRDmEEeD5h5GQPOZQJjRdUBcLpj', NULL, '2020-12-29 14:20:47', '2020-12-29 14:20:47'),
+	(59, '25799166-0', 'mantencion.hsjd@redsalud.gov.cl', 'Pedro Cesar', 'Carvajal Flores', 286857, 6, 8, 1, 10, 9, '$2y$10$FgUqqfD9lBQeMANZbOFkke.WFW22qA7EqKq32Pe/KQmLdHBSh22qW', 'bLjoZlmJrkADghD8qsBGGxQAEaSoFMF6abXUZc2mEkxdVCkZS8s1XxF6uUM3', NULL, '2020-12-29 14:23:35', '2020-12-29 14:23:35'),
+	(60, '8442424-2', 'mantencion.hsjd@redsalud.gov.cl', 'Hernan', 'Diaz', 286857, 6, 8, 1, 10, 9, '$2y$10$3EvlSRbT.PjnpUcZNOPk7OzGZ4gQxV2iUoDoOB11EyUHkmLpxx3Sy', 'UosULfB44rRe2u2P58HgontfL2iWTn78MUwRzIl7O0jKNgvJPFZg3u9ngOKY', NULL, '2020-12-29 14:24:09', '2020-12-29 14:24:09'),
+	(61, '12656955-6', 'mantencion.hsjd@redsalud.gov.cl', 'Mauricio', 'Rubio', 286857, 6, 8, 1, 10, 9, '$2y$10$fqrY9At5D5EoRXDYWp/UOupQyD7lPE8TIAyeJhYgZ7ncBI6XMcj86', '8plREVfMLgY6nFBLGzb683a8DzlGU6cteMLVbfnu6aS8Icgcuz276K02l7yS', NULL, '2020-12-29 14:24:47', '2020-12-29 14:24:47'),
+	(62, '14157372-1', 'mantencion.hsjd@redsalud.gov.cl', 'Felipe', 'Apablaza', 286857, 6, 8, 1, 10, 9, '$2y$10$UZuWie/DXiQsSGazYU7fuuUHcYJ7EgLOyzQEDbsiucdLCasTijH4i', 'CNc4aFGhaQVLeXKZ01hnumzKSiRmtVBCZqkPi1K34qv9WbTs6atbAz1zPt95', NULL, '2020-12-29 14:25:23', '2020-12-29 14:25:23'),
+	(63, '19292397-2', 'mantencion.hsjd@redsalud.gob.cl', 'Sebastian', 'Muñoz', 286857, 9, 2, 1, 10, 9, '$2y$10$oyo8AwrZ/pS9Ap.Ew12zOOWmjV6.LgVB79LMhbbJ9a46BXsEBof.C', '$2y$10$2vbtTSOb1WVF.9.WcB63f.lTGy.H89Z4k.p6JiSfyW6yJ/FaEFKV.', NULL, '2020-12-29 15:00:39', '2020-12-29 15:14:27'),
+	(64, '11695264-5', 'mantencion.hsjd@redsalud.gov.cl', 'Paola', 'Muñoz Marambio', 286857, 11, 2, 1, 10, 9, '$2y$10$Ncb.N1Wl4sOxqYlTwgcAHObEXgN1ZRG1bspC2qE3nJw59lgusN.Zy', 'eEe6RTjkbeejrZ6L3N3leSOv3ic2hvVQcVlhu1xQIBDFCkfJHrVmJFiRHesY', NULL, '2020-12-29 15:02:26', '2020-12-29 15:02:26'),
+	(65, '15509621-7', 'mantencion.hsjd@redsalud.gov.cl', 'Paulina', 'Orellana Contreras', 286857, 9, 2, 1, 10, 9, '$2y$10$ac.4Y/2KgnY9QasSaDxDtu03iMmweXQtZpAqwEYqf6NwfIpm87NIC', 'MqDZ6M9wlVcIcTY2ebKARht2VYO9KBU4fdpA5i1avCU4ZHC0sDt34FM1vUpM', NULL, '2020-12-29 15:03:36', '2020-12-29 15:03:36'),
+	(66, '18305150-4', 'mantencion.hsjd@redsalud.gov.cl', 'Daniela', 'Valencia Maldonado', 286857, 5, 2, 1, 10, 9, '$2y$10$xTAU8L3MJAttI6s74Uff.e6oGbpvzuS4/iBZC.SxxPAhM15JvOUeO', 'wkwbajQomIewxzxzaoG7AclArvpWCuQWtjJ3NmRD30LQLSJKy9AAIhYRf5Y4', NULL, '2020-12-29 15:04:49', '2020-12-29 15:04:49'),
+	(67, '12645818-5', 'mantencion.hsjd@redsalud.gov.cl', 'Jacqueline', 'Salas Campo', 286857, 5, 2, 1, 10, 9, '$2y$10$mJob.1q8fhJxhuQ47nvaZu0HYXbCEdBfQaYUTwWqk1hHUEdF0AYIu', 'OsqRroWv16pGMUGQOkyjFuguwpVhhZJ4YMMYcsQbC3PowYmxkWuXjmK7IQJ8', NULL, '2020-12-29 15:09:44', '2020-12-29 15:09:44'),
+	(68, '20332838-9', 'mantencion.hsjd@redsalud.gov.cl', 'Mayra', 'Preter Galarce', 286857, 6, 1, 1, 10, 9, '$2y$10$iDQFmNdENQ81Nv4Z2cXl4ejpwoT7GDV.8baRWDNtbwUNQjbvA98Gy', 'K4nqBTG9Q3C1xUTCVt6AIzYyLDAB8g7R1Xc05QSszgBPdrgWD7WFdnQE0pWP', NULL, '2020-12-29 15:11:11', '2020-12-29 15:11:11'),
+	(69, '19162642-7', 'mantencion.hsjd@redsalud.gov.cl', 'Fabio', 'Toro Diaz', 286857, 6, 7, 1, 10, 9, '$2y$10$cmUhapYILggl0g9XTcSeae1SbzrRRxtHXX8v7U3npFxrkd.JlikjK', 'rR2JeM5kNlCqQ7uh596TwHd9BD7mFkjRaPTTuHZcUYLvCST6et0svZDK4DS6', NULL, '2020-12-29 15:12:01', '2020-12-29 15:12:01'),
+	(70, '17429507-7', 'mantencion.hsjd@redsalud.gov.cl', 'Claudio', 'Coloma', 286857, 10, 2, 1, 10, 9, '$2y$10$oh5aQ2/WLXqELCQDVSjIj.oPKs6OqePwTdDkRLdorRzi6QHlky3We', 'luT5OSwSwa8ZjCe4Ibjri0e1hxMdBVLN3e2zWDIyI4y5NPvV1NEdrKXp0Omp', NULL, '2020-12-29 15:15:43', '2020-12-29 15:15:43'),
+	(71, '7042535-1', 'midori.sawada@redsalud.gov.cl', 'Midori', 'Sawada Tsukame', 241968, 1, 0, 2, 98, 38, '$2y$10$GBLQgvC86guuErOt38A6Z.Pkeri27thBqndLoImCyvWmVry3vZMOW', 'CQlQDog6dEAOspnqj9SEcXSd7bwlbdRBCz1S1xNHvX3KUioP26yNcbmX4HZu', NULL, '2021-01-11 12:49:41', '2021-01-11 12:49:41'),
+	(72, '10790848-K', 'maritza.labrana@redsalud.gov.cl', 'Maritza', 'Labraña Alcaino', 241900, 1, 0, 1, 69, 39, '$2y$10$4jzb1vtItPxThsIKaReEwOVHHmzvdlSL/rGtX.GPwk4lHmLYyZIpe', '18W3nBVTdqlDW4P6bepNTuFVmsdqGBieDURsSobs2d9jmK5xk8d92UpIcrcS', NULL, '2021-01-11 13:00:46', '2021-01-11 13:00:46');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.vacaciones_ascensores: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `vacaciones_ascensores` DISABLE KEYS */;
+INSERT IGNORE INTO `vacaciones_ascensores` (`id`, `id_calendario_ascensores`, `fecha_inicio_vacaciones`, `fecha_termino_vacaciones`, `dias_vacaciones`, `estado_vacaciones`, `created_at`, `updated_at`) VALUES
+	(1, 4, '2020-11-16', '2020-11-18', 0, 1, '2020-11-16 15:17:10', '2020-11-16 15:17:10'),
+	(2, 1, '2020-11-04', '2020-11-10', 0, 1, '2020-11-16 16:55:53', '2020-11-16 16:55:53'),
+	(3, 7, '2020-11-06', '2020-11-07', 0, 1, '2020-11-19 11:24:53', '2020-11-19 11:24:53'),
+	(4, 10, '2020-11-04', '2020-11-11', 0, 1, '2020-11-20 12:01:31', '2020-11-20 12:01:31'),
+	(5, 7, '2020-11-06', '2020-11-06', 0, 1, '2020-11-24 11:54:18', '2020-11-24 11:54:18'),
+	(6, 7, '2020-12-06', '2020-12-06', 0, 1, '2020-12-04 16:45:09', '2020-12-04 16:45:09');
+/*!40000 ALTER TABLE `vacaciones_ascensores` ENABLE KEYS */;
+
+-- Volcando datos para la tabla laravel_p.vacaciones_c_telefonicas: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `vacaciones_c_telefonicas` DISABLE KEYS */;
+INSERT IGNORE INTO `vacaciones_c_telefonicas` (`id`, `id_calendario_ctelefonicas`, `fecha_inicio_vacaciones`, `fecha_termino_vacaciones`, `dias_vacaciones`, `estado_vacaciones`, `created_at`, `updated_at`) VALUES
+	(1, 1, '2020-11-03', '2020-11-03', 0, 1, '2020-11-27 12:46:26', '2020-11-27 12:46:26');
+/*!40000 ALTER TABLE `vacaciones_c_telefonicas` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

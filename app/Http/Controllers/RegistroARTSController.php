@@ -51,6 +51,8 @@ class RegistroARTSController extends Controller
                        ->join('resolucion_internas','registroARTS.idResInterna','=','resolucion_internas.id')
                        ->join('memos','registroARTS.idMemo','=','memos.id')
                        ->get();
+
+                       
                         $data = [];
                         foreach($get_all as $e => $req ){       
                             $data[$e] = ["id" => $req['id'],'idTipoMantencion' => $req['idTipoMantencion'],"idART" => $req['idART'],"idLicitacion" => $req['idLicitacion'],"fechaART" => $req['fechaART'],"fechaFactura" => $req['fechaFactura'],
@@ -67,6 +69,7 @@ class RegistroARTSController extends Controller
                                 "uuid" => $req['uuid'],
                                 "updated_at" => Carbon::createFromFormat('Y-m-d H:i:s', $req['updated_at'])->format('Y-m-d')];
                         }
+                    
              return $data;
         } catch (\Throwable $th) {
             log::info($th);
@@ -76,7 +79,7 @@ class RegistroARTSController extends Controller
      public function GetListadoOCByTMO(Request $request){
         try {
            $get_all = RegistroARTS::select('registroarts.id','registroarts.monto',
-           'registroarts.saldo','registroarts.idSegART',
+           'registroarts.saldo','registroarts.idSegART','registroarts.ntotalcuotas','registroarts.cuotas',
             DB::RAW('(registroarts.vpresupuesto - registroarts.saldo) AS totaloc')
             ,DB::RAW('MAX(registroarts.id) AS idfinal')
             )
@@ -169,7 +172,7 @@ class RegistroARTSController extends Controller
          }
      }
 
-     public function GetConGastoART($id){
+     public function GetConGastoART(Request $request){
         try {
             $get_all = RegistroARTS::select('registroarts.id','registroarts.idTipoMantencion','registroarts.saldo',
                         'registroarts.ntotalcuotas','registroarts.vpresupuesto','orden_compras.descripcionOrdenCompras',
@@ -178,7 +181,8 @@ class RegistroARTSController extends Controller
                         'registroarts.monto',DB::RAW("fnStripTags(detalleART) as detalleART"))
                         ->join('orden_compras','registroARTS.idOrdenCompra','=','orden_compras.id')
                         ->join('estados','registroarts.idEstado','=','estados.id')
-                        ->where('registroarts.id',$id)
+                        ->where('registroarts.id',$request->id)
+                        ->orwhere('registroarts.idSegART', $request->idSegART)
                         ->get();
             return $get_all;
         } catch (\Throwable $th) {
